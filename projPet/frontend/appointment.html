@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veterinary Clinic Client Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #28a745;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+        main {
+            padding: 20px;
+        }
+        .appointment {
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+            padding: 10px;
+        }
+        .pet-info {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+    </style>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<body>
+    <header>
+        <h1>Veterinary Clinic Client Page</h1>
+    </header>
+
+    <!-- Sidebar/menu -->
+    <nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
+        <div class="w3-container w3-row">
+        <div class="w3-col s4">
+            <img src="" class="w3-circle w3-margin-right" style="width:46px;">
+        </div>
+        <div class="w3-col s8 w3-bar">
+            <span>Welcome, <strong>John</strong></span><br>
+            
+        </div>
+        </div>
+        <hr>
+    
+        <div class="w3-bar-block">
+        <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
+        <a href="profilepage.html" class="w3-bar-item w3-button w3-padding"><i class="fa fa-history fa-fw"></i>  Profile</a>
+        <a href="appointment.html" class="w3-bar-item w3-button w3-padding w3-blue"><i class="fa fa-eye fa-fw"></i> Create Appointment</a>
+        </div>
+    </nav>
+
+    <!-- Overlay effect when opening sidebar on small screens -->
+    <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+    <!-- !PAGE CONTENT! -->
+    <div class="w3-main" style="margin-left:300px;margin-top:43px;">
+
+    <main>
+        <h2>Schedule an Appointment</h2>
+        <form id="appointment-form">
+            <label for="appointment-date">Appointment Date:</label>
+            <input type="date" id="appointment-date" name="appointment-date" required><br><br>
+            <label for="appointment-time">Appointment Time:</label>
+            <input type="time" id="appointment-time" name="appointment-time" required><br><br>
+            <label for="pet-symptoms">Pet Symptoms:</label><br>
+            <textarea id="pet-symptoms" name="pet-symptoms" rows="4" cols="50" required></textarea><br><br>
+            <button type="submit">Schedule Appointment</button>
+        </form>
+
+        <div id="qr-code" style="display: none;">
+            <h2>QR Code for Check-in</h2>
+            <!-- QR code will be generated and displayed here -->
+        </div>
+
+        <h2>Previous Appointments</h2>
+        <div class="appointment">
+            <h3>Appointment Number: [Appointment Number]</h3>
+            <p>Date: [Date]</p>
+            <p>Time: [Time]</p>
+            <p>Pet: [Pet Name]</p>
+            <button onclick="viewMedicalRecord()">View Medical Record</button>
+            <button onclick="viewReceipt()">View Receipt</button>
+        </div>
+
+        <div id="medical-record" class="pet-info" style="display: none;">
+            <h2>Medical Record</h2>
+            <!-- Medical record details will be displayed here -->
+        </div>
+
+        <div id="receipt" class="pet-info" style="display: none;">
+            <h2>Receipt and Prescription</h2>
+            <!-- Receipt and prescription details will be displayed here -->
+        </div>
+    </main>
+
+    <script>
+        document.getElementById('appointment-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            // Simulate generating QR code after scheduling appointment
+            var qrCodeDiv = document.getElementById('qr-code');
+            qrCodeDiv.style.display = 'block';
+            qrCodeDiv.innerHTML = '<img src="https://api.qrserver.com/v1/create-qr-code/?data=appointment_number&size=200x200" alt="QR Code">';
+            // You can replace 'appointment_number' with the actual appointment number generated
+        });
+
+        function viewMedicalRecord() {
+            var medicalRecordDiv = document.getElementById('medical-record');
+            medicalRecordDiv.style.display = 'block';
+            // Replace placeholders with actual medical record fetched from backend
+            // You can use AJAX to fetch data from server
+            medicalRecordDiv.innerHTML = `
+                <h2>Medical Record</h2>
+                <p><strong>Medical History:</strong> History of allergies</p>
+                <p><strong>Prescriptions:</strong> Allergy medication, 2 pills daily</p>
+            `;
+        }
+
+        function viewReceipt() {
+            var receiptDiv = document.getElementById('receipt');
+            receiptDiv.style.display = 'block';
+            // Replace placeholders with actual receipt details fetched from backend
+            // You can use AJAX to fetch data from server
+            receiptDiv.innerHTML = `
+                <h2>Receipt and Prescription</h2>
+                <p><strong>Date:</strong> [Date]</p>
+                <p><strong>Total Cost:</strong> [Total Cost]</p>
+                <p><strong>Prescription:</strong> Allergy medication, 2 pills daily</p>
+            `;
+        }
+    </script>
+</body>
+</html>
