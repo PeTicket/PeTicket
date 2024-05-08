@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="style/profilepage.css">
+</head>
+<body>
+    <h1>User Profile</h1>
+
+    <div class="profile-info">
+        <h2>Client Information</h2>
+        <p><strong>Name:</strong> John Doe</p>
+        <p><strong>Email:</strong> john@example.com</p>
+        <p><strong>Phone:</strong> +1234567890</p>
+        <!-- Add additional profile info here -->
+    </div>
+    
+    <div>
+        <h2>Pets</h2>
+        <ul id="pet-list">
+            <li class="pet-card">
+                <div class="pet-info">
+                    <p><strong>Name:</strong> Fluffy</p>
+                    <p><strong>Species:</strong> Cat</p>
+                    <p><strong>Breed:</strong> Persian</p>
+                    <!-- Add additional info here -->
+                </div>
+            </li>
+            <li class="pet-card">
+                <div class="pet-info">
+                    <p><strong>Name:</strong> Max</p>
+                    <p><strong>Species:</strong> Dog</p>
+                    <p><strong>Breed:</strong> Labrador</p>
+                    <!-- Add additional info here -->
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Button to redirect to add pet page -->
+    <button id="add_pet" onclick="window.location.href = 'addpet.html';">Add New Pet</button>
+
+
+    <script src="javascript/profilepage.js"></script>
+</body>
+</html>
