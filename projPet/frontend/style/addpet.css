@@ -10,7 +10,7 @@ nav {
   color: #2E7D32; 
   padding: 10px 20px;
   height: 8vh;
-  width: 60%;
+  width: 65%;
   margin: 0 auto;
   position: relative;
   border-bottom:1px solid #2E7D32 ;
@@ -86,7 +86,7 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 40%; 
+  width: 60%; 
   margin: 0; 
   padding: 0; 
   margin-right: 2rem;
@@ -253,6 +253,63 @@ nav {
   flex-direction: column;
 }
 .form-title h3{
-  font-size: 1.4em;
+  font-size: 1.7em;
   color: #2E7D32;
 }
+
+.input-box{
+  margin-top: 2rem;
+  width: 50%;
+  margin: auto;
+}
+
+.input-box .user-box {
+  position: relative;
+  padding: 10px 0;
+  display: flex;
+  flex-direction: row;
+}
+
+.input-box .user-box input {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #000000;
+  margin-bottom: 30px;
+  border: none;
+  border-bottom: 1px solid #000000;
+  outline: none;
+  background: transparent;
+}
+
+.input-box .user-box label {
+  position: absolute;
+  top: 0;
+  left: 5%;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #000000;
+  pointer-events: none;
+  transition: .5s;
+}
+
+.input-box .user-box input:focus ~ label,
+.input-box .user-box input:valid ~ label {
+  top: -20px;
+  left: 0;
+  color: #bdb8b8;
+  font-size: 12px;
+}
+
+
+.user-box select{
+  height: 50%;
+  margin-left: 2rem;
+  margin-top: 0.5rem;
+  background-color: white;
+  color: #2E7D32;
+  border: 2px solid black;
+  border-radius: 10%;
+  padding: 5px;
+}
+

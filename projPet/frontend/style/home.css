@@ -20,142 +20,141 @@ body{
 
 nav {
     
-    color: #2E7D32; 
-    padding: 10px 20px;
-    height: 8vh;
-    width: 60%;
-    margin: 0 auto;
-    position: relative;
-    border-bottom:1px solid #2E7D32 ;
-    font-family: 'Courier New', Courier, monospace;
-    font-weight: bold;
-  }
-  
-  .nav-wrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 100%;
-  }
-  
-  .brand-logo {
-    text-decoration: none;
-    color: inherit;
-  }
-  
-  .dropdown {
-    position: absolute;
-    top: 100%; 
-    left: 60%;
-    display: none;
-    background-color: #fff; 
-    color: #2E7D32; 
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    list-style-type: none;
-    padding: 10px; 
-    margin: 0;
-    width: 200px; 
-    z-index: 1; 
-    border-radius: 10px;
-    border: 1px solid #2E7D32;
-  }
-  
-  .dropdown-item:hover{
-    cursor: pointer;
-  }
-  
-  .dropdown li {
-    display: block;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px 0;
-  
-  }
-  
-  .dropdown li a:before {
-    content: "";
-    position: absolute;
-    bottom: -3px;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: #2E7D32; 
-    visibility: hidden;
-    transform: scaleX(0);
-    transition: all 0.3s ease-in-out;
-  }
-  
-  .dropdown li a:hover:before {
-    visibility: visible;
-    transform: scaleX(1);
-  }
-  
-  .dropdown-item  .show {
-    display: block;
-  }
-  
-  #nav-mobile {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 40%; 
-    margin: 0; 
-    padding: 0; 
-    margin-right: 2rem;
-  }
-  
-  #nav-mobile li {
-    list-style-type: none; 
-  }
-  
-  #nav-mobile a {
-    text-decoration: none;
-    color: inherit;
-    font-size: 20px;
-  }
-  
-  .nav-wrapper a {
-    position: relative;
-    font-size: 20px;
-  }
-  
-  .nav-wrapper a:before {
-    content: "";
-    position: absolute;
-    bottom: -3px;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: #2E7D32; 
-    visibility: hidden;
-    transform: scaleX(0);
-    transition: all 0.3s ease-in-out;
-  }
-  
-  .nav-wrapper a:hover:before {
-    visibility: visible;
-    transform: scaleX(1);
-  }
+  color: #2E7D32; 
+  padding: 10px 20px;
+  height: 8vh;
+  width: 65%;
+  margin: 0 auto;
+  position: relative;
+  border-bottom:1px solid #2E7D32 ;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+}
 
-  .logout-navbar{
-    border: 1px solid #2E7D32 ;
-    padding: 10px;
-    border-radius:2rem ;
-    transition: background-color 0.5s ease, color 0.5s ease;
-  }
+.nav-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
 
-  .logout-navbar:hover{
-    background-color: #2E7D32;
-    color: white !important;
-    cursor: pointer;
-  }
+.brand-logo {
+  text-decoration: none;
+  color: inherit;
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%; 
+  left: 60%;
+  display: none;
+  background-color: #fff; 
+  color: #2E7D32; 
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  list-style-type: none;
+  padding: 10px; 
+  margin: 0;
+  width: 200px; 
+  z-index: 1; 
+  border-radius: 10px;
+  border: 1px solid #2E7D32;
+}
+
+.dropdown-item:hover{
+  cursor: pointer;
+}
+
+.dropdown li {
+  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 0;
+
+}
+
+.dropdown li a:before {
+  content: "";
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #2E7D32; 
+  visibility: hidden;
+  transform: scaleX(0);
+  transition: all 0.3s ease-in-out;
+}
+
+.dropdown li a:hover:before {
+  visibility: visible;
+  transform: scaleX(1);
+}
+
+.dropdown-item  .show {
+  display: block;
+}
+
+#nav-mobile {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 60%; 
+  margin: 0; 
+  padding: 0; 
+  margin-right: 2rem;
+}
+
+#nav-mobile li {
+  list-style-type: none; 
+}
+
+#nav-mobile a {
+  text-decoration: none;
+  color: inherit;
+  font-size: 20px;
+}
+
+.nav-wrapper a {
+  position: relative;
+  font-size: 20px;
+}
+
+.nav-wrapper a:before {
+  content: "";
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #2E7D32; 
+  visibility: hidden;
+  transform: scaleX(0);
+  transition: all 0.3s ease-in-out;
+}
+
+.nav-wrapper a:hover:before {
+  visibility: visible;
+  transform: scaleX(1);
+}
+
+.logout-navbar{
+  border: 1px solid #2E7D32 ;
+  padding: 10px;
+  border-radius:2rem ;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+.logout-navbar:hover{
+  background-color: #2E7D32;
+  color: white !important;
+  cursor: pointer;
+}
 
 
-  .logout-navbar::before{
-    display: none;
-  }
-  
+.logout-navbar::before{
+  display: none;
+}
 
 
   .main-div-home {

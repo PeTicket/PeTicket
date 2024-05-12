@@ -18,3 +18,19 @@ document.addEventListener("DOMContentLoaded", function() {
       });
     });
   });
+
+  document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('unit-selector').addEventListener('change', function() {
+      var input = document.getElementById('age');
+      var selectedUnit = this.value;
+      console.log("ola");
+
+      if (selectedUnit === 'months') {
+        input.setAttribute('min', '1');
+        input.setAttribute('max', '12');
+      } else {
+        input.setAttribute('min', '1');
+        input.setAttribute('max', '100');
+      }
+    });
+  });

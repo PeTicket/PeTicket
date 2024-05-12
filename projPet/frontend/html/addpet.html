@@ -6,7 +6,26 @@
     <title>Addpet</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> 
     <link rel="stylesheet" href="../style/addpet.css">
-    <script src="../javascript/addpet.js"></script>
+    <style>
+
+  .star {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background-color: green;
+    border-radius: 50%;
+    animation: moveStar linear infinite;
+  }
+
+  @keyframes moveStar {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(100vw);
+    }
+  }
+</style>
 </head>
 <body>
   <nav>
@@ -14,6 +33,7 @@
       <h2 class="brand-logo">PeTicket</h2>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li><a href="./home.html">Home</a></li>
+        <li><a href="badges.html">Appointments</a></li>
         <li class="dropdown-item"><a href="#">Add<i style="margin-left: 1rem;" class="fas fa-chevron-down"></i></a>
           <ul class="dropdown">
             <li><a href="#">Appoitment</a></li>
@@ -31,7 +51,33 @@
       <form>
         <div class="form-title">
           <h3>Add pet</h3>
-          <p>Please fill out the form to add your pet</p>
+          <p>Please fill out the form to add your pet.</p>
+        </div>
+        <div class="input-box">
+          <div class="user-box">
+            <input type="text" name="name" required="">
+            <label>Name</label>
+          </div>
+          <div class="user-box">
+            <input type="text" name="type" required="">
+            <label>Type</label>
+          </div>
+          <div class="user-box">
+            <input type="text" name="breed" required="">
+            <label>Breed</label>
+          </div>
+          <div class="user-box">
+            <input type="number" name="age" id="age" required min="1" max="100">
+            <label for="age">Age</label>
+            <select class="unit-selector" id="unit-selector">
+              <option value="years">Years</option>
+              <option value="months">Months</option>
+            </select>
+          </div>
+          <div class="user-box">
+            <input type="text" name="color" required="">
+            <label>Color</label>
+          </div>
         </div>
       </form>
       <div class="button-addpet-div">
@@ -41,6 +87,26 @@
 
   </div>
 
-
+  <script src="../javascript/addpet.js"></script>
+  <script>
+    function createStar() {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      star.style.top = Math.random() * window.innerHeight + 'px';
+      star.style.animationDuration = (Math.random() * 10 + 5) + 's';
+      document.body.appendChild(star);
+  
+      star.addEventListener('animationend', function() {
+        star.remove();
+      });
+    }
+  
+    
+    function createStarsPeriodically() {
+      setInterval(createStar, 400);
+    }
+  
+    document.addEventListener('DOMContentLoaded', createStarsPeriodically);
+  </script>
 </body>
 </html>
