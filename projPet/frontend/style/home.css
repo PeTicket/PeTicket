@@ -142,7 +142,15 @@ nav {
     border: 1px solid #2E7D32 ;
     padding: 10px;
     border-radius:2rem ;
+    transition: background-color 0.5s ease, color 0.5s ease;
   }
+
+  .logout-navbar:hover{
+    background-color: #2E7D32;
+    color: white !important;
+    cursor: pointer;
+  }
+
 
   .logout-navbar::before{
     display: none;
@@ -276,6 +284,25 @@ nav {
 
 .card2 h3{
     margin-bottom: 2rem;
+    position: relative;
+    padding-bottom: 5px;
+}
+
+
+.card2 h3::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px; 
+  background-color: #2E7D32; 
+  animation: underlineAppearDisappear 5s linear infinite;
+}
+
+@keyframes underlineAppearDisappear {
+  0%, 100% { width: 0; } 
+  50% { width: 100%; } 
 }
 
 
@@ -410,6 +437,148 @@ nav {
   }
   
   .button-home-cards2:active {
+    scale: 0.95;
+  }
+
+
+
+  .button-home-cards3{
+    position: relative;
+    background-color: transparent;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    color: #e8e8e8;
+    font-size: 17px;
+    font-weight: 600;
+    border-radius: 10px;
+    width: 150px;
+    height: 60px;
+    border: none;
+    text-transform: uppercase;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 2rem;
+    box-shadow: 0 10px 20px rgba(51, 51, 51, 0.2);
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+
+
+
+  .button-home-cards3::before {
+    content: "See";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background:rgb(23, 133, 74) ;
+    transform: translate(0%,100%);
+    z-index: 99;
+    position: relative;
+    transform-origin: bottom;
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+  
+  .button-home-cards3::after {
+    content: "Profile";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #333;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    transform-origin: top;
+    transform: translate(0%,-100%);
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+  
+  .button-home-cards3:hover::before {
+    transform: translate(0%,0%);
+  }
+  
+  .button-home-cards3:hover::after {
+    transform: translate(0%,-200%);
+  }
+  
+  .button-home-cards3:focus {
+    outline: none;
+  }
+  
+  .button-home-cards3:active {
+    scale: 0.95;
+  }
+
+
+
+  .button-home-cards4{
+    position: relative;
+    background-color: transparent;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    color: #e8e8e8;
+    font-size: 17px;
+    font-weight: 600;
+    border-radius: 10px;
+    width: 150px;
+    height: 60px;
+    border: none;
+    text-transform: uppercase;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 2rem;
+    box-shadow: 0 10px 20px rgba(51, 51, 51, 0.2);
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+
+
+
+  .button-home-cards4::before {
+    content: "See";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background:rgb(23, 133, 74) ;
+    transform: translate(0%,100%);
+    z-index: 99;
+    position: relative;
+    transform-origin: bottom;
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+  
+  .button-home-cards4::after {
+    content: "About us";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #333;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    transform-origin: top;
+    transform: translate(0%,-100%);
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+  
+  .button-home-cards4:hover::before {
+    transform: translate(0%,0%);
+  }
+  
+  .button-home-cards4:hover::after {
+    transform: translate(0%,-200%);
+  }
+  
+  .button-home-cards4:focus {
+    outline: none;
+  }
+  
+  .button-home-cards4:active {
     scale: 0.95;
   }
   

@@ -18,3 +18,16 @@ document.addEventListener("DOMContentLoaded", function() {
       });
     });
   });
+
+
+
+
+  // add pet button to page
+
+  document.addEventListener("DOMContentLoaded", function() {
+    
+    document.getElementById("addPetButton").addEventListener("click", function() {
+
+      window.location.href = "./addpet.html";
+    });
+  });
