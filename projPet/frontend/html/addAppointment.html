@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Addpet</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> 
+    <link rel="stylesheet" href="../style/addAppointment.css">
+    <style>
+
+  .star {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background-color: green;
+    border-radius: 50%;
+    animation: moveStar linear infinite;
+  }
+
+  @keyframes moveStar {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(100vw);
+    }
+  }
+</style>
+</head>
+<body>
+  <nav>
+    <div class="nav-wrapper">
+      <h2 class="brand-logo">PeTicket</h2>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="./home.html">Home</a></li>
+        <li><a href="badges.html">Appointments</a></li>
+        <li class="dropdown-item"><a href="#">Add<i style="margin-left: 1rem;" class="fas fa-chevron-down"></i></a>
+          <ul class="dropdown">
+            <li><a href="./addAppointment.html">Appointment</a></li>
+            <li><a href="./addpet.html">Pet</a></li>
+          </ul>
+        </li>
+        <li><a href="badges.html">Profile</a></li>
+        <li><a class="logout-navbar" href="collapsible.html">Logout</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="addapp-div">
+    <div class="addapp-container">
+      <form>
+        <div class="form-title">
+          <h3>Add Appointment</h3>
+          <p>Please fill out the form to add an appointment.</p>
+        </div>
+        <div class="input-box">
+          <div class="user-box">
+            <select>
+                <option>Select pet</option>
+            </select>
+          </div>
+         
+        </div>
+      </form>
+      <div class="button-addapp-div">
+        <button class="button-addapp"></button>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="../javascript/addAppointment.js"></script>
+  <script>
+    function createStar() {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      star.style.top = Math.random() * window.innerHeight + 'px';
+      star.style.animationDuration = (Math.random() * 10 + 5) + 's';
+      document.body.appendChild(star);
+  
+      star.addEventListener('animationend', function() {
+        star.remove();
+      });
+    }
+  
+    
+    function createStarsPeriodically() {
+      setInterval(createStar, 1000);
+    }
+  
+    document.addEventListener('DOMContentLoaded', createStarsPeriodically);
+  </script>
+</body>
+</html>
