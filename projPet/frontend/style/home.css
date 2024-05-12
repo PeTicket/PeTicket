@@ -1,0 +1,417 @@
+:root{
+    --background-dark: #2d3548;
+    --text-light: rgba(255,255,255,0.6);
+    --text-lighter: rgba(255,255,255,0.9);
+    --spacing-s: 8px;
+    --spacing-m: 16px;
+    --spacing-l: 24px;
+    --spacing-xl: 32px;
+    --spacing-xxl: 64px;
+    --width-container: 1200px;
+  }
+
+
+body{
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    overflow: hidden;
+}
+
+
+nav {
+    
+    color: #2E7D32; 
+    padding: 10px 20px;
+    height: 8vh;
+    width: 60%;
+    margin: 0 auto;
+    position: relative;
+    border-bottom:1px solid #2E7D32 ;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+  }
+  
+  .nav-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+  }
+  
+  .brand-logo {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .dropdown {
+    position: absolute;
+    top: 100%; 
+    left: 60%;
+    display: none;
+    background-color: #fff; 
+    color: #2E7D32; 
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    list-style-type: none;
+    padding: 10px; 
+    margin: 0;
+    width: 200px; 
+    z-index: 1; 
+    border-radius: 10px;
+    border: 1px solid #2E7D32;
+  }
+  
+  .dropdown-item:hover{
+    cursor: pointer;
+  }
+  
+  .dropdown li {
+    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0;
+  
+  }
+  
+  .dropdown li a:before {
+    content: "";
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #2E7D32; 
+    visibility: hidden;
+    transform: scaleX(0);
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .dropdown li a:hover:before {
+    visibility: visible;
+    transform: scaleX(1);
+  }
+  
+  .dropdown-item  .show {
+    display: block;
+  }
+  
+  #nav-mobile {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 40%; 
+    margin: 0; 
+    padding: 0; 
+    margin-right: 2rem;
+  }
+  
+  #nav-mobile li {
+    list-style-type: none; 
+  }
+  
+  #nav-mobile a {
+    text-decoration: none;
+    color: inherit;
+    font-size: 20px;
+  }
+  
+  .nav-wrapper a {
+    position: relative;
+    font-size: 20px;
+  }
+  
+  .nav-wrapper a:before {
+    content: "";
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #2E7D32; 
+    visibility: hidden;
+    transform: scaleX(0);
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .nav-wrapper a:hover:before {
+    visibility: visible;
+    transform: scaleX(1);
+  }
+
+  .logout-navbar{
+    border: 1px solid #2E7D32 ;
+    padding: 10px;
+    border-radius:2rem ;
+  }
+
+  .logout-navbar::before{
+    display: none;
+  }
+  
+
+
+  .main-div-home {
+    display: grid;
+    grid-template-columns: 65% 30%;
+    grid-template-rows: 40% 60%;
+    grid-gap: 1rem; 
+    width: 95%;
+    margin: auto;
+    margin-top: 2rem;
+    height: 83vh;
+}
+
+
+.block:nth-child(3) {
+    grid-column: span 2;
+}
+
+
+.home-title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+}
+
+.title-home-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    position: relative;
+
+}
+
+.title-home-div::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px; 
+    background-color: #2E7D32; 
+    animation: underlineAppearDisappear 5s linear infinite;
+}
+
+@keyframes underlineAppearDisappear {
+    0%, 100% { width: 0; } 
+    50% { width: 100%; } 
+}
+
+
+
+
+
+.home-title h2:nth-of-type(1) {
+    color: #2E7D32; 
+    font-size: 45px; 
+    margin-right: 1rem;
+}
+
+.home-title h2 {
+    font-size: 45px; 
+}
+
+
+.next-appointment{
+    border: 2px solid black;
+    border-radius: 5rem;
+    height: 100%;
+    width: 100%;
+}
+
+.next-container{
+    padding: 30px;
+    height: 85%;
+    width: 85%;
+    display: flex;
+    margin: auto;
+}
+
+
+.home-cards{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+
+.card {
+    width: 220px;
+    height: 300px;
+    background-image: linear-gradient(163deg, #00ff75 0%, #2E7D32 100%);
+    border-radius: 20px;
+    transition: all .3s;
+   }
+   
+   .card2 {
+    width: 200px;
+    height: 280px;
+    margin-left: 10px;
+    margin-top: 10px;
+    background-color: white;
+    border: radius 2rem;;
+    transition: all .2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+   }
+   
+   .card2:hover {
+    transform: scale(0.98);
+    border-radius: 20px;
+   }
+   
+   .card:hover {
+    box-shadow: 0px 0px 30px 1px rgba(0, 255, 117, 0.30);
+   }
+
+
+.card2 h3{
+    margin-bottom: 2rem;
+}
+
+
+.button-home-cards{
+    position: relative;
+    background-color: transparent;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    color: #e8e8e8;
+    font-size: 17px;
+    font-weight: 600;
+    border-radius: 10px;
+    width: 150px;
+    height: 60px;
+    border: none;
+    text-transform: uppercase;
+    border-radius: 2rem;
+    cursor: pointer;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(51, 51, 51, 0.2);
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.button-home-cards::before {
+    content: "Add";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background:rgb(23, 133, 74) ;
+    transform: translate(0%,100%);
+    z-index: 99;
+    position: relative;
+    transform-origin: bottom;
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+  
+  .button-home-cards::after {
+    content: "Appointment";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #333;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    transform-origin: top;
+    transform: translate(0%,-100%);
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+  
+  .button-home-cards:hover::before {
+    transform: translate(0%,0%);
+  }
+  
+  .button-home-cards:hover::after {
+    transform: translate(0%,-200%);
+  }
+  
+  .button-home-cards:focus {
+    outline: none;
+  }
+  
+  .button-home-cards:active {
+    scale: 0.95;
+  }
+
+
+
+  .button-home-cards2{
+    position: relative;
+    background-color: transparent;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    color: #e8e8e8;
+    font-size: 17px;
+    font-weight: 600;
+    border-radius: 10px;
+    width: 150px;
+    height: 60px;
+    border: none;
+    text-transform: uppercase;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 2rem;
+    box-shadow: 0 10px 20px rgba(51, 51, 51, 0.2);
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.button-home-cards2::before {
+    content: "Add";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background:rgb(23, 133, 74) ;
+    transform: translate(0%,100%);
+    z-index: 99;
+    position: relative;
+    transform-origin: bottom;
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+  
+  .button-home-cards2::after {
+    content: "Pet";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #333;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    transform-origin: top;
+    transform: translate(0%,-100%);
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+  
+  .button-home-cards2:hover::before {
+    transform: translate(0%,0%);
+  }
+  
+  .button-home-cards2:hover::after {
+    transform: translate(0%,-200%);
+  }
+  
+  .button-home-cards2:focus {
+    outline: none;
+  }
+  
+  .button-home-cards2:active {
+    scale: 0.95;
+  }
+  
+
+  
