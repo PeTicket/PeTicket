@@ -1,0 +1,339 @@
+
+body{
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    overflow: hidden;
+  }
+  
+  nav {
+      
+    color: #2E7D32; 
+    padding: 10px 20px;
+    height: 8vh;
+    width: 65%;
+    margin: 0 auto;
+    z-index: 999;
+    position: relative;
+    border-bottom:1px solid #2E7D32 ;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+  }
+  
+  .nav-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+  }
+  
+  .brand-logo {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .dropdown {
+    position: absolute;
+    top: 100%; 
+    left: 60%;
+    display: none;
+    background-color: #fff; 
+    color: #2E7D32; 
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    list-style-type: none;
+    padding: 10px; 
+    margin: 0;
+    width: 200px; 
+    z-index: 1; 
+    border-radius: 10px;
+    border: 1px solid #2E7D32;
+  }
+  
+  .dropdown-item:hover{
+    cursor: pointer;
+  }
+  
+  .dropdown li {
+    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0;
+  
+  }
+  
+  .dropdown li a:before {
+    content: "";
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #2E7D32; 
+    visibility: hidden;
+    transform: scaleX(0);
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .dropdown li a:hover:before {
+    visibility: visible;
+    transform: scaleX(1);
+  }
+  
+  .dropdown-item  .show {
+    display: block;
+  }
+  
+  #nav-mobile {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 60%; 
+    margin: 0; 
+    padding: 0; 
+    margin-right: 2rem;
+  }
+  
+  #nav-mobile li {
+    list-style-type: none; 
+  }
+  
+  #nav-mobile a {
+    text-decoration: none;
+    color: inherit;
+    font-size: 20px;
+  }
+  
+  .nav-wrapper a {
+    position: relative;
+    font-size: 20px;
+  }
+  
+  .nav-wrapper a:before {
+    content: "";
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #2E7D32; 
+    visibility: hidden;
+    transform: scaleX(0);
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .nav-wrapper a:hover:before {
+    visibility: visible;
+    transform: scaleX(1);
+  }
+  
+  .logout-navbar{
+    border: 1px solid #2E7D32 ;
+    padding: 10px;
+    border-radius:2rem ;
+    transition: background-color 0.5s ease, color 0.5s ease;
+  }
+  
+  .logout-navbar:hover{
+    background-color: #2E7D32;
+    color: white !important;
+    cursor: pointer;
+  }
+  
+  
+  .logout-navbar::before{
+    display: none;
+  }
+  
+
+
+  .profile-div{
+    height: 83vh;
+    width: 85%;
+    margin: auto;
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: row;
+
+  }
+
+  .column1 {
+    flex: 0 0 37%; 
+    padding-right: 2%; 
+  }
+
+  .column2 {
+    flex: 0 0 61%;
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center
+  }
+
+
+  .row-1{
+    display: flex;
+    width: 100%;
+    height: 50%;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .row-2{
+    display: flex;
+    width: 100%;
+    height: 50%;
+    align-items: center;
+    justify-content: center
+
+  }
+
+  .card {
+    width:60%;
+    height: 90%;
+    background: rgb(255, 255, 255);
+    border-radius: 2rem;
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.271);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    transition-duration: .5s;
+    margin: 0 auto;
+  }
+  
+  .profileImage {
+    background: linear-gradient(to right,rgb(255, 255, 255),rgb(242, 224, 224));
+    margin-top: 20px;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    box-shadow: 5px 10px 20px rgba(255, 255, 255, 0.735);
+  }
+  
+  .textContainer {
+    width: 100%;
+    text-align: left;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 2rem;
+  }
+  
+  .name {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: rgb(0, 0, 0);
+    letter-spacing: 0.5px;
+    margin: 0 auto;
+  }
+  
+  .profile {
+    font-size: 1em;
+    color: #2E7D32;
+    letter-spacing: 0.2px;
+    margin: 0 auto;
+    margin-top: 1rem;
+  }
+  
+  .card:hover {
+    background-color: rgb(255, 255, 255);
+    transition-duration: .5s;
+  }
+
+
+  .card2 {
+    width:80%;
+    height: 90%;
+    background: rgb(255, 255, 255);
+    border-radius: 2rem;
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.271);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    transition-duration: .5s;
+    margin-left: auto;
+    
+  }
+
+
+  .card2:hover {
+    background-color: rgb(255, 255, 255);
+    transition-duration: .5s;
+  }
+
+  .card2-container{
+    width: 90%;
+    height: 90%;
+    margin: auto;
+  }
+
+  .pets-profile-title{
+    font-size: 1em;
+  }
+
+
+  .profile-pets{
+    height: 80%;
+    max-height: 80%;
+    overflow-y: scroll;
+  }
+
+  .pet-container{
+  
+    height: 50px;
+    padding: 0px 20px;
+    width: 90%;
+    margin: 20px auto;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.644);
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+
+.div-buttons-eachpet{
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 100%;
+  width: 15%;
+}
+
+.icon-view-info i,
+.icon-delete i {
+    cursor: pointer;
+}
+
+.icon-view-info i:hover,
+.icon-delete i:hover {
+    color: #2E7D32; 
+}
+
+
+
+
+
+  .card3 {
+    width:100%;
+    height:95%;
+    background: rgb(255, 255, 255);
+    border-radius: 2rem;
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.271);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    transition-duration: .5s;
+    
+  }
+
+
+  .card3:hover {
+    background-color: rgb(255, 255, 255);
+    transition-duration: .5s;
+  }
+
+  

@@ -14,7 +14,6 @@
 body{
     font-family: 'Courier New', Courier, monospace;
     font-weight: bold;
-    overflow: hidden;
 }
 
 
@@ -581,5 +580,128 @@ nav {
     scale: 0.95;
   }
   
+
+  @media screen and (max-width: 1000px) {
+
+    nav {
+      width: 80%;
+    }
+
+    .dropdown {
+      position: absolute;
+      top: 100%; 
+      left:40%;
+      display: none;
+      background-color: #fff; 
+      color: #2E7D32; 
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      list-style-type: none;
+      padding: 10px; 
+      margin: 0;
+      width: 200px; 
+      z-index: 1; 
+      border-radius: 10px;
+      border: 1px solid #2E7D32;
+    }
+
+    .large-nav {
+      display: none;
+  }
+
+  .nav-wrapper {
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    height: 100%;
+  }
+
+  #nav-mobile {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 90%; 
+    margin: 0; 
+    padding: 0; 
+    margin-right: 2rem;
+  }
+
+    .main-div-home {
+      display: flex;
+      flex-direction: column;
+      width: 95%;
+      margin-top: 2rem;
+      margin: 0 auto;
+      min-height: 200vh;
+      padding-bottom: 25rem;
+  }
+
+
+    .home-cards{
+        min-height:20rem;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: space-evenly;
+        padding-bottom: 2rem;
+        margin-top: 25rem;
+    }
+
+
+    .home-cards div{
+      margin-bottom: 2rem;
+    }
+
+    .block:nth-child(3) {
+      grid-column:none;
+  }
+
+  .title-home-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    position: relative;
+    flex-direction: column;
+    width: 90%;
+
+}
+
+.next-appointment{
+  border: 2px solid black;
+  border-radius: 5rem;
+  height: 70%;
+  width: 90%;
+  margin:0 auto;
+  margin-top: 2rem;
+}
+
+.next-container{
+  padding: 30px;
+  height: 100%;
+  width: 85%;
+  display: flex;
+  margin: auto;
+}
+
+.home-title h2:nth-of-type(1) {
+  color: #2E7D32; 
+  font-size: 40px; 
+  margin-right: 1rem;
+}
+
+.home-title h2 {
+  font-size: 35px; 
+}
+
+
+}
+
+
+@media screen and (min-width: 1001px) {
+  .small-nav {
+      display: none;
+  }
+}
 
   

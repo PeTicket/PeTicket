@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - Client</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> 
-    <link rel="stylesheet" href="../style/appointments.css">
-    <script src="../javascript/appointments.js"></script>
+    <link rel="stylesheet" href="../style/Homepage.css">
+    <script src="../javascript/Homepage.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
 
       .star {
@@ -29,35 +30,43 @@
     </style>
 </head>
 <body>
-    <nav>
+      <nav class="large-nav">
         <div class="nav-wrapper">
           <h2 class="brand-logo">PeTicket</h2>
           <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a href="./home.html">Home</a></li>
-            <li><a href="./appointments.html">Appointments</a></li>
-            <li class="dropdown-item"><a href="#">Add<i style="margin-left: 1rem;" class="fas fa-chevron-down"></i></a>
-              <ul class="dropdown">
-                <li><a href="./addAppointment.html">Appointment</a></li>
-                <li><a href="./addpet.html">Pet</a></li>
-              </ul>
-            </li>
-            <li><a href="./profile.html">Profile</a></li>
-            <li><a class="logout-navbar" href="collapsible.html">Logout</a></li>
+            <li><a href="./Homepage.html">Home</a></li>
+            <li><a href="./aboutus.html">About Us</a></li>
+            <li><a href="./aboutus.html">Login</a></li>
           </ul>
         </div>
-      </nav>
+    </nav>
 
-      <div class="tab-container">
-        <input type="radio" name="tab" id="tab1" class="tab tab--1" />
-        <label class="tab_label" for="tab1">Future Appointments</label>
-      
-        <input type="radio" name="tab" id="tab2" class="tab tab--2" />
-        <label class="tab_label" for="tab2">Appointments</label>
-        <div class="indicator"></div>
-      </div>
+    <nav class="small-nav">
+        <div class="nav-wrapper">
+          <h2 class="brand-logo">PeTicket</h2>
+        </div>
+    </nav>
+
+      <div class="main-div-home">
+
+        <div class="block home-title" style="margin:auto;">
+          <div class="title-home-div">
+            <h2>Welcome</h2><h2> to PeTicket</h2>
+          </div>
+          <div class="homepage-div-buttons">
+            <button class="button-home-cards"></button>
+
+            </button>
+            <button class="button-home-cards2"></button>
+
+            </button>
+          </div>
+        </div>
+    </div>
 
 
-      <script>
+
+ <script>
         let starCount = 0;
     
       function createStar() {
@@ -86,4 +95,3 @@
       document.addEventListener('DOMContentLoaded', createStarsPeriodically);
       </script>
 </body>
-</html>
