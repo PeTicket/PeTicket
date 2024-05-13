@@ -59,9 +59,13 @@
                 <option>Select pet</option>
             </select>
           </div>
-          <p>No data yet</p>
+          <p class="selected-date-time"></p>
           <div>
-            <button class="button-adddateapp"></button>
+            <button type="button" class="button-adddateapp"></button>
+          </div>
+          <div class="user-box" style="width:100%;margin-top: 2rem;">
+            <input type="text" name="observations">
+            <label>Observations</label>
           </div>
         </div>
       </form>
@@ -71,6 +75,15 @@
     </div>
 
   </div>
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <p>Select the desired data and time:</p>
+      <input type="date" name="dateofbirth" id="dateofbirth">
+      <div id="consultationTimes"></div>
+    </div>
+  </div>
+  
 
   <script src="../javascript/addAppointment.js"></script>
   <script>
