@@ -12,6 +12,7 @@ body{
     height: 8vh;
     width: 65%;
     margin: 0 auto;
+    z-index: 999;
     position: relative;
     border-bottom:1px solid #2E7D32 ;
     font-family: 'Courier New', Courier, monospace;
@@ -312,7 +313,7 @@ body{
     color: #000000;
     border: 2px solid black;
     border-radius: 2rem;
-    padding: 10px 20px;
+    padding: 10px 50px;
     margin: auto;
     margin-bottom: 2rem;
   }
@@ -386,3 +387,75 @@ body{
   }
   
   
+  .modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1; 
+    right: 0;
+    top: 0;
+    width: 30%; 
+    height: 100%; 
+    overflow: auto; 
+    z-index: 1;
+    padding-top: 60px;
+    align-items: center;
+    justify-content: center;
+    
+  }
+  
+  .modal-content {
+    background-color: #fefefe;
+    padding: 20px;
+    border: 2px solid #888;
+    width: 80%;
+    border-radius: 2rem;
+  }
+  
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  [type="date"] {
+    background:#fff url(https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/calendar_2.png)  97% 50% no-repeat ;
+    margin-bottom: 2rem;
+  }
+  [type="date"]::-webkit-inner-spin-button {
+    display: none;
+  }
+  [type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0;
+  }
+  
+
+  .time-slot,
+.half-hour-slot {
+  display: inline-block;
+  width: 80px; 
+  height: 30px; 
+  background-color: rgba(0, 128, 0, 0.2); 
+  margin-right: 10px; 
+  text-align: center;
+  line-height: 30px;
+  margin-bottom: 15px;
+  border-radius: 2rem;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+
+.time-slot:hover,
+.half-hour-slot:hover{
+  cursor: pointer;
+  background-color: rgba(0, 128, 0, 0.3);
+}
+
+

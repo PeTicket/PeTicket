@@ -42,7 +42,7 @@ body{
     padding: 10px; 
     margin: 0;
     width: 200px; 
-    z-index: 1; 
+    z-index: 999; 
     border-radius: 10px;
     border: 1px solid #2E7D32;
   }
@@ -142,4 +142,74 @@ body{
   .logout-navbar::before{
     display: none;
   }
+
+
+  
+  .tab-container {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 2px;
+    margin: 0 auto;
+    margin-top: 3rem;
+    width: 30%;
+    background-color: #dadadb;
+    border-radius: 9px;
+  }
+  
+  .indicator {
+    content: "";
+    width: 50%;
+    height: 28px;
+    background: #ffffff;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    z-index: 9;
+    border: 1px solid #2E7D32;
+    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.12), 0px 3px 1px rgba(0, 0, 0, 0.04);
+    border-radius: 7px;
+    transition: all 0.2s ease-out;
+  }
+  
+  .tab {
+    width: 50%;
+    height: 28px;
+    position: absolute;
+    z-index: 2;
+    outline: none;
+    opacity: 0;
+  }
+  
+  .tab_label {
+    width: 50%;
+    height: 28px;
+  
+    position: relative;
+    z-index: 555;
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    font-size: 1rem;
+    opacity: 0.6;
+  
+    cursor: pointer;
+  }
+  
+  .tab--1:checked ~ .indicator {
+    left: 2px;
+  }
+  
+  .tab--2:checked ~ .indicator {
+    left: calc(50% + 2px);
+  }
+
+  .tab:checked + .tab_label {
+    color: #2E7D32; 
+}
+
+  
   
