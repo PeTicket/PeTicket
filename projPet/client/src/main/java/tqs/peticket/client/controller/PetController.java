@@ -97,12 +97,12 @@ public class PetController {
     }
 
     @PutMapping("update/{id}")
-    public ResponseEntity<Pet> updatePet(@PathVariable UUID id, @RequestBody Pet pet) {
-        if (id == null || pet == null) {
-            logger.info("Pet id or pet is null");
+    public ResponseEntity<Pet> updatePet(@RequestBody Pet pet) {
+        if (pet == null) {
+            logger.info("Pet is null");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        logger.info("Updating pet by id " + id);
+
         Pet updatedPet = petService.update(pet);
         if (updatedPet == null) {
             logger.info("Pet not found");
