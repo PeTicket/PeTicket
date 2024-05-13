@@ -2,7 +2,6 @@
 body{
     font-family: 'Courier New', Courier, monospace;
     font-weight: bold;
-    overflow: hidden;
   }
   
   nav {
@@ -335,5 +334,99 @@ body{
     background-color: rgb(255, 255, 255);
     transition-duration: .5s;
   }
+
+
+  @media screen and (max-width: 1000px) {
+
+    nav {
+      width: 80%;
+    }
+  
+    .dropdown {
+      position: absolute;
+      top: 100%; 
+      left:40%;
+      display: none;
+      background-color: #fff; 
+      color: #2E7D32; 
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      list-style-type: none;
+      padding: 10px; 
+      margin: 0;
+      width: 200px; 
+      z-index: 777; 
+      border-radius: 10px;
+      border: 1px solid #2E7D32;
+  
+    }
+  
+    .selected-date-time{
+      width: 100%;
+      flex-wrap: nowrap;
+    }
+  
+    .large-nav {
+      display: none;
+  }
+  
+  .nav-wrapper {
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    height: 100%;
+  }
+  
+  #nav-mobile {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 90%; 
+    margin: 0; 
+    padding: 0; 
+    margin-right: 2rem;
+  }
+
+  .profile-div {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .column1,
+  .column2 {
+    flex: 0 0 100%;
+    width: 95%;
+    padding-right: 0;
+    margin: 0 auto;
+  }
+
+  .row-1,
+  .row-2 {
+    height: auto;
+    justify-content: flex-start;
+  }
+
+  .column2 {
+    align-items: flex-start;
+  }
+
+  .card2 {
+    width: 100%;
+    height: auto;
+    margin-bottom: 2rem; 
+  }
+
+  .row-2{
+    margin-top: 2rem;
+  }
+
+  .pet-container {
+    width: 80%;
+  }
+
+  .div-buttons-eachpet {
+    display: flex;
+    justify-content: space-between;
+  }
+}
 
   

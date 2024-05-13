@@ -88,8 +88,10 @@ function createConsultationTimes() {
 
       halfHourSlot.addEventListener('click', function() {
         selectedTime = this.textContent;
+        
 
         updateAppointmentText();
+        modal.style.display = "none";
       });
     }
   }
