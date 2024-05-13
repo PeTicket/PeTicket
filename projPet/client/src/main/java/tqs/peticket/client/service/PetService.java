@@ -79,4 +79,23 @@ public class PetService {
         }
     }
 
+    public List<Pet> getAllPets() {
+        if (petRepository.findAll().isEmpty()) {
+            return null;
+        }
+        return petRepository.findAll();
+    }
+
+    public String getPetsByUserId(String userId) {
+        return petRepository.findByUserId(UUID.fromString(userId)).toString();
+    }
+
+    public String getPetsByName(String name) {
+        return petRepository.findByName(name).toString();
+    }
+
+    public String getPetById(String id) {
+        return petRepository.findById(UUID.fromString(id)).toString();
+    }
+
 }
