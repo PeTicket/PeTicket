@@ -3,6 +3,7 @@ package tqs.peticket.client.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Column;
@@ -28,11 +29,12 @@ public class Appointment {
 
     private LocalDate date;
     private LocalDateTime time;
-
     private String occurence;
     private String diagnosis;
     private String prescription;
     private String observations;
+    @Lob
+    private Byte[] qrCode;
     private String status;
 
     public Appointment() {

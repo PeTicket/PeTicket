@@ -91,4 +91,5 @@ public class AppointmentService {
         return appointmentRepository.findByTime(time);
     }
     
+    
 }
