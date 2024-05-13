@@ -18,9 +18,9 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long>{
     Boolean existsByPetId(UUID petId);
     Boolean existsByVetId(UUID vetId);
     
-    Appointment findByUserId(UUID userId);
-    Appointment findByPetId(UUID petId);
-    Appointment findByVetId(UUID vetId);
+    List<Appointment> findByUserId(UUID userId);
+    List<Appointment> findByPetId(UUID petId);
+    List<Appointment> findByVetId(UUID vetId);
 
     List<Appointment> findByStatus(String status);
     List<Appointment> findByDateAndTime(LocalDate date, LocalTime time);
