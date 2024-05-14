@@ -41,7 +41,7 @@
           </ul>
         </li>
         <li><a href="./profile.html">Profile</a></li>
-        <li><a class="logout-navbar" href="collapsible.html">Logout</a></li>
+        <li><a class="logout-navbar" onclick="logout()">Logout</a></li>
       </ul>
     </div>
 </nav>
@@ -57,7 +57,7 @@
           <li><a href="./addAppointment.html">Add Appointment</a></li>
           <li><a href="./addpet.html">Add Pet</a></li>
           <li><a href="./profile.html">Profile</a></li>
-          <li><a class="logout-navbar" href="collapsible.html">Logout</a></li>
+          <li><a class="logout-navbar" onclick="logout()">Logout</a></li>
         </ul>
       </li>
     </ul>
@@ -66,15 +66,15 @@
 
   <div class="addapp-div">
     <div class="addapp-container">
-      <form>
+      <form id="appointment-form">
         <div class="form-title">
           <h3>Add Appointment</h3>
           <p>Please fill out the form to add an appointment.</p>
         </div>
         <div class="input-box">
           <div class="user-box">
-            <select>
-                <option>Select pet</option>
+            <select id="pet-select" name="petId">
+                <option value="" disabled selected >Select pet</option>
             </select>
           </div>
           <p class="selected-date-time"></p>
@@ -88,7 +88,7 @@
         </div>
       </form>
       <div class="button-addapp-div">
-        <button class="button-addapp"></button>
+        <button type="submit" class="button-addapp"></button>
       </div>
     </div>
 
@@ -104,33 +104,5 @@
   
 
   <script src="../javascript/addAppointment.js"></script>
-  <script>
-    let starCount = 0;
-
-  function createStar() {
-    if (starCount >= 40) {
-      return;
-    }
-
-    const star = document.createElement('div');
-    star.classList.add('star');
-    star.style.top = Math.random() * window.innerHeight + 'px';
-    star.style.animationDuration = (Math.random() * 10 + 5) + 's';
-    document.body.appendChild(star);
-
-    starCount++; 
-
-    star.addEventListener('animationend', function() {
-      star.remove();
-      starCount--; 
-    });
-  }
-
-  function createStarsPeriodically() {
-    setInterval(createStar, 1000);
-  }
-
-  document.addEventListener('DOMContentLoaded', createStarsPeriodically);
-  </script>
 </body>
 </html>
