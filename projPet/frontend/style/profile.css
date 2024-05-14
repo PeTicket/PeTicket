@@ -336,6 +336,43 @@ body{
   }
 
 
+  .profile-info{  
+    width: 70%;
+    height: 80%;
+    margin: auto;
+    margin-top: 5rem;
+  }
+
+  .profile-name{
+    display: flex;
+    flex-direction: row;
+    width: 60%;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .profile-name h4{
+    font-size: 1.2em;
+  }
+
+
+  .profile-email{
+    display: flex;
+    flex-direction: row;
+    width: 60%;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .profile-email h4{
+    font-size: 1.2em;
+  }
+
+
+
+
   @media screen and (max-width: 1000px) {
 
     nav {
