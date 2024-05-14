@@ -63,15 +63,15 @@ public class AppointmentService {
         }
     }
 
-    public Appointment findByUserId(UUID userId) {
+    public List<Appointment> findByUserId(UUID userId) {
         return appointmentRepository.findByUserId(userId);
     }
 
-    public Appointment findByPetId(UUID petId) {
+    public List<Appointment> findByPetId(UUID petId) {
         return appointmentRepository.findByPetId(petId);
     }
 
-    public Appointment findByVetId(UUID vetId) {
+    public List<Appointment> findByVetId(UUID vetId) {
         return appointmentRepository.findByVetId(vetId);
     }
 
@@ -91,4 +91,7 @@ public class AppointmentService {
         return appointmentRepository.findByTime(time);
     }
     
+    public List<Appointment> getAllAppointments() {
+        return appointmentRepository.findAll();
+    }
 }

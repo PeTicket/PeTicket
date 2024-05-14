@@ -1,5 +1,6 @@
 package tqs.peticket.client.service;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,5 +61,8 @@ public class UserService {
         }
     }
 
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
 
 }
