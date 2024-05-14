@@ -55,11 +55,13 @@ let starCount = 0;
 
 
   function fetchPets() {
-    fetch('http://localhost:3306/api/client/pet/by-user-id?userId=1')
+    const userId = 1; 
+    fetch(`http://localhost:8080/api/client/pet/by-user-id/${userId}`)
       .then(response => response.json())
       .then(pets => displayPets(pets))
       .catch(error => console.error('Error fetching pets:', error));
-  }
+}
+
 
   function displayPets(pets) {
     const petContainer = document.getElementById('profile-pets-container');
@@ -78,3 +80,11 @@ let starCount = 0;
     });
   }
   
+
+
+
+
+
+  function logout() {
+    window.location.href = './Homepage.html';
+}

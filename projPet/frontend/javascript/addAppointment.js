@@ -29,7 +29,7 @@ function addAppointment() {
         observations: observations
     };
 
-    fetch('http://localhost:3306/api/appointments/add', {
+    fetch('http://localhost:8080/api/appointments/add', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -51,12 +51,12 @@ function addAppointment() {
 }
 
 function fetchPets() {
-    fetch('http://localhost:3306/api/client/pet/by-user-id?userId=1')
-        .then(response => response.json())
-        .then(data => populatePetSelect(data))
-        .catch(error => console.error('Error fetching pets:', error));
+    const userId = 1; 
+    fetch(`http://localhost:8080/api/client/pet/by-user-id/${userId}`)
+      .then(response => response.json())
+      .then(pets => displayPets(pets))
+      .catch(error => console.error('Error fetching pets:', error));
 }
-
 function populatePetSelect(pets) {
     const petSelect = document.getElementById('pet-select');
     pets.forEach(pet => {
@@ -156,3 +156,30 @@ function updateAppointmentText() {
     appointmentText += selectedTime ? ' at ' + selectedTime : ' and no time selected';
     document.querySelector('.selected-date-time').textContent = appointmentText;
 }
+
+document.addEventListener("DOMContentLoaded", function() {
+    const dropdownItems = document.querySelectorAll(".dropdown-item");
+  
+    dropdownItems.forEach(item => {
+      item.addEventListener("click", function(event) {
+        event.stopPropagation(); 
+        const dropdown = item.querySelector(".dropdown");
+        dropdown.classList.toggle("show");
+      });
+    });
+  
+    window.addEventListener("click", function(event) {
+      dropdownItems.forEach(item => {
+        const dropdown = item.querySelector(".dropdown");
+        if (!item.contains(event.target) && !dropdown.contains(event.target)) {
+          dropdown.classList.remove("show");
+        }
+      });
+    });
+  });
+
+
+  function logout() {
+    window.location.href = './Homepage.html';
+}
+

@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function() {
         color: color
     };
 
-    fetch('http://localhost:3306/api/client/pet/add', {
+    fetch('http://localhost:8080/api/client/pet/add', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -77,4 +77,10 @@ document.addEventListener("DOMContentLoaded", function() {
         console.error('Error:', error);
         alert('Error adding pet');
     });
+}
+
+
+
+function logout() {
+  window.location.href = './Homepage.html';
 }

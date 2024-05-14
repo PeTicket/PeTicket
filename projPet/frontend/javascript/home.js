@@ -32,3 +32,11 @@ document.addEventListener("DOMContentLoaded", function() {
       window.location.href = "./addpet.html";
     });
   });
+
+
+
+
+
+  function logout() {
+    window.location.href = './Homepage.html';
+}
