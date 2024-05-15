@@ -83,7 +83,6 @@ public class PetServiceTest {
     @DisplayName("Test deleteById")
     void testDeleteById() {
         when(petRepository.existsById(pet1.getId())).thenReturn(true);
-        doNothing().when(petRepository).deleteById(pet1.getId());
         petService.deleteById(pet1.getId());
         verify(petRepository, times(1)).deleteById(pet1.getId());
     }

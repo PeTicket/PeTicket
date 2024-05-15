@@ -106,7 +106,6 @@ public class UserServiceTest {
     @DisplayName("Test deleteById")
     void testDeleteById() {
         when(userRepository.existsById(user1.getId())).thenReturn(true);
-        doNothing().when(userRepository).deleteById(user1.getId());
         userService.deleteById(user1.getId());
         verify(userRepository, times(1)).deleteById(user1.getId());
     }

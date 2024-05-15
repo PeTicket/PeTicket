@@ -1,6 +1,5 @@
 package tqs.peticket.client.repositoryTests;
 
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -8,7 +7,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import tqs.peticket.client.model.User;
 import tqs.peticket.client.repository.UserRepository;
 
-import java.util.List;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -43,6 +41,45 @@ public class UserRepositoryTests {
         entityManager.persistAndFlush(pedro); 
         User found = userRepository.findByFirstNameAndLastName(pedro.getFirstName(), pedro.getLastName());
         assertThat(found).isEqualTo(pedro);
+    }
+
+    @Test
+    void whenDeleteById_thenIsDeleted(){
+        User user1 = new User("User", "One", "usr@deti.com", "abcd1234", "Aveiro, 274", "966634567");
+        entityManager.persistAndFlush(user1);
+        userRepository.deleteById(user1.getId());
+        User del_user = userRepository.findById(user1.getId());
+        assertThat(del_user).isNull();
+    }
+
+    @Test
+    void whenFindTitaByEmail_thenReturnUserTita(){
+        User tita = new User("Tita", "Ferrei", "tita@deti.com", "abcd1234", "Aveiro, 274", "967734567");
+        entityManager.persistAndFlush(tita);
+        User found = userRepository.findByEmail(tita.getEmail());
+        assertThat(found).isEqualTo(tita);
+    }
+
+    @Test
+    void whenCheckIfPedroExistsById_thenReturnTrue(){
+        User pedro = new User("Pedro", "Almeida", "pdalm@deti.com", "abcd1234", "Example, 225", "914434567");
+        entityManager.persistAndFlush(pedro);
+        assertThat(userRepository.existsById(pedro.getId())).isTrue(); 
+    }
+
+    @Test
+    void whenCheckIfRuiExistsByEmail_thenReturnTrue(){
+        User rui = new User("Rui", "Pedro", "rp@deti.com", "ababcdcd", "Casa Minha", "232565848");
+        entityManager.persistAndFlush(rui);
+        assertThat(userRepository.existsByEmail(rui.getEmail())).isTrue();
+    }
+
+    @Test
+    void whenFindJoeByPhone_thenReturnUserJoe(){
+        User joe = new User("Joe", "Pedro", "joe@deti.com", "ababcdcd", "Casa Tua", "232865848");
+        entityManager.persistAndFlush(joe);
+        User found = userRepository.findByPhone(joe.getPhone());
+        assertThat(found).isEqualTo(joe);
     }
     
 }
