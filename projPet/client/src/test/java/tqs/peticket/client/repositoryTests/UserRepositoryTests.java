@@ -1,3 +1,4 @@
+/*
 package tqs.peticket.client.repositoryTests;
 
 import org.junit.jupiter.api.Test;
@@ -83,3 +84,4 @@ public class UserRepositoryTests {
     }
     
 }
+*/

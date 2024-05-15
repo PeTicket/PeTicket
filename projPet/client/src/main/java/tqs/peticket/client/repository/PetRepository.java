@@ -4,8 +4,11 @@ import java.util.UUID;
 
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
 import tqs.peticket.client.model.Pet;
 
+@Repository
 public interface PetRepository extends JpaRepository<Pet, Long> {
     Pet findById(UUID Id);
     Pet deleteById(UUID Id);
