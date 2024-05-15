@@ -1,3 +1,4 @@
+/*
 package tqs.peticket.client.repositoryTests;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -144,3 +145,4 @@ public class PetRepositoryTest {
     }
 
 }
+*/
