@@ -34,6 +34,15 @@ public class Pet {
     public Pet() {
     }
 
+    public Pet(UUID userId, String name, String type, String breed, String color, String age) {
+        this.userId = userId;
+        this.name = name;
+        this.type = type;
+        this.breed = breed;
+        this.color = color;
+        this.age = age;
+    }
+
     public Pet(UUID userId, String name, String type, String breed, String color, String age, String weight, String height, String bloodType, String medicalInfo) {
         this.userId = userId;
         this.name = name;
