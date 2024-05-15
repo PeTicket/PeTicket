@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import tqs.peticket.client.model.Pet;
+import tqs.peticket.client.security.jwt.AuthHandler;
 import tqs.peticket.client.service.PetService;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -36,12 +37,15 @@ public class PetController {
     
     @Autowired
     private PetService petService;
+    
+    @Autowired
+    private AuthHandler authHandler;
 
     @GetMapping("/all")
     public ResponseEntity<List<Pet>> getAllPets() {
         logger.info("Getting all pets");
         List<Pet> pets = petService.getAllPets();
-        if (pets.isEmpty()) {
+        if (pets == null || pets.isEmpty()) {
             logger.info("No pets found");
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
