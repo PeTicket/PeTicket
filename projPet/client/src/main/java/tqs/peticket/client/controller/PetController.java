@@ -3,6 +3,7 @@ package tqs.peticket.client.controller;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -38,6 +39,7 @@ public class PetController {
     @Autowired
     private PetService petService;
     
+    
     @Autowired
     private AuthHandler authHandler;
 
@@ -53,8 +55,11 @@ public class PetController {
         return new ResponseEntity<>(pets, HttpStatus.OK);
     }
 
-    @GetMapping("/by-user-id/{userId}")
-    public ResponseEntity<List<Pet>> getPetsByUserId(@RequestParam UUID userId) {
+    @GetMapping("/by-user-id")
+    public ResponseEntity<List<Pet>> getPetsByUserId() {
+        String email = authHandler.getUserEmail();
+        UUID userId = User
+
         logger.info("Getting pets by user id " + userId);
         List<Pet> pets = petService.findByUserId(userId);
         if (pets.isEmpty()) {
