@@ -50,7 +50,7 @@ public class AppointmentController {
     }
 
     @GetMapping("/by-user-id/{userId}")
-    public ResponseEntity<List<Appointment>> getAppointmentsByUserId(@RequestParam UUID userId) {
+    public ResponseEntity<List<Appointment>> getAppointmentsByUserId(@PathVariable UUID userId) {
         logger.info("Getting appointments by user id " + userId);
         List<Appointment> appointments = appointmentService.findByUserId(userId);
         if (appointments.isEmpty()) {

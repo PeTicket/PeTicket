@@ -85,11 +85,13 @@ function addAppointment() {
     const appointment = {
         userId: currentUserInfo.id,
         petId: petId,
-        observations: observations
+        observations: observations,
+        date:selectedDate,
+        time:selectedTime
     };
 
 
-    fetch('http://localhost:8080/api/client/appointment/add/dateString=${selectedDate}/timeString=${selectedTime}', {
+    fetch('http://localhost:8080/api/client/appointment/add', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
