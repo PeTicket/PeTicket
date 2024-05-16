@@ -5,7 +5,9 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.webjars.NotFoundException;
 
+import jakarta.transaction.Transactional;
 import tqs.peticket.client.model.Pet;
 import tqs.peticket.client.repository.PetRepository;
 
@@ -37,13 +39,18 @@ public class PetService {
             return;
         }
     }
-
+    @Transactional
     public void deleteById(UUID id) {
+
+         if (id == null) {
+            throw new IllegalArgumentException("Pet id is null");
+         }
+    
         if (petRepository.existsById(id)) {
             petRepository.deleteById(id);
         }
         else {
-            return;
+            throw new NotFoundException("Pet not found");
         }
     }
 

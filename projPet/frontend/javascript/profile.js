@@ -154,6 +154,29 @@ let starCount = 0;
         showModal(petInfo);
       });
     });
+    document.querySelectorAll('.icon-delete').forEach(icon => {
+      icon.addEventListener('click', function() {
+        const petDiv = this.closest('.pet-container');
+        const petInfo = JSON.parse(petDiv.querySelector('.icon-view-info').getAttribute('data-pet-info'));
+        const petId = petInfo.id;
+        console.log(petId);
+
+          fetch(`http://localhost:8080/api/client/pet/delete/${petId}`, {
+              method: 'DELETE'
+          })
+          .then(response => {
+              if (response.ok) {
+                  alert("Pet Deleted")
+                  fetchPets();
+              } else {
+                  console.error('Failed to delete pet:', response.status);
+              }
+          })
+          .catch(error => {
+              console.error('Error deleting pet:', error);
+          });
+      });
+  });
   }
 
 
