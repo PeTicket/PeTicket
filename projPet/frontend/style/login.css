@@ -101,7 +101,7 @@ body{
     padding: 2px;
     margin: 0 auto;
     margin-top: 3rem;
-    width: 80%;
+    width: 30%;
     background-color: #dadadb;
     border-radius: 9px;
   }
@@ -133,10 +133,8 @@ body{
   .tab_label {
     width: 50%;
     height: 28px;
-  
     position: relative;
     z-index: 555;
-  
     display: flex;
     align-items: center;
     justify-content: center;
@@ -164,7 +162,7 @@ body{
     position: absolute;
     top: 60%;
     left: 50%;
-    width: 85%;
+    width: 30%;
     padding: 40px;
     transform: translate(-50%, -50%);
     background: rgba(255, 255, 255, 0.987);
@@ -390,6 +388,23 @@ body{
         margin: 0; 
         padding: 0; 
         margin-right: 2rem;
+      }
+
+      .tab-container {
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        padding: 2px;
+        margin: 0 auto;
+        margin-top: 3rem;
+        width: 80%;
+        background-color: #dadadb;
+        border-radius: 9px;
+      }
+
+      .login-box {
+        width: 80%;
       }
   
   }

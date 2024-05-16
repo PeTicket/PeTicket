@@ -169,7 +169,7 @@ body{
     justify-content: center;
   }
   
-  .appointment-container div:nth-child(3) {
+  .appointment-container .qrcode-icon{
     width: 20%;
     display: flex;
     flex-direction: column;

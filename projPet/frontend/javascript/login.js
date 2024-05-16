@@ -44,7 +44,7 @@ function loginUser() {
 function registerUser() {
 
     event.preventDefault();
-    const username = document.getElementById("register-username").value;
+    const firstname = document.getElementById("register-firstname").value;
     const email = document.getElementById("register-email").value;
     const password = document.getElementById("register-password").value;
     const confirmPassword = document.getElementById("confirm-password").value;
@@ -56,7 +56,7 @@ function registerUser() {
     }
 
     const user = {
-        username: username,
+        firstName: firstname,
         email: email,
         password: password
     };

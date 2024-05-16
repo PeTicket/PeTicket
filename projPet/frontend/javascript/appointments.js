@@ -112,13 +112,15 @@ function renderAppointments(containerId, appointments) {
           <p>Date: ${appointment.date} </p>
           <p>Horas: ${appointment.time}</p>
           </div>
-         
+      
           <div>
             <p>Observation: ${appointment.observations}</p>
           </div>
+
           <div class="qrcode-icon">
-          <i class="fas fa-qrcode" class="qrcode-icon" style="font-size: 40px;"></i>
+            <i class="fas fa-qrcode"  style="font-size: 40px;"></i>
           </div>
+          
         </div>
       </div>
     `;
