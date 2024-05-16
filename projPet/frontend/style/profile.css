@@ -371,6 +371,297 @@ body{
   }
 
 
+  .profile-address{
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .profile-address h4{
+    font-size: 1.2em;
+  }
+
+
+  .profile-phone{
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .profile-phone h4{
+    font-size: 1.2em;
+  }
+
+
+  .edit-icon {
+    display: flex;
+    justify-content: center;
+}
+
+.icon-pencil i {
+    font-size: 24px;
+    cursor: pointer;
+    color: #333;
+}
+
+.icon-pencil i:hover {
+  font-size: 24px;
+  cursor: pointer;
+  color: #2E7D32;
+}
+
+
+
+  .modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+  }
+  
+
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 20%; 
+    background: rgb(255, 255, 255);
+    border-radius: 2rem;
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.271);
+
+    transition-duration: .5s;
+  }
+  
+  
+  .close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close-btn:hover,
+  .close-btn:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .pet-info-container{
+    width: 70%;
+    margin: auto;
+  }
+
+
+  .button-save-update{
+    position: relative;
+    background-color: transparent;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    color: #e8e8e8;
+    font-size: 17px;
+    font-weight: 600;
+    border-radius: 10px;
+    width: 150px;
+    height: 60px;
+    border: none;
+    text-transform: uppercase;
+    border-radius: 2rem;
+    cursor: pointer;
+    overflow: hidden;
+    margin-left: 20%;
+    margin-top: 1rem;
+    box-shadow: 0 10px 20px rgba(51, 51, 51, 0.2);
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+  
+  .button-save-update::before {
+    content: "Save";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background:rgb(23, 133, 74) ;
+    transform: translate(0%,100%);
+    z-index: 99;
+    position: relative;
+    transform-origin: bottom;
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+  
+  .button-save-update::after {
+    content: "Update";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #333;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    transform-origin: top;
+    transform: translate(0%,-100%);
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+  
+  .button-save-update:hover::before {
+    transform: translate(0%,0%);
+  }
+  
+  .button-save-update:hover::after {
+    transform: translate(0%,-200%);
+  }
+  
+  .button-save-update:focus {
+    outline: none;
+  }
+  
+  .button-save-update:active {
+    scale: 0.95;
+  }
+  
+
+  .button-updatepet{
+    position: relative;
+    background-color: transparent;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    color: #e8e8e8;
+    font-size: 17px;
+    font-weight: 600;
+    border-radius: 10px;
+    width: 150px;
+    height: 60px;
+    border: none;
+    text-transform: uppercase;
+    border-radius: 2rem;
+    cursor: pointer;
+    overflow: hidden;
+    margin-left: 20%;
+    margin-top: 1rem;
+    box-shadow: 0 10px 20px rgba(51, 51, 51, 0.2);
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+  
+  .button-updatepet::before {
+    content: "Update";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background:rgb(23, 133, 74) ;
+    transform: translate(0%,100%);
+    z-index: 99;
+    position: relative;
+    transform-origin: bottom;
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+  
+  .button-updatepet::after {
+    content: "Pet";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #333;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    transform-origin: top;
+    transform: translate(0%,-100%);
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+  
+  .button-updatepet:hover::before {
+    transform: translate(0%,0%);
+  }
+  
+  .button-updatepet:hover::after {
+    transform: translate(0%,-200%);
+  }
+  
+  .button-updatepet:focus {
+    outline: none;
+  }
+  
+  .button-updatepet:active {
+    scale: 0.95;
+  }
+
+
+  .input-box{
+    padding: 20px;
+    margin-top: 2rem;
+    width: 80%;
+    margin: auto;
+  }
+  
+  .input-box .user-box {
+    position: relative;
+    padding: 10px 0;
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .input-box .user-box input {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #000000;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid #000000;
+    outline: none;
+    background: transparent;
+  }
+  
+  .input-box .user-box label {
+    position: absolute;
+    top: 0;
+    left: 5%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #000000;
+    pointer-events: none;
+    transition: .5s;
+  }
+  
+  .input-box .user-box input:focus ~ label,
+  .input-box .user-box input:valid ~ label {
+    top: -20px;
+    left: 0;
+    color: #bdb8b8;
+    font-size: 12px;
+  }
+  
+  
+  .user-box select{
+    height: 50%;
+    margin-left: 2rem;
+    margin-top: 0.5rem;
+    background-color: white;
+    color: #000000;
+    border: 2px solid black;
+    border-radius: 10%;
+    padding: 5px;
+  }
+  
+
 
 
   @media screen and (max-width: 1000px) {
@@ -396,6 +687,20 @@ body{
       border: 1px solid #2E7D32;
   
     }
+
+    .modal-content {
+      background-color: #fefefe;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 60%; 
+      background: rgb(255, 255, 255);
+      border-radius: 2rem;
+      box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.271);
+  
+      transition-duration: .5s;
+    }
+    
   
     .selected-date-time{
       width: 100%;

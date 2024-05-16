@@ -10,13 +10,17 @@ import tqs.peticket.client.service.AppointmentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -93,12 +97,21 @@ public class AppointmentController {
         return new ResponseEntity<>(appointment, HttpStatus.OK);
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<Appointment> addAppointment(@RequestBody Appointment appointment) {
+    @PostMapping("/add/{dateString}/{timeString}")
+    public ResponseEntity<Appointment> addAppointment(@RequestBody Appointment appointment,@PathVariable String dateString, @PathVariable String timeString) {
         if (appointment == null) {
             logger.info("Appointment is null");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+
+        LocalDate date = LocalDate.parse(dateString,formatter);
+        LocalDateTime time =LocalDateTime.parse(timeString);
+
+        appointment.setDate(date);
+        appointment.setTime(time);
+
         logger.info("Adding appointment");
         appointmentService.save(appointment);
         return new ResponseEntity<>(appointment, HttpStatus.CREATED);

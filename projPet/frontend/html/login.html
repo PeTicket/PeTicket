@@ -6,7 +6,6 @@
     <title>Home - Client</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> 
     <link rel="stylesheet" href="../style/login.css">
-    <script src="../javascript/login.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
 
@@ -64,14 +63,14 @@
  
         <form>
           <div class="user-box">
-            <input type="text" name="" required="">
-            <label>Username</label>
+            <input type="text" name="" id="login-email" required="">
+            <label>Email</label>
           </div>
           <div class="user-box">
-            <input type="password" name="" required="">
+            <input type="password" name="" id="login-password" required="">
             <label>Password</label>
           </div><center>
-            <button class="button-home-cards"></button>
+            <button class="button-home-cards" onclick=loginUser()></button>
         </form>
       </div>
 
@@ -80,29 +79,29 @@
  
         <form>
             <div class="user-box">
-                <input type="text" name="" required="">
+                <input type="text" name="" id="register-username" required="">
                 <label>Username</label>
               </div>
           <div class="user-box">
-            <input type="text" name="" required="">
+            <input type="text" name="" id="register-email" required="">
             <label>Email</label>
           </div>
           <div class="user-box">
-            <input type="password" name="" required="">
+            <input type="password" name="" id="register-password" required="">
             <label>Password</label>
           </div>
           <div class="user-box">
-            <input type="password" name="" required="">
+            <input type="password" name="" id="confirm-password" required="">
             <label> Confirm Password</label>
           </div><center>
-            <button class="button-home-cards2"></button>
+            <button class="button-home-cards2" onclick=registerUser()></button>
         </form>
       </div>
       
 
 
 
-
+      <script src="../javascript/login.js"></script>
  <script>
         let starCount = 0;
     
@@ -130,5 +129,21 @@
       }
     
       document.addEventListener('DOMContentLoaded', createStarsPeriodically);
+      document.addEventListener("DOMContentLoaded", function() {
+        const loginTab = document.getElementById("tab1");
+        const registerTab = document.getElementById("tab2");
+        const loginBox = document.getElementById("login-box");
+        const registerBox = document.getElementById("register-box");
+    
+        loginTab.addEventListener("click", function() {
+            loginBox.style.display = "block";
+            registerBox.style.display = "none";
+        });
+    
+        registerTab.addEventListener("click", function() {
+            loginBox.style.display = "none";
+            registerBox.style.display = "block";
+        });
+    });
       </script>
 </body>

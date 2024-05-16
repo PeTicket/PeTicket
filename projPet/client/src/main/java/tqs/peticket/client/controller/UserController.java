@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -46,7 +47,7 @@ public class UserController {
     }
 
     @GetMapping("/by-email/{email}")
-    public ResponseEntity<User> getUserByEmail(@RequestParam String email) {
+    public ResponseEntity<User> getUserByEmail(@PathVariable String email) {
         logger.info("Getting user by email " + email);
         User user = userService.findByEmail(email);
         if (user == null) {

@@ -1,3 +1,64 @@
+let currentUserInfo =null ;
+
+function getUserInfoFromJWT() {
+  
+    const jwtToken = localStorage.getItem('jwtToken');
+    if (jwtToken) {
+        try {
+            const userInfo = JSON.parse(atob(jwtToken.split('.')[1]));
+            return userInfo;
+        } catch (error) {
+            console.error('Error decoding JWT token:', error);
+            return null;
+        }
+    } else {
+        return null;
+    }
+  }
+
+document.addEventListener("DOMContentLoaded", function() {
+
+  const userInfo = getUserInfoFromJWT();
+ 
+   
+    if (userInfo) {
+      const email = userInfo.sub;
+      const jwtToken = localStorage.getItem('jwtToken');
+
+
+      const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${jwtToken}`
+    };
+
+    fetch(`http://localhost:8080/api/client/user/by-email/${email}`, {
+            method: 'GET',
+            headers: headers
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Failed to fetch user information');
+            }
+        })
+        .then(user => {
+          currentUserInfo = user;
+          console.log('User information:', user);
+          populateUserInfo(user);
+          fetchPets();
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+       
+    } else {
+        console.log('User information not available');
+    }
+  });  
+
+
+
 document.addEventListener("DOMContentLoaded", function() {
     const dropdownItems = document.querySelectorAll(".dropdown-item");
   
@@ -20,9 +81,6 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 
 
-  document.addEventListener('DOMContentLoaded', function() {
-    fetchPets();
-});
 
 
 let starCount = 0;
@@ -53,12 +111,24 @@ let starCount = 0;
   document.addEventListener('DOMContentLoaded', createStarsPeriodically);
 
 
+  function populateUserInfo(user) {
+    document.getElementById('profile-firstname1').textContent = user.firstName || 'N/A';
+    document.getElementById('profile-firstname2').textContent = user.firstName || 'N/A';
+    document.getElementById('profile-lastname').textContent = user.lastName || 'N/A';
+    document.getElementById('profile-email').textContent = user.email;
+    document.getElementById('profile-address').textContent = user.address || 'N/A';
+    document.getElementById('profile-phone').textContent = user.phone || 'N/A';
+}
 
   function fetchPets() {
-    const userId = 1; 
+  
+    const userId = currentUserInfo.id; 
     fetch(`http://localhost:8080/api/client/pet/by-user-id/${userId}`)
       .then(response => response.json())
-      .then(pets => displayPets(pets))
+      .then(pets => {
+        console.log('Pets returned:', pets); // Adiciona este console.log
+        displayPets(pets);
+      })
       .catch(error => console.error('Error fetching pets:', error));
 }
 
@@ -72,14 +142,129 @@ let starCount = 0;
       petDiv.innerHTML = `
         <p>${pet.name}</p>
         <div class="div-buttons-eachpet">
-          <span class="icon-view-info"><i class="fas fa-eye"></i></span>
+          <span class="icon-view-info" data-pet-info='${JSON.stringify(pet)}'><i class="fas fa-eye"></i></span>
           <span class="icon-delete"><i class="fas fa-trash-alt"></i></span>
         </div>
       `;
       petContainer.appendChild(petDiv);
     });
+    document.querySelectorAll('.icon-view-info').forEach(icon => {
+      icon.addEventListener('click', function() {
+        const petInfo = JSON.parse(this.getAttribute('data-pet-info'));
+        showModal(petInfo);
+      });
+    });
+  }
+
+
+  function showModal(petInfo) {
+    const modal = document.getElementById('pet-info-modal');
+    const modalContent = document.getElementById('pet-info-content');
+    modalContent.innerHTML = `
+      <div class="pet-info-container">
+        <p>Name: ${petInfo.name}</p>
+        <p>Age: ${petInfo.age}</p>
+        <p>Type: ${petInfo.type}</p>
+        <p>Breed: ${petInfo.breed}</p>
+        <p>Color: ${petInfo.color}</p>
+      </div>
+      <button class="button-updatepet"></button>
+    `;
+    modal.style.display = 'block';
+    modal.style.display = 'block';
+  
+    document.querySelector('.close-btn').onclick = function() {
+      modal.style.display = 'none';
+    };
+  
+    window.onclick = function(event) {
+      if (event.target === modal) {
+        modal.style.display = 'none';
+      }
+    };
+  
+    document.querySelector('.button-updatepet').onclick = function() {
+      showUpdateForm(petInfo);
+    };
   }
   
+  function showUpdateForm(petInfo) {
+    const modalContent = document.getElementById('pet-info-content');
+
+    const [ageValue, ageUnit] = petInfo.age.split(' ');
+    modalContent.innerHTML = `
+    <div class="input-box">
+      <div class="user-box">
+        <input type="text" id="update-name" name="name" value="${petInfo.name}" required="">
+        <label>Name</label>
+      </div>
+      <div class="user-box">
+        <input type="text" id="update-type" value="${petInfo.type}" name="type" required="">
+        <label>Type</label>
+      </div>
+      <div class="user-box">
+        <input type="text" id="update-breed" value="${petInfo.breed}" name="breed" required="">
+        <label>Breed</label>
+      </div>
+      <div class="user-box">
+        <input type="number" name="age" id="update-age" value="${parseInt(ageValue, 10)}" required min="1" max="100">
+        <label for="age">Age</label>
+        <select class="unit-selector" id="unit-selector">
+        <option value="years" ${ageUnit === 'years' ? 'selected' : ''}>Years</option>
+        <option value="months" ${ageUnit === 'months' ? 'selected' : ''}>Months</option>
+        </select>
+      </div>
+      <div class="user-box">
+        <input type="text" id="color" value="${petInfo.color}" name="color" required="">
+        <label>Color</label>
+      </div>
+    </div>  
+      <button class="button-save-update"></button>
+    `;
+  
+  
+    document.querySelector('.button-save-update').onclick = function() {
+      const updatedPetInfo = {
+        id:petInfo.id,
+        userId:petInfo.userId,
+        name: document.getElementById('update-name').value,
+        age: `${document.getElementById('update-age').value} ${document.getElementById('unit-selector').value}`,
+        type: document.getElementById('update-type').value,
+        breed: document.getElementById('update-breed').value
+      };
+      saveUpdatedPetInfo(updatedPetInfo);
+    };
+  }
+  
+  function saveUpdatedPetInfo(updatedPetInfo) {
+    console.log('Updated Pet Info:', updatedPetInfo);
+  
+    fetch(`http://localhost:8080/api/client/pet/update/${updatedPetInfo.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(updatedPetInfo)
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log('Success:', data);
+      alert('Pet updated successfully');
+      
+      document.getElementById('pet-info-modal').style.display = 'none';
+      
+      fetchPets(); 
+    })
+    .catch(error => {
+      console.error('Error updating pet:', error);
+      alert('Error updating pet');
+    });
+  }
 
 
 

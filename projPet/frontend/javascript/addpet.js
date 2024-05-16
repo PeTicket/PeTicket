@@ -1,3 +1,67 @@
+let currentUserInfo = null;
+
+
+function getUserInfoFromJWT() {
+  
+  const jwtToken = localStorage.getItem('jwtToken');
+  if (jwtToken) {
+      try {
+          const userInfo = JSON.parse(atob(jwtToken.split('.')[1]));
+          return userInfo;
+      } catch (error) {
+          console.error('Error decoding JWT token:', error);
+          return null;
+      }
+  } else {
+      return null;
+  }
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+
+  const userInfo = getUserInfoFromJWT();
+ 
+    
+   
+    if (userInfo) {
+      const email = userInfo.sub;
+      const jwtToken = localStorage.getItem('jwtToken');
+
+
+      const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${jwtToken}`
+    };
+
+
+    fetch(`http://localhost:8080/api/client/user/by-email/${email}`, {
+            method: 'GET',
+            headers: headers
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Failed to fetch user information');
+            }
+        })
+        .then(user => {
+            currentUserInfo = user;
+            console.log('User information:', user);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+       
+    } else {
+        console.log('User information not available');
+    }
+  });  
+
+
+
+
+
 document.addEventListener("DOMContentLoaded", function() {
     const dropdownItems = document.querySelectorAll(".dropdown-item");
   
@@ -46,7 +110,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const color = document.getElementById('color').value;
 
     const pet = {
-        userId: 1,
+        userId: currentUserInfo.id,
         name: name,
         type: type,
         breed: breed,

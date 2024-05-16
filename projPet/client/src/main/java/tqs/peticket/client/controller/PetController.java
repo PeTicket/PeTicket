@@ -54,7 +54,7 @@ public class PetController {
     }
 
     @GetMapping("/by-user-id/{userId}")
-    public ResponseEntity<List<Pet>> getPetsByUserId(@RequestParam UUID userId) {
+    public ResponseEntity<List<Pet>> getPetsByUserId(@PathVariable UUID userId) {
         logger.info("Getting pets by user id " + userId);
         List<Pet> pets = petService.findByUserId(userId);
         if (pets.isEmpty()) {

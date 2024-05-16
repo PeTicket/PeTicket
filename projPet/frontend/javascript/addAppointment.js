@@ -2,9 +2,68 @@
 let starCount = 0;
 let selectedDate;
 let selectedTime;
+let currentUserInfo =null ;
+
+function getUserInfoFromJWT() {
+  
+    const jwtToken = localStorage.getItem('jwtToken');
+    if (jwtToken) {
+        try {
+            const userInfo = JSON.parse(atob(jwtToken.split('.')[1]));
+            return userInfo;
+        } catch (error) {
+            console.error('Error decoding JWT token:', error);
+            return null;
+        }
+    } else {
+        return null;
+    }
+  }
+
+
+document.addEventListener("DOMContentLoaded", function() {
+
+    const userInfo = getUserInfoFromJWT();
+   
+      
+     
+      if (userInfo) {
+        const email = userInfo.sub;
+        const jwtToken = localStorage.getItem('jwtToken');
+  
+  
+        const headers = {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${jwtToken}`
+      };
+  
+      fetch(`http://localhost:8080/api/client/user/by-email/${email}`, {
+              method: 'GET',
+              headers: headers
+          })
+          .then(response => {
+              if (response.ok) {
+                  return response.json();
+              } else {
+                  throw new Error('Failed to fetch user information');
+              }
+          })
+          .then(user => {
+            currentUserInfo = user;
+            fetchPets();
+              console.log('User information:', user);
+          })
+          .catch(error => {
+              console.error('Error:', error);
+          });
+         
+      } else {
+          console.log('User information not available');
+      }
+    });  
+
 
 document.addEventListener('DOMContentLoaded', function() {
-    fetchPets();
     createStarsPeriodically();
     createConsultationTimes();
 
@@ -22,14 +81,15 @@ function addAppointment() {
         return;
     }
 
+
     const appointment = {
+        userId: currentUserInfo.id,
         petId: petId,
-        date: selectedDate,
-        time: selectedTime,
         observations: observations
     };
 
-    fetch('http://localhost:8080/api/appointments/add', {
+
+    fetch('http://localhost:8080/api/client/appointment/add/dateString=${selectedDate}/timeString=${selectedTime}', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -51,10 +111,10 @@ function addAppointment() {
 }
 
 function fetchPets() {
-    const userId = 1; 
+    const userId = currentUserInfo.id; 
     fetch(`http://localhost:8080/api/client/pet/by-user-id/${userId}`)
       .then(response => response.json())
-      .then(pets => displayPets(pets))
+      .then(pets => populatePetSelect(pets))
       .catch(error => console.error('Error fetching pets:', error));
 }
 function populatePetSelect(pets) {
