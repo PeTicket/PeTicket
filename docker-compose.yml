@@ -13,9 +13,10 @@ services:
     ports:
       - "3306:3306"
 
-    rabbitmq:
-      image: "rabbitmq:3.8.6-management"
-      container_name: rabbitmq-masterdev
-      ports:
-        - 5672:5672
-        - 15672:15672
+  rabbitmq:
+    image: "rabbitmq:3.8.6-management"
+    container_name: rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+
