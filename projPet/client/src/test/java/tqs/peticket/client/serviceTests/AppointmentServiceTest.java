@@ -42,8 +42,8 @@ public class AppointmentServiceTest {
         appointment1.setId(UUID.randomUUID());
         appointment1.setPetId(UUID.randomUUID());
         appointment1.setVetId(UUID.randomUUID());
-        appointment1.setDate(LocalDate.now());
-        appointment1.setTime(LocalDateTime.now());
+        appointment1.setDate("2024-05-17");
+        appointment1.setTime("15:00");
         appointment1.setPrescription("Brufen");
         appointment1.setObservations("Hurt paw");
 
@@ -51,8 +51,8 @@ public class AppointmentServiceTest {
         appointment2.setId(UUID.randomUUID());
         appointment2.setPetId(UUID.randomUUID());
         appointment2.setVetId(UUID.randomUUID());
-        appointment2.setDate(LocalDate.now());
-        appointment2.setTime(LocalDateTime.now());
+        appointment2.setDate("2024-05-05");
+        appointment2.setTime("10:00");
         appointment2.setPrescription("Benuron");
         appointment2.setObservations("Bleeeding");
     }

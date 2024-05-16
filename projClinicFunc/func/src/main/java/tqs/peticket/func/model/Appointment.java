@@ -1,4 +1,4 @@
-package tqs.peticket.client.model;
+package tqs.peticket.func.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -8,6 +8,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Column;
 import java.util.UUID;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 
@@ -25,8 +27,8 @@ public class Appointment {
     @Column(name = "vet_id")
     private UUID vetId;
 
-    private String date;
-    private String time;
+    private LocalDate date;
+    private LocalDateTime time;
     private String occurence;
     private String diagnosis;
     private String prescription;
@@ -38,7 +40,7 @@ public class Appointment {
     public Appointment() {
     }
 
-    public Appointment(UUID userId, UUID petId, String date, String time, String occurence, String status) {
+    public Appointment(UUID userId, UUID petId, LocalDate date, LocalDateTime time, String occurence, String status) {
         this.userId = userId;
         this.petId = petId;
         this.date = date;
@@ -79,19 +81,19 @@ public class Appointment {
         this.vetId = vetId;
     }
 
-    public String getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
-    public String getTime() {
+    public LocalDateTime getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(LocalDateTime time) {
         this.time = time;
     }
 

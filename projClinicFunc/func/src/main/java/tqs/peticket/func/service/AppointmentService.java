@@ -1,5 +1,4 @@
-package tqs.peticket.client.service;
-
+package tqs.peticket.func.service;  
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -8,8 +7,8 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import tqs.peticket.client.model.Appointment;
-import tqs.peticket.client.repository.AppointmentRepository;
+import tqs.peticket.func.model.Appointment;
+import tqs.peticket.func.repository.AppointmentRepository;
 
 
 @Service
@@ -79,15 +78,15 @@ public class AppointmentService {
         return appointmentRepository.findByStatus(status);
     }
 
-    public List<Appointment> findByDateAndTime(String date, String time) {
+    public List<Appointment> findByDateAndTime(LocalDate date, LocalTime time) {
         return appointmentRepository.findByDateAndTime(date, time);
     }
 
-    public List<Appointment> findByDate(String date) {
+    public List<Appointment> findByDate(LocalDate date) {
         return appointmentRepository.findByDate(date);
     }
 
-    public List<Appointment> findByTime(String time) {
+    public List<Appointment> findByTime(LocalTime time) {
         return appointmentRepository.findByTime(time);
     }
     

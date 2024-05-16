@@ -1,4 +1,4 @@
-package tqs.peticket.client.repository;
+package tqs.peticket.func.repository;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import tqs.peticket.client.model.Appointment;
+import tqs.peticket.func.model.Appointment;
 
 
 public interface AppointmentRepository extends JpaRepository<Appointment, Long>{
@@ -23,7 +23,7 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long>{
     List<Appointment> findByVetId(UUID vetId);
 
     List<Appointment> findByStatus(String status);
-    List<Appointment> findByDateAndTime(String date, String time);
-    List<Appointment> findByDate(String date);
-    List<Appointment> findByTime(String time);
+    List<Appointment> findByDateAndTime(LocalDate date, LocalTime time);
+    List<Appointment> findByDate(LocalDate date);
+    List<Appointment> findByTime(LocalTime time);
 }
