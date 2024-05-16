@@ -8,8 +8,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Column;
 import java.util.UUID;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 
@@ -27,8 +25,8 @@ public class Appointment {
     @Column(name = "vet_id")
     private UUID vetId;
 
-    private LocalDate date;
-    private LocalDateTime time;
+    private String date;
+    private String time;
     private String occurence;
     private String diagnosis;
     private String prescription;
@@ -40,7 +38,7 @@ public class Appointment {
     public Appointment() {
     }
 
-    public Appointment(UUID userId, UUID petId, LocalDate date, LocalDateTime time, String occurence, String status) {
+    public Appointment(UUID userId, UUID petId, String date, String time, String occurence, String status) {
         this.userId = userId;
         this.petId = petId;
         this.date = date;
@@ -81,19 +79,19 @@ public class Appointment {
         this.vetId = vetId;
     }
 
-    public LocalDate getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
-    public LocalDateTime getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(LocalDateTime time) {
+    public void setTime(String time) {
         this.time = time;
     }
 

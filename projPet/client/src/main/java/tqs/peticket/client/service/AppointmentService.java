@@ -79,15 +79,15 @@ public class AppointmentService {
         return appointmentRepository.findByStatus(status);
     }
 
-    public List<Appointment> findByDateAndTime(LocalDate date, LocalTime time) {
+    public List<Appointment> findByDateAndTime(String date, String time) {
         return appointmentRepository.findByDateAndTime(date, time);
     }
 
-    public List<Appointment> findByDate(LocalDate date) {
+    public List<Appointment> findByDate(String date) {
         return appointmentRepository.findByDate(date);
     }
 
-    public List<Appointment> findByTime(LocalTime time) {
+    public List<Appointment> findByTime(String time) {
         return appointmentRepository.findByTime(time);
     }
     
