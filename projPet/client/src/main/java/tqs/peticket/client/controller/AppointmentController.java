@@ -97,20 +97,12 @@ public class AppointmentController {
         return new ResponseEntity<>(appointment, HttpStatus.OK);
     }
 
-    @PostMapping("/add/{dateString}/{timeString}")
-    public ResponseEntity<Appointment> addAppointment(@RequestBody Appointment appointment,@PathVariable String dateString, @PathVariable String timeString) {
+    @PostMapping("/add")
+    public ResponseEntity<Appointment> addAppointment(@RequestBody Appointment appointment) {
         if (appointment == null) {
             logger.info("Appointment is null");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
-
-        LocalDate date = LocalDate.parse(dateString,formatter);
-        LocalDateTime time =LocalDateTime.parse(timeString);
-
-        appointment.setDate(date);
-        appointment.setTime(time);
 
         logger.info("Adding appointment");
         appointmentService.save(appointment);
