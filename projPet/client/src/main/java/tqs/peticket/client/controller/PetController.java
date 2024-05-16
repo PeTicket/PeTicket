@@ -100,7 +100,7 @@ public class PetController {
         return new ResponseEntity<>(pet, HttpStatus.CREATED);
     }
 
-    @PutMapping("update/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<Pet> updatePet(@RequestBody Pet pet) {
         if (pet == null) {
             logger.info("Pet is null");
