@@ -421,27 +421,29 @@ body{
   .modal {
     display: none; 
     position: fixed; 
-    z-index: 1; 
+    z-index: 10011; 
     left: 0;
     top: 0;
     width: 100%; 
     height: 100%; 
-    overflow: auto; 
     background-color: rgb(0,0,0);
     background-color: rgba(0,0,0,0.4);
+    justify-content: center; 
+    align-items: center;
   }
   
 
   .modal-content {
+    position: relative;
     background-color: #fefefe;
-    margin: 15% auto;
+    margin: auto;
     padding: 20px;
     border: 1px solid #888;
     width: 20%; 
+    z-index: 10012; 
     background: rgb(255, 255, 255);
     border-radius: 2rem;
     box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.271);
-
     transition-duration: .5s;
   }
   
@@ -660,7 +662,191 @@ body{
     border-radius: 10%;
     padding: 5px;
   }
+
+
+  .profile-info{
+    padding: 20px;
+    margin-top: 2rem;
+    width: 80%;
+    margin: auto;
+  }
   
+  .profile-info .user-box {
+    margin-top: 0.5rem;
+    position: relative;
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .profile-info .user-box input {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #000000;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid #000000;
+    outline: none;
+    background: transparent;
+  }
+  
+  .profile-info .user-box label {
+    position: absolute;
+    top: 0;
+    left: 5%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #000000;
+    pointer-events: none;
+    transition: .5s;
+  }
+  
+  .profile-info .user-box input:focus ~ label,
+  .profile-info .user-box input:valid ~ label {
+    top: -20px;
+    left: 0;
+    color: #bdb8b8;
+    font-size: 12px;
+  }
+  
+
+
+
+  .button-update-userinfo{
+    position: relative;
+    background-color: transparent;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    color: #e8e8e8;
+    font-size: 17px;
+    font-weight: 600;
+    border-radius: 10px;
+    width: 150px;
+    height: 60px;
+    border: none;
+    text-transform: uppercase;
+    border-radius: 2rem;
+    cursor: pointer;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(51, 51, 51, 0.2);
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+  
+  .button-update-userinfo::before {
+    content: "Save";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background:rgb(23, 133, 74) ;
+    transform: translate(0%,100%);
+    z-index: 99;
+    position: relative;
+    transform-origin: bottom;
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+  
+  .button-update-userinfo::after {
+    content: "Update";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #333;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    transform-origin: top;
+    transform: translate(0%,-100%);
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+  
+  .button-update-userinfo:hover::before {
+    transform: translate(0%,0%);
+  }
+  
+  .button-update-userinfo:hover::after {
+    transform: translate(0%,-200%);
+  }
+  
+  .button-update-userinfo:focus {
+    outline: none;
+  }
+  
+  .button-update-userinfo:active {
+    scale: 0.95;
+  }
+
+
+
+
+  .button-update-cancelupdate{
+    position: relative;
+    background-color: transparent;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    color: #e8e8e8;
+    font-size: 17px;
+    font-weight: 600;
+    border-radius: 10px;
+    width: 150px;
+    height: 60px;
+    border: none;
+    text-transform: uppercase;
+    border-radius: 2rem;
+    cursor: pointer;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(51, 51, 51, 0.2);
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+  
+  .button-update-cancelupdate::before {
+    content: "No Update";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background:rgb(23, 133, 74) ;
+    transform: translate(0%,100%);
+    z-index: 99;
+    position: relative;
+    transform-origin: bottom;
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+  
+  .button-update-cancelupdate::after {
+    content: "Cancel";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #333;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    transform-origin: top;
+    transform: translate(0%,-100%);
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+  
+  .button-update-cancelupdate:hover::before {
+    transform: translate(0%,0%);
+  }
+  
+  .button-update-cancelupdate:hover::after {
+    transform: translate(0%,-200%);
+  }
+  
+  .button-update-cancelupdate:focus {
+    outline: none;
+  }
+  
+  .button-update-cancelupdate:active {
+    scale: 0.95;
+  }
 
 
 

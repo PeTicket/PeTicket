@@ -109,8 +109,6 @@ public class AppointmentController {
         LocalDate date = LocalDate.parse(dateString,formatter);
         LocalDateTime time =LocalDateTime.parse(timeString);
 
-        appointment.setDate(date);
-        appointment.setTime(time);
 
         logger.info("Adding appointment");
         appointmentService.save(appointment);

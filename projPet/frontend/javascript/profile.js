@@ -170,8 +170,8 @@ let starCount = 0;
       </div>
       <button class="button-updatepet"></button>
     `;
-    modal.style.display = 'block';
-    modal.style.display = 'block';
+    modal.style.display = 'flex';
+   
   
     document.querySelector('.close-btn').onclick = function() {
       modal.style.display = 'none';
@@ -200,7 +200,7 @@ let starCount = 0;
       </div>
       <div class="user-box">
         <input type="text" id="update-type" value="${petInfo.type}" name="type" required="">
-        <label>Type</label>
+        <label>Specie</label>
       </div>
       <div class="user-box">
         <input type="text" id="update-breed" value="${petInfo.breed}" name="breed" required="">
@@ -215,7 +215,7 @@ let starCount = 0;
         </select>
       </div>
       <div class="user-box">
-        <input type="text" id="color" value="${petInfo.color}" name="color" required="">
+        <input type="text" id="update-color" value="${petInfo.color}" name="color" required="">
         <label>Color</label>
       </div>
     </div>  
@@ -230,7 +230,8 @@ let starCount = 0;
         name: document.getElementById('update-name').value,
         age: `${document.getElementById('update-age').value} ${document.getElementById('unit-selector').value}`,
         type: document.getElementById('update-type').value,
-        breed: document.getElementById('update-breed').value
+        breed: document.getElementById('update-breed').value,
+        color: document.getElementById('update-color').value
       };
       saveUpdatedPetInfo(updatedPetInfo);
     };
@@ -265,6 +266,67 @@ let starCount = 0;
       alert('Error updating pet');
     });
   }
+
+
+  document.addEventListener("DOMContentLoaded", function() {
+
+    const originalProfileInfo = document.getElementById('userinfo-container').innerHTML;
+   
+    document.querySelector('.icon-pencil').addEventListener('click', function() {
+        clearProfileInfo();
+    });
+
+  
+
+    function clearProfileInfo() {
+
+      
+        const profileInfoContainer = document.getElementById('userinfo-container');
+        profileInfoContainer.innerHTML = `
+        <p class="pets-profile-title">My info</p>
+          <div class="profile-info">
+                <div class="user-box">
+                <input type="text" id="update-firstname" name="name" value="${currentUserInfo.firstName}" required="">
+                <label>First Name</label>
+
+                <div class="user-box">
+                  <input type="text" id="update-lastname" name="name" value="${currentUserInfo.lastName}" required="">
+                  <label>Last Name</label>
+                </div>
+
+                <div class="user-box">
+                  <input type="text" id="update-email" name="name" value="${currentUserInfo.email}" required="">
+                  <label>Email</label>
+                </div>
+
+                <div class="user-box">
+                  <input type="text" id="update-address" name="name" value="${currentUserInfo.address}" required="">
+                  <label>Address</label>
+                </div>
+
+                <div class="user-box">
+                  <input type="text" id="update-phone" name="name" value="${currentUserInfo.phone}" required="">
+                  <label>Phone</label>
+                </div>
+              </div>
+          </div>
+          <div class="edit-icon">
+            <button class="button-update-userinfo"></button>
+            <button class="button-update-cancelupdate"></button>
+          </div>
+        `; 
+
+        document.querySelector('.button-update-cancelupdate').addEventListener('click', function() {
+          restoreOriginalProfileInfo();
+      });
+    }
+
+    function restoreOriginalProfileInfo() {
+      const profileInfoContainer = document.getElementById('userinfo-container');
+      profileInfoContainer.innerHTML = originalProfileInfo;
+      populateUserInfo(currentUserInfo);
+  }
+});
 
 
 
