@@ -118,7 +118,8 @@ public class PetController {
     
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Pet> deletePet(@RequestParam UUID id) {
+    public ResponseEntity<Pet> deletePet(@PathVariable UUID id) {
+        logger.info("Deleting pet with id: ", id);
         if (id == null) {
             logger.info("Pet id is null");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

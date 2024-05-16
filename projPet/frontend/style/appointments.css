@@ -144,6 +144,50 @@ body{
   }
 
 
+  .appointment-container {
+    display: flex;
+    flex: 1;
+    padding: 30px;
+    box-sizing: border-box;
+    margin: auto;
+    height: 100%;
+    max-width: 85%;
+
+  }
+  
+  .appointment-container div:nth-child(1) {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .appointment-container div:nth-child(2) {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .appointment-container div:nth-child(3) {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+
+  .qrcode-icon i{
+    cursor: pointer;
+  }
+
+  .qrcode-icon i:hover{
+    cursor: pointer;
+    color: #2E7D32;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  }
+
   
   .tab-container {
     position: relative;
@@ -353,6 +397,45 @@ body{
 
 .tab:checked + .tab_label {
   color: #2E7D32; 
+}
+
+
+.appointment-div{
+  width: 95%;
+  height: auto;
+
+}
+
+.appointment-container{
+  flex-direction: column;
+  align-items: center;
+}
+
+
+  
+.appointment-container div:nth-child(1) {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.appointment-container div:nth-child(2) {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.appointment-container div:nth-child(3) {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
 }
 }
 
