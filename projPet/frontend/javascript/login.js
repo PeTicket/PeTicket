@@ -72,6 +72,10 @@ function registerUser() {
         if (response.ok) {
             
             console.log('Registration successful');
+            alert('Registration successful');
+            setTimeout(() => {
+                window.location.reload;
+            }, 2000);
         } else {
             
             console.error('Registration failed');

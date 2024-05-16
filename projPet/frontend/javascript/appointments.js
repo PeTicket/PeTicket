@@ -119,6 +119,7 @@ function renderAppointments(containerId, appointments) {
 
           <div class="qrcode-icon">
             <i class="fas fa-qrcode"  style="font-size: 40px;"></i>
+            <span class="icon-delete"><i class="fas fa-trash-alt" data-id="${appointment.id}"></i></span>
           </div>
           
         </div>
@@ -126,7 +127,46 @@ function renderAppointments(containerId, appointments) {
     `;
     container.innerHTML += appointmentHTML;
   });
+
+  const deleteIcons = document.querySelectorAll('.icon-delete');
+  deleteIcons.forEach(icon => {
+    icon.addEventListener('click', () => {
+      const appointmentId = icon.querySelector('i').getAttribute('data-id');
+      displayConfirmationModal(appointmentId);
+    });
+  });
 }
+
+
+function displayConfirmationModal(appointmentId) {
+  
+  const confirmed = confirm('Are you sure you want to delete this appointment?');
+  if (confirmed) {
+    
+    deleteAppointment(appointmentId);
+  }
+}
+
+function deleteAppointment(appointmentId) {
+  fetch(`http://localhost:8080/api/client/appointment/delete/${appointmentId}`, {
+    method: 'DELETE',
+  })
+  .then(response => {
+    if (response.ok) {
+      const appointmentElement = document.querySelector(`.icon-delete i[data-id="${appointmentId}"]`).closest('.appointment-div');
+      appointmentElement.remove();
+    } else {
+      // Handle error response
+      console.error('Failed to delete appointment');
+    }
+  })
+  .catch(error => {
+    console.error('Error deleting appointment:', error);
+  });
+}
+
+
+
 
 
 function handleTabChange() {
@@ -178,3 +218,7 @@ document.addEventListener("DOMContentLoaded", function() {
   function logout() {
     window.location.href = './Homepage.html';
 }
+
+
+
+

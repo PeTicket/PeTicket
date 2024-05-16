@@ -35,7 +35,7 @@
           <h2 class="brand-logo">PeTicket</h2>
           <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li><a href="./Homepage.html">Home</a></li>
-            <li><a href="./aboutus.html">About Us</a></li>
+            <li><a href="#">About Us</a></li>
             <li><a href="./login.html">Login</a></li>
           </ul>
         </div>
@@ -54,7 +54,7 @@
             <h2>Welcome</h2><h2> to PeTicket</h2>
           </div>
           <div class="homepage-div-buttons">
-            <button class="button-home-cards"></button>
+            <button class="button-home-cards" id="redirectButton"></button>
 
             </button>
             <button class="button-home-cards2"></button>
@@ -65,8 +65,15 @@
     </div>
 
 
-
+    <script src="../javascript/Homepage.js"></script>
  <script>
+  const button = document.getElementById('redirectButton');
+
+   
+    button.addEventListener('click', function() {
+     
+      window.location.href = './login.html';
+    });
         let starCount = 0;
     
       function createStar() {

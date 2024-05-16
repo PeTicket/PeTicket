@@ -159,24 +159,30 @@ let starCount = 0;
         const petDiv = this.closest('.pet-container');
         const petInfo = JSON.parse(petDiv.querySelector('.icon-view-info').getAttribute('data-pet-info'));
         const petId = petInfo.id;
-        console.log(petId);
-
+    
+        // Confirmation prompt before deletion
+        if (confirm(`Are you sure you want to delete pet? This action cannot be undone.`)) {
           fetch(`http://localhost:8080/api/client/pet/delete/${petId}`, {
-              method: 'DELETE'
+            method: 'DELETE'
           })
           .then(response => {
-              if (response.ok) {
-                  alert("Pet Deleted")
-                  fetchPets();
-              } else {
-                  console.error('Failed to delete pet:', response.status);
-              }
+            if (response.ok) {
+              alert("Pet Deleted");
+              fetchPets();
+            } else {
+              console.error('Failed to delete pet:', response.status);
+            }
           })
           .catch(error => {
-              console.error('Error deleting pet:', error);
+            console.error('Error deleting pet:', error);
           });
+        } else {
+          
+          console.log('Pet deletion canceled.'); 
+        }
       });
-  });
+    });
+    
   }
 
 
