@@ -142,4 +142,8 @@ public class PetService {
         return petRepository.findById(UUID.fromString(id)).toString();
     }
 
+    public boolean existsPetByUserId(UUID userId, UUID petId) {
+        return petRepository.existsPetByUserId(userId, petId);
+    }
+
 }
