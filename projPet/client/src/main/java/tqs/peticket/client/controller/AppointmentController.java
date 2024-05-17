@@ -177,7 +177,7 @@ public class AppointmentController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Appointment> deleteAppointment(@RequestParam UUID id) {
+    public ResponseEntity<Appointment> deleteAppointment(@PathVariable UUID id) {
         logger.info("Deleting appointment by id " + id);
         Appointment appointment = appointmentService.findById(id);
         if (appointment == null) {
