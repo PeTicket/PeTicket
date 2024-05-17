@@ -34,7 +34,8 @@ public class Appointment {
     private String appointment_number;
     private String clinic_number;
     @Lob
-    private Byte[] qrCode;
+    @Column(name = "qr_code", columnDefinition = "BLOB")
+    private byte[] qrCode;
     private String status;
 
     public Appointment() {
@@ -137,11 +138,11 @@ public class Appointment {
         this.status = status;
     }
 
-    public Byte[] getQrCode() {
+    public byte[] getQrCode() {
         return qrCode;
     }
 
-    public void setQrCode(Byte[] qrCode) {
+    public void setQrCode(byte[] qrCode) {
         this.qrCode = qrCode;
     }
 
@@ -160,4 +161,6 @@ public class Appointment {
     public void setClinic_number(String clinic_number) {
         this.clinic_number = clinic_number;
     }
+
+
 }
