@@ -29,6 +29,7 @@ public class QueueConsumer {
                 try {
                     cache.addToCache(key, Integer.parseInt(value));
                     System.out.println("Added to cache: " + key + " - " + value);
+                    System.out.println("all cache entries: " + cache.getCacheMap());            
                 } catch (NumberFormatException e) {
                     System.out.println("Invalid value format: " + value);
                 }

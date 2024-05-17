@@ -4,15 +4,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.zxing.WriterException;
+
 import jakarta.security.auth.message.config.AuthConfig;
 import tqs.peticket.client.model.Appointment;
 import tqs.peticket.client.security.jwt.AuthHandler;
 import tqs.peticket.client.service.AppointmentService;
+import tqs.peticket.client.service.QrCodeService;
 import tqs.peticket.client.service.UserService;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
@@ -45,6 +49,9 @@ public class AppointmentController {
 
     @Autowired
     private AuthHandler authHandler;
+
+    @Autowired
+    private QrCodeService qrCodeService;
 
     @GetMapping("/all")
     public ResponseEntity<List<Appointment>> getAllAppointments() {
@@ -119,31 +126,40 @@ public class AppointmentController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Appointment> addAppointment(@RequestBody Appointment appointment) {
+    public ResponseEntity<String> addAppointment(@RequestBody Appointment appointment) throws WriterException, IOException {
         UUID userId = authHandler.getUserId();
         // comparar se o userid do token é igual ao userid do appointment
         if (appointment == null) {
             logger.info("Appointment is null");
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            String errorMessage = "Appointment is null";
+            return ResponseEntity.badRequest().body(errorMessage);
         }
+        
         if (!appointmentService.existsByUserId(userId)) {
             logger.info("User not found");
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            String errorMessage = "User not found";
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
         }
+        
         if (!appointmentService.existsByPetId(appointment.getPetId())) {
             logger.info("Pet not found");
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            String errorMessage = "Pet not found";
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
         }
+        
         if (!appointmentService.existsPetByUserId(userId, appointment.getPetId())) {
             logger.info("Pet not found");
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            String errorMessage = "Pet not found for this user";
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
         }
-
         appointment.setUserId(userId);
 
+        Byte[] img = qrCodeService.generateQRCodeImage(userId, appointment.getPetId(), appointment.getId());
+
+        appointment.setQrCode(img);
         logger.info("Adding appointment");
         appointmentService.save(appointment);
-        return new ResponseEntity<>(appointment, HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping("/update")
