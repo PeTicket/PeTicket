@@ -25,40 +25,50 @@ import java.util.EnumMap;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.UUID;
+import java.util.zip.Deflater;
+import java.util.zip.DeflaterOutputStream;
+import java.util.zip.InflaterInputStream;
 import java.util.Map;
 import java.awt.image.BufferedImage;
 
-
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import java.io.*;
+import java.util.EnumMap;
+import java.util.Map;
+import java.util.UUID;
 import javax.imageio.ImageIO;
+import com.google.zxing.*;
+import com.google.zxing.common.*;
+import com.google.zxing.qrcode.*;
+import com.google.zxing.client.j2se.*;
+
+
 
 @Service
 public class QrCodeService {
 
-    public Byte[] generateQRCodeImage(UUID userId, UUID petId, UUID appId) throws WriterException, IOException {
+    public byte[] generateCompressedQRCodeImage(UUID userId, UUID petId, UUID appId) throws WriterException, IOException {
         // Aqui você pode criar o texto que será codificado no QR code
         String qrText = "UserID:" + userId + ";PetID:" + petId + ";AppointmentID:" + appId;
 
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
-        BitMatrix bitMatrix = qrCodeWriter.encode(qrText, BarcodeFormat.QR_CODE, 200, 200);
+        BitMatrix bitMatrix = qrCodeWriter.encode(qrText, BarcodeFormat.QR_CODE, 50, 50);
 
         // Escreve a matriz do QR code em um array de bytes
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         MatrixToImageWriter.writeToStream(bitMatrix, "PNG", outputStream);
         byte[] qrCodeBytes = outputStream.toByteArray();
 
-        // Convert o array de bytes para Byte[]
-        Byte[] qrCodeByteObjects = new Byte[qrCodeBytes.length];
-        for (int i = 0; i < qrCodeBytes.length; i++) {
-            qrCodeByteObjects[i] = qrCodeBytes[i];
-        }
-
-        return qrCodeByteObjects;
+        // Compacta os bytes do QR code
+        return compress(qrCodeBytes);
     }
     
     public String readQRCodeImage(MultipartFile imageFile) {
         try {
             byte[] bytes = imageFile.getBytes();
-            ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
+            byte[] decompressedBytes = decompress(bytes);
+            ByteArrayInputStream bis = new ByteArrayInputStream(decompressedBytes);
             BufferedImage image = ImageIO.read(bis);
 
             Map<DecodeHintType, Object> hints = new EnumMap<>(DecodeHintType.class);
@@ -75,5 +85,24 @@ public class QrCodeService {
             return null; // ou uma mensagem de erro adequada
         }
     }
-}
 
+    private byte[] compress(byte[] data) throws IOException {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        try (DeflaterOutputStream deflaterOutputStream = new DeflaterOutputStream(outputStream, new Deflater(Deflater.BEST_COMPRESSION))) {
+            deflaterOutputStream.write(data);
+        }
+        return outputStream.toByteArray();
+    }
+
+    private byte[] decompress(byte[] compressedData) throws IOException {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        try (InflaterInputStream inflaterInputStream = new InflaterInputStream(new ByteArrayInputStream(compressedData))) {
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = inflaterInputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, length);
+            }
+        }
+        return outputStream.toByteArray();
+    }
+}

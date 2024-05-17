@@ -89,22 +89,18 @@ public class AppointmentController {
             logger.info("Pet not found");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        
-        if (!appointmentService.existsByUserId(userId)) {
-            logger.info("User not found");
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
-        if (!appointmentService.existsPetByUserId(userId, petId)) {
-            logger.info("Pet not found");
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
+      
         logger.info("Getting appointments by pet id " + petId);
         List<Appointment> appointments = appointmentService.findByPetId(petId);
         if (appointments.isEmpty()) {
             logger.info("No appointments found");
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        for (Appointment appointment : appointments) {
+            if (userId != appointment.getUserId()) {
+                logger.info("User not authorized");
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
         }
         logger.info(appointments.size() + " appointments found");
         return new ResponseEntity<>(appointments, HttpStatus.OK);
@@ -145,15 +141,9 @@ public class AppointmentController {
             String errorMessage = "User not found";
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
         }
-        
-        // if (!petService.existsPetByUserId(userId, appointment.getPetId())) {
-        //     logger.info("Pet not found");
-        //     String errorMessage = "Pet not found";
-        //     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
-        // }
         appointment.setUserId(userId);
 
-        Byte[] img = qrCodeService.generateQRCodeImage(userId, appointment.getPetId(), appointment.getId());
+        byte[] img = qrCodeService.generateCompressedQRCodeImage(userId, appointment.getPetId(), appointment.getId());
 
         appointment.setQrCode(img);
         logger.info("Adding appointment");
@@ -168,18 +158,11 @@ public class AppointmentController {
             logger.info("Appointment is null");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        if (!appointmentService.existsByUserId(userId)) {
-            logger.info("User not found");
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        if (!appointmentService.existsByPetId(appointment.getPetId())) {
+        if (!petService.existsById(appointment.getPetId())) {
             logger.info("Pet not found");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        if (!appointmentService.existsPetByUserId(userId, appointment.getPetId())) {
-            logger.info("Pet not found");
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+
         if (appointmentService.findById(appointment.getId()) == null) {
             logger.info("Appointment not found");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -195,11 +178,16 @@ public class AppointmentController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Appointment> deleteAppointment(@PathVariable UUID id) {
+        UUID userId = authHandler.getUserId();
         logger.info("Deleting appointment by id " + id);
         Appointment appointment = appointmentService.findById(id);
         if (appointment == null) {
             logger.info("Appointment not found");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        if (userId != appointment.getUserId()) {
+            logger.info("User not authorized");
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
         logger.info("Deleting appointment");
         appointmentService.delete(appointment);
