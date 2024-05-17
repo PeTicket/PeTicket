@@ -19,6 +19,9 @@ public class Vet {
     @Column(name = "user_id", nullable = false)
     private UUID userId;
 
+    @Column(name = "room_id")
+    private String roomId;
+
     public Vet() {
     }
 
@@ -40,5 +43,13 @@ public class Vet {
 
     public void setUserId(UUID userId) {
         this.userId = userId;
+    }
+
+    public String getRoomId() {
+        return roomId;
+    }
+
+    public void setRoomId(String roomId) {
+        this.roomId = roomId;
     }
 }

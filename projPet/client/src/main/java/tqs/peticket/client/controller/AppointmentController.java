@@ -126,10 +126,6 @@ public class AppointmentController {
             logger.info("Appointment is null");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        if (userId != appointment.getUserId()) {
-            logger.info("User not authorized");
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }
         if (!appointmentService.existsByUserId(userId)) {
             logger.info("User not found");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -142,6 +138,8 @@ public class AppointmentController {
             logger.info("Pet not found");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+
+        appointment.setUserId(userId);
 
         logger.info("Adding appointment");
         appointmentService.save(appointment);
@@ -155,10 +153,6 @@ public class AppointmentController {
             logger.info("Appointment is null");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        if (userId != appointment.getUserId()) {
-            logger.info("User not authorized");
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }
         if (!appointmentService.existsByUserId(userId)) {
             logger.info("User not found");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -170,6 +164,14 @@ public class AppointmentController {
         if (!appointmentService.existsPetByUserId(userId, appointment.getPetId())) {
             logger.info("Pet not found");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        if (appointmentService.findById(appointment.getId()) == null) {
+            logger.info("Appointment not found");
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        if (userId != appointment.getUserId()) {
+            logger.info("User not authorized");
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
         logger.info("Updating appointment");
         appointmentService.update(appointment);
