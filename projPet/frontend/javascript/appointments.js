@@ -68,17 +68,28 @@ document.addEventListener("DOMContentLoaded", function() {
         'Authorization': `Bearer ${jwtToken}`
     };
 
-    fetch(`http://localhost:8080/api/client/appointment/by-user-id/${userId}`, {
+    fetch(`http://localhost:8080/api/client/appointment/by-user-id`, {
         method: 'GET',
         headers: headers
     })
     .then(response => {
-        if (response.ok) {
-            return response.json();
-        } else {
-            throw new Error('Failed to fetch appointments');
-        }
-    })
+      if (response.ok) {
+          
+          return response.text().then(text => {
+              if (text) {
+                  try {
+                      return JSON.parse(text);
+                  } catch (e) {
+                      throw new Error('Failed to parse JSON response');
+                  }
+              } else {
+                  return []; 
+              }
+          });
+      } else {
+          throw new Error('Failed to fetch appointments');
+      }
+  })
     .then(appointments => {
         console.log('Appointments:', appointments);
         displayAppointments(appointments);

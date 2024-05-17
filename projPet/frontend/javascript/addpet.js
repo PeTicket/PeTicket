@@ -118,10 +118,14 @@ document.addEventListener("DOMContentLoaded", function() {
         color: color
     };
 
+
+    const jwtToken = localStorage.getItem('jwtToken');
+
     fetch('http://localhost:8080/api/client/pet/add', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${jwtToken}`
         },
         body: JSON.stringify(pet)
     })

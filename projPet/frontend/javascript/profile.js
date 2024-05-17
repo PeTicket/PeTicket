@@ -121,12 +121,38 @@ let starCount = 0;
 }
 
   function fetchPets() {
+    const jwtToken = localStorage.getItem('jwtToken');
+
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${jwtToken}`
+  };
   
     const userId = currentUserInfo.id; 
-    fetch(`http://localhost:8080/api/client/pet/by-user-id/${userId}`)
-      .then(response => response.json())
+    fetch(`http://localhost:8080/api/client/pet/by-user-id`,{
+            method: 'GET',
+            headers: headers
+    })
+    .then(response => {
+      if (response.ok) {
+          
+          return response.text().then(text => {
+              if (text) {
+                  try {
+                      return JSON.parse(text);
+                  } catch (e) {
+                      throw new Error('Failed to parse JSON response');
+                  }
+              } else {
+                  return []; 
+              }
+          });
+      } else {
+          throw new Error('Failed to fetch appointments');
+      }
+  })
       .then(pets => {
-        console.log('Pets returned:', pets); // Adiciona este console.log
+        console.log('Pets returned:', pets); 
         displayPets(pets);
       })
       .catch(error => console.error('Error fetching pets:', error));
@@ -159,11 +185,17 @@ let starCount = 0;
         const petDiv = this.closest('.pet-container');
         const petInfo = JSON.parse(petDiv.querySelector('.icon-view-info').getAttribute('data-pet-info'));
         const petId = petInfo.id;
+        const jwtToken = localStorage.getItem('jwtToken');
     
-        // Confirmation prompt before deletion
+        
         if (confirm(`Are you sure you want to delete pet? This action cannot be undone.`)) {
           fetch(`http://localhost:8080/api/client/pet/delete/${petId}`, {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${jwtToken}`
+            },
+            
           })
           .then(response => {
             if (response.ok) {
@@ -268,11 +300,15 @@ let starCount = 0;
   
   function saveUpdatedPetInfo(updatedPetInfo) {
     console.log('Updated Pet Info:', updatedPetInfo);
+
+    const jwtToken = localStorage.getItem('jwtToken');
+    
   
     fetch(`http://localhost:8080/api/client/pet/update/${updatedPetInfo.id}`, {
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${jwtToken}`
       },
       body: JSON.stringify(updatedPetInfo)
     })

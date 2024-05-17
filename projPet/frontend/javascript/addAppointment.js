@@ -75,6 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function addAppointment() {
     const petId = document.getElementById('pet-select').value;
     const observations = document.querySelector('input[name="observations"]').value;
+    const jwtToken = localStorage.getItem('jwtToken');
 
     if (!petId || !selectedDate || !selectedTime) {
         alert('Please fill out all fields.');
@@ -94,7 +95,8 @@ function addAppointment() {
     fetch('http://localhost:8080/api/client/appointment/add', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${jwtToken}`
         },
         body: JSON.stringify(appointment)
     })
@@ -113,8 +115,15 @@ function addAppointment() {
 }
 
 function fetchPets() {
+    const jwtToken = localStorage.getItem('jwtToken');
+    
     const userId = currentUserInfo.id; 
-    fetch(`http://localhost:8080/api/client/pet/by-user-id/${userId}`)
+    fetch(`http://localhost:8080/api/client/pet/by-user-id`,{
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${jwtToken}`
+        },
+    })
       .then(response => response.json())
       .then(pets => populatePetSelect(pets))
       .catch(error => console.error('Error fetching pets:', error));
