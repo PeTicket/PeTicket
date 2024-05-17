@@ -19,11 +19,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import tqs.peticket.client.controller.UserController;
 import tqs.peticket.client.service.UserService;
+import tqs.peticket.client.serviceTests.Auth;
 import tqs.peticket.client.model.User;
 
 
 @WebMvcTest(UserController.class)
-@ContextConfiguration(classes = {UserController.class, TestSecurityConfig.class})
+@ContextConfiguration(classes = {UserController.class, TestSecurityConfig.class, Auth.class})
 class UserControllerTests {
 
     @Autowired
