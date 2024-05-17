@@ -384,6 +384,35 @@ let starCount = 0;
         document.querySelector('.button-update-cancelupdate').addEventListener('click', function() {
           restoreOriginalProfileInfo();
       });
+
+      document.querySelector('.button-update-userinfo').addEventListener('click', function() {
+        const updatedUserInfo = {
+            firstName: document.getElementById('update-firstname').value,
+            lastName: document.getElementById('update-lastname').value,
+            email: document.getElementById('update-email').value,
+            address: document.getElementById('update-address').value,
+            phone: document.getElementById('update-phone').value
+        };
+
+        
+        fetch('/updateProfile', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${jwtToken}`
+            },
+            body: JSON.stringify(updatedUserInfo)
+        })
+        .then(response => response.json())
+        .then(data => {
+           
+            console.log('Success:', data);
+           
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    });
     }
 
     function restoreOriginalProfileInfo() {
