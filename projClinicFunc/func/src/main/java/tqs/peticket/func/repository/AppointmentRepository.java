@@ -23,7 +23,7 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long>{
     List<Appointment> findByVetId(UUID vetId);
 
     List<Appointment> findByStatus(String status);
-    List<Appointment> findByDateAndTime(LocalDate date, LocalTime time);
-    List<Appointment> findByDate(LocalDate date);
-    List<Appointment> findByTime(LocalTime time);
+    List<Appointment> findByDateAndTime(String date, String time);
+    List<Appointment> findByDate(String date);
+    List<Appointment> findByTime(String time);
 }

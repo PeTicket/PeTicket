@@ -26,7 +26,7 @@ public class AppointmentController {
     @GetMapping("/all")
     public ResponseEntity<List<Appointment>> getTodaysAppointments() {
         logger.info("Getting today's appointments");
-        LocalDate currentDate = LocalDate.now();
+        String currentDate = LocalDate.now().toString();
         List<Appointment> appointments = appointmentService.findByDate(currentDate);
         if (appointments.isEmpty()) {
             logger.info("No appointments found");

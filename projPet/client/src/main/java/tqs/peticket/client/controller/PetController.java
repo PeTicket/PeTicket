@@ -53,8 +53,9 @@ public class PetController {
         return new ResponseEntity<>(pets, HttpStatus.OK);
     }
 
-    @GetMapping("/by-user-id/{userId}")
-    public ResponseEntity<List<Pet>> getPetsByUserId(@PathVariable UUID userId) {
+    @GetMapping("/by-user-id")
+    public ResponseEntity<List<Pet>> getPetsByUserId() {
+        UUID userId = authHandler.getUserId();
         logger.info("Getting pets by user id " + userId);
         List<Pet> pets = petService.findByUserId(userId);
         if (pets.isEmpty()) {
@@ -67,11 +68,16 @@ public class PetController {
 
     @GetMapping("by-name/{name}")
     public ResponseEntity<List<Pet>> getPetsByName(@RequestParam String name) {
+        UUID userId = authHandler.getUserId();
         logger.info("Getting pets by name " + name);
         List<Pet> pets = petService.findByName(name);
         if (pets.isEmpty()) {
             logger.info("No pets found");
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        if (!pets.get(0).getUserId().equals(userId)) {
+            logger.info("Pet not found");
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         logger.info(pets.size() + " pets found");
         return new ResponseEntity<>(pets, HttpStatus.OK);
@@ -79,9 +85,14 @@ public class PetController {
 
     @GetMapping("/by-id/{id}")
     public ResponseEntity<Pet> getPetById(@RequestParam UUID id) {
+        UUID userId = authHandler.getUserId();
         logger.info("Getting pet by id " + id);
         Pet pet = petService.findById(id);
         if (pet == null) {
+            logger.info("Pet not found");
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        if (!pet.getUserId().equals(userId)) {
             logger.info("Pet not found");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -91,10 +102,12 @@ public class PetController {
 
     @PostMapping("/add")
     public ResponseEntity<Pet> addPet(@RequestBody Pet pet) {
+        UUID userId = authHandler.getUserId();
         if (pet == null) {
             logger.info("Pet is null");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+        pet.setUserId(userId);
         logger.info("Adding pet");
         petService.save(pet);
         return new ResponseEntity<>(pet, HttpStatus.CREATED);
@@ -102,11 +115,15 @@ public class PetController {
 
     @PutMapping("/update/{id}")
     public ResponseEntity<Pet> updatePet(@RequestBody Pet pet) {
+        UUID userId = authHandler.getUserId();
         if (pet == null) {
             logger.info("Pet is null");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-
+        if (!pet.getUserId().equals(userId)) {
+            logger.info("User not authorized");
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
         Pet updatedPet = petService.update(pet);
         if (updatedPet == null) {
             logger.info("Pet not found");
@@ -119,15 +136,21 @@ public class PetController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Pet> deletePet(@PathVariable UUID id) {
+        UUID userId = authHandler.getUserId();
         logger.info("Deleting pet with id: ", id);
         if (id == null) {
             logger.info("Pet id is null");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+        
         logger.info("Deleting pet by id " + id);
         if (petService.findById(id) == null) {
             logger.info("Pet not found");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        if (petService.findById(id).getUserId() != userId) {
+            logger.info("User not authorized");
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
         logger.info("Pet deleted");
         petService.deleteById(id);

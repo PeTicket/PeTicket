@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import tqs.peticket.client.model.Appointment;
 import tqs.peticket.client.repository.AppointmentRepository;
@@ -32,12 +33,14 @@ public class AppointmentService {
         }
     }
 
+    @Transactional
     public void deleteById(UUID id) {
         if (appointmentRepository.existsById(id)) {
             appointmentRepository.deleteById(id);
         }
     }
 
+    @Transactional
     public Boolean existsById(UUID id) {
         return appointmentRepository.existsById(id);
     }
@@ -93,5 +96,9 @@ public class AppointmentService {
     
     public List<Appointment> getAllAppointments() {
         return appointmentRepository.findAll();
+    }
+
+    public boolean existsPetByUserId(UUID userId, UUID petId) {
+        return appointmentRepository.existsByPetIdAndUserId(petId, userId);
     }
 }

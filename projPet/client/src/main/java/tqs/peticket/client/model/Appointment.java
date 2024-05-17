@@ -31,6 +31,8 @@ public class Appointment {
     private String diagnosis;
     private String prescription;
     private String observations;
+    private String appointment_number;
+    private String clinic_number;
     @Lob
     private Byte[] qrCode;
     private String status;
@@ -133,5 +135,29 @@ public class Appointment {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Byte[] getQrCode() {
+        return qrCode;
+    }
+
+    public void setQrCode(Byte[] qrCode) {
+        this.qrCode = qrCode;
+    }
+
+    public String getAppointment_number() {
+        return appointment_number;
+    }
+
+    public void setAppointment_number(String appointment_number) {
+        this.appointment_number = appointment_number;
+    }
+
+    public String getClinic_number() {
+        return clinic_number;
+    }
+
+    public void setClinic_number(String clinic_number) {
+        this.clinic_number = clinic_number;
     }
 }

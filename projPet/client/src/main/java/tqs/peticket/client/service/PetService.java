@@ -105,7 +105,8 @@ public class PetService {
         return petRepository.findByBloodType(bloodType);
     }
 
-    public List<Pet> deleteByUserId(UUID userId) {
+    @Transactional
+    public Void deleteByUserId(UUID userId) {
         if (petRepository.existsByUserId(userId)) {
             return petRepository.deleteByUserId(userId);
         } else {

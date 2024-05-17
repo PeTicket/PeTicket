@@ -11,7 +11,7 @@ import tqs.peticket.client.model.Pet;
 @Repository
 public interface PetRepository extends JpaRepository<Pet, Long> {
     Pet findById(UUID Id);
-    Pet deleteById(UUID Id);
+    Void deleteById(UUID Id);
     Boolean existsById(UUID Id);
     List<Pet> findByName(String name);
     List<Pet> findByUserId(UUID userId);
@@ -19,5 +19,5 @@ public interface PetRepository extends JpaRepository<Pet, Long> {
     List<Pet> findByBreed(String breed);
     List<Pet> findByBloodType(String bloodType);
     Boolean existsByUserId(UUID userId);
-    List<Pet> deleteByUserId(UUID userId);
+    Void deleteByUserId(UUID userId);
 }
