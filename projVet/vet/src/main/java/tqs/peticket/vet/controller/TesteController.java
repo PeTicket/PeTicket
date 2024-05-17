@@ -10,7 +10,7 @@ import org.springframework.amqp.core.AmqpTemplate;
 import tqs.peticket.vet.middleware.SenderConfig;
 
 @RestController
-@RequestMapping("api/teste")
+@RequestMapping("/api")
 public class TesteController {
 
     private final SenderConfig senderConfig;
@@ -23,7 +23,7 @@ public class TesteController {
     @PostMapping("/teste")    
     public String sendTestMessage() {
         System.out.println("Sending message...");
-        senderConfig.send("test message");
+        senderConfig.send("C02 - 15");
         return "Message sent!";
     }
 
