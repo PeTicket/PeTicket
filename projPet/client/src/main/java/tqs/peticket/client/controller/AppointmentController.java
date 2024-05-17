@@ -126,26 +126,32 @@ public class AppointmentController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Appointment> addAppointment(@RequestBody Appointment appointment) throws WriterException, IOException {
+    public ResponseEntity<String> addAppointment(@RequestBody Appointment appointment) throws WriterException, IOException {
         UUID userId = authHandler.getUserId();
         // comparar se o userid do token é igual ao userid do appointment
         if (appointment == null) {
             logger.info("Appointment is null");
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            String errorMessage = "Appointment is null";
+            return ResponseEntity.badRequest().body(errorMessage);
         }
+        
         if (!appointmentService.existsByUserId(userId)) {
             logger.info("User not found");
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            String errorMessage = "User not found";
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
         }
+        
         if (!appointmentService.existsByPetId(appointment.getPetId())) {
             logger.info("Pet not found");
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            String errorMessage = "Pet not found";
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
         }
+        
         if (!appointmentService.existsPetByUserId(userId, appointment.getPetId())) {
             logger.info("Pet not found");
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            String errorMessage = "Pet not found for this user";
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
         }
-
         appointment.setUserId(userId);
 
         Byte[] img = qrCodeService.generateQRCodeImage(userId, appointment.getPetId(), appointment.getId());
@@ -153,7 +159,7 @@ public class AppointmentController {
         appointment.setQrCode(img);
         logger.info("Adding appointment");
         appointmentService.save(appointment);
-        return new ResponseEntity<>(appointment, HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping("/update")
