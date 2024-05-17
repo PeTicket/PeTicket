@@ -10,6 +10,7 @@ import jakarta.security.auth.message.config.AuthConfig;
 import tqs.peticket.client.model.Appointment;
 import tqs.peticket.client.security.jwt.AuthHandler;
 import tqs.peticket.client.service.AppointmentService;
+import tqs.peticket.client.service.PetService;
 import tqs.peticket.client.service.QrCodeService;
 import tqs.peticket.client.service.UserService;
 
@@ -46,6 +47,9 @@ public class AppointmentController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private PetService petService;
 
     @Autowired
     private AuthHandler authHandler;
@@ -135,21 +139,15 @@ public class AppointmentController {
             return ResponseEntity.badRequest().body(errorMessage);
         }
         
-        if (!appointmentService.existsByUserId(userId)) {
+        if (!petService.existsById(appointment.getPetId())) {
             logger.info("User not found");
             String errorMessage = "User not found";
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
         }
         
-        if (!appointmentService.existsByPetId(appointment.getPetId())) {
+        if (!petService.existsPetByUserId(userId, appointment.getPetId())) {
             logger.info("Pet not found");
             String errorMessage = "Pet not found";
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
-        }
-        
-        if (!appointmentService.existsPetByUserId(userId, appointment.getPetId())) {
-            logger.info("Pet not found");
-            String errorMessage = "Pet not found for this user";
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
         }
         appointment.setUserId(userId);
