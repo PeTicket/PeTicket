@@ -74,7 +74,7 @@ function registerUser() {
             console.log('Registration successful');
             alert('Registration successful');
             setTimeout(() => {
-                window.location.reload;
+                window.location.reload();
             }, 2000);
         } else {
             
