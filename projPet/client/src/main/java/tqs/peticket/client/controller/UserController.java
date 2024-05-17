@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.UUID;
 
 import tqs.peticket.client.model.User;
+import tqs.peticket.client.security.jwt.AuthHandler;
 
 @RestController
 @RequestMapping("/api/client/user")
@@ -33,6 +34,9 @@ public class UserController {
     
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private AuthHandler authHandler;
 
     @GetMapping("/all")
     public ResponseEntity<List<User>> getAllUsers() {
@@ -48,18 +52,24 @@ public class UserController {
 
     @GetMapping("/by-email/{email}")
     public ResponseEntity<User> getUserByEmail(@PathVariable String email) {
+        UUID userId = authHandler.getUserId();
         logger.info("Getting user by email " + email);
         User user = userService.findByEmail(email);
         if (user == null) {
             logger.info("No user found");
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
+        if (!user.getId().equals(userId)) {
+            logger.info("Unauthorized access");
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
         logger.info("User found");
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @GetMapping("/by-id/{id}")
-    public ResponseEntity<User> getUserById(@RequestParam UUID id) {
+    @GetMapping("/by-id")
+    public ResponseEntity<User> getUserById() {
+        UUID id = authHandler.getUserId();
         logger.info("Getting user by id " + id);
         User user = userService.findById(id);
         if (user == null) {
@@ -72,6 +82,8 @@ public class UserController {
 
     @PostMapping("/save")
     public ResponseEntity<User> saveUser(@RequestBody User user) {
+        UUID userId = authHandler.getUserId();
+        user.setId(userId);
         logger.info("Saving user");
         User savedUser = userService.save(user);
         if (savedUser == null) {
@@ -82,10 +94,11 @@ public class UserController {
         return new ResponseEntity<>(savedUser, HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<User> deleteUser(@RequestBody User user) {
+    @DeleteMapping("/delete")
+    public ResponseEntity<User> deleteUser() {
+        UUID userId = authHandler.getUserId();
         logger.info("Deleting user");
-        userService.delete(user);
+        userService.deleteById(userId);
         logger.info("User deleted");
         return new ResponseEntity<>(HttpStatus.OK);
     }
