@@ -143,7 +143,7 @@ public class PetService {
     }
 
     public boolean existsPetByUserId(UUID userId, UUID petId) {
-        return petRepository.existsByPetIdAndUserId(userId, petId);
+        return petRepository.existsByIdAndUserId(userId, petId);
     }
 
 }

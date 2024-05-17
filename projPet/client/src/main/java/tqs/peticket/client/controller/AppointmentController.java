@@ -146,11 +146,11 @@ public class AppointmentController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
         }
         
-        if (!petService.existsPetByUserId(userId, appointment.getPetId())) {
-            logger.info("Pet not found");
-            String errorMessage = "Pet not found";
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
-        }
+        // if (!petService.existsPetByUserId(userId, appointment.getPetId())) {
+        //     logger.info("Pet not found");
+        //     String errorMessage = "Pet not found";
+        //     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
+        // }
         appointment.setUserId(userId);
 
         Byte[] img = qrCodeService.generateQRCodeImage(userId, appointment.getPetId(), appointment.getId());
