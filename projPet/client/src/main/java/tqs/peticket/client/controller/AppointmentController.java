@@ -132,6 +132,7 @@ public class AppointmentController {
     @PostMapping("/add")
     public ResponseEntity<String> addAppointment(@RequestBody Appointment appointment) throws WriterException, IOException {
         UUID userId = authHandler.getUserId();
+        System.out.println(userId);
         // comparar se o userid do token é igual ao userid do appointment
         if (appointment == null) {
             logger.info("Appointment is null");
