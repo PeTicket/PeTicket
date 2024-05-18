@@ -22,3 +22,20 @@ setInterval(updateTime, 1000);
 
 
 updateTime();
+
+
+function changeContent(option) {
+    // Obtém todos os elementos da classe 'selected' e remove a classe deles
+    const selectedOptions = document.querySelectorAll('.selected');
+    selectedOptions.forEach(option => option.classList.remove('selected'));
+
+    // Adiciona a classe 'selected' ao item selecionado
+    event.target.classList.add('selected');
+
+    // Oculta todos os conteúdos
+    const allContents = document.querySelectorAll('.content-column > div');
+    allContents.forEach(content => content.style.display = 'none');
+
+    // Exibe o conteúdo correspondente ao item selecionado
+    document.getElementById(`content-${option}`).style.display = 'block';
+}

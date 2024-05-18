@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Vet Page</title>
     <link rel="stylesheet" href="../css/appointmentsVet.css">
 </head>
 <body>
@@ -15,10 +15,39 @@
 
     <div class="appointments-bigdiv">
         <div class="menu-column">
-            
+            <div class="menu-name">
+                <h2>Hello</h2>
+                <h2>, TestUser</h2>
+            </div>
+            <div class="menu-options">
+                <div onclick="changeContent('upcoming')"> 
+                    <p>Upcoming Appointments</p>
+                </div>
+                <div onclick="changeContent('last')">
+                    <p>Last Appointments</p>
+                </div>
+                <div onclick="changeContent('today')" class="selected"> 
+                    <p>Today Appointments</p>
+                </div>
+                <div onclick="changeContent('all')">
+                    <p>All Appointments</p>
+                </div>
+            </div>
         </div>
-        <div class="content-column">
-          
+        <div class="content-column">    
+            <div class="appointments-today" id="content-today"> 
+                
+               
+               
+            <div id="content-upcoming" style="display: none;"> 
+               
+            </div>
+            <div id="content-last" style="display: none;">
+                
+            </div>
+            <div id="content-all" style="display: none;">
+               
+            </div>
            
         </div>
     </div>
