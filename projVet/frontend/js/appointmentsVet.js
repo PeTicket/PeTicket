@@ -1,3 +1,6 @@
+let previousContentId = '';
+
+
 function updateTime() {
     const now = new Date();
     const daysOfWeek = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
@@ -24,18 +27,45 @@ setInterval(updateTime, 1000);
 updateTime();
 
 
-function changeContent(option) {
-    // Obtém todos os elementos da classe 'selected' e remove a classe deles
-    const selectedOptions = document.querySelectorAll('.selected');
-    selectedOptions.forEach(option => option.classList.remove('selected'));
+function changeContent(event, option) {
+   
+    event.preventDefault();
+    
+    const selectedOptions = document.querySelectorAll('.menu-options > div');
+    selectedOptions.forEach(item => item.classList.remove('selected'));
 
-    // Adiciona a classe 'selected' ao item selecionado
-    event.target.classList.add('selected');
+    event.currentTarget.classList.add('selected');
 
-    // Oculta todos os conteúdos
     const allContents = document.querySelectorAll('.content-column > div');
     allContents.forEach(content => content.style.display = 'none');
 
-    // Exibe o conteúdo correspondente ao item selecionado
     document.getElementById(`content-${option}`).style.display = 'block';
+
+    previousContentId = `content-${option}`;
 }
+
+
+function changeContentColumn(option) {
+    const allContents = document.querySelectorAll('.content-column > div');
+    allContents.forEach(content => content.style.display = 'none');
+
+    document.getElementById(option).style.display = 'block';
+}
+
+
+function goBack() {
+    
+    if (!previousContentId) return;
+
+ 
+    const currentContent = document.getElementById('content-appointment');
+    currentContent.style.display = 'none';
+
+    
+    const previousContent = document.getElementById(previousContentId);
+    previousContent.style.display = 'block';
+
+    
+    previousContentId = 'content-appointment';
+}
+
