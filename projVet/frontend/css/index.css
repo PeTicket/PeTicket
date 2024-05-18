@@ -11,11 +11,13 @@ body {
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
-	font-family: 'Montserrat', sans-serif;
+	font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
 	height: 100vh;
 	margin: -20px 0 50px;
     overflow: hidden;
 }
+
 
 h1 {
 	font-weight: bold;
