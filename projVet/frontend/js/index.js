@@ -2,7 +2,7 @@ document.getElementById('loginButton').addEventListener('click', async function(
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
-    const response = await fetch('/login', {
+    const response = await fetch('http://localhost:8082/api/auth/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
