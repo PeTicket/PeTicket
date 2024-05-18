@@ -160,4 +160,5 @@ public class Appointment {
     public void setClinic_number(String clinic_number) {
         this.clinic_number = clinic_number;
     }
+    
 }

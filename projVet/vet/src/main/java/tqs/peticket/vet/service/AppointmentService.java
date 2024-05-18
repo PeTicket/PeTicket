@@ -72,4 +72,37 @@ public class AppointmentService {
     public List<Appointment> findByTime(String time) {
         return appointmentRepository.findByTime(time);
     }
+
+    public List<Appointment> getAllAppointments() {
+        return appointmentRepository.findAll();
+    }
+
+    public Appointment update(UUID id, Appointment appointmentDetails) {
+        if (appointmentRepository.existsById(id)) {
+            Appointment appointment = appointmentRepository.findById(id);
+            appointment.setUserId(appointmentDetails.getUserId());
+            appointment.setPetId(appointmentDetails.getPetId());
+            appointment.setVetId(appointmentDetails.getVetId());
+            appointment.setDate(appointmentDetails.getDate());
+            appointment.setTime(appointmentDetails.getTime());
+            appointment.setOccurence(appointmentDetails.getOccurence());
+            appointment.setStatus(appointmentDetails.getStatus());
+            appointment.setDiagnosis(appointmentDetails.getDiagnosis());
+            appointment.setPrescription(appointmentDetails.getPrescription());
+            appointment.setObservations(appointmentDetails.getObservations());
+            return appointmentRepository.save(appointment);
+        }
+        return null;
+    }
+
+    public Appointment save(Appointment appointment) {
+        return appointmentRepository.save(appointment);
+    }
+
+    public void deleteById(UUID id) {
+        if (appointmentRepository.existsById(id)) {
+            Appointment appointment = appointmentRepository.findById(id);
+            appointmentRepository.delete(appointment);
+        }
+    }
 }
