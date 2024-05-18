@@ -110,7 +110,6 @@ public class AppointmentController {
             logger.info("Unauthorized access by vet " + loggedInVetId);
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
-
         appointment.setPrescription(prescription);
         Appointment updatedAppointment = appointmentService.save(appointment);
         if (updatedAppointment == null) {
