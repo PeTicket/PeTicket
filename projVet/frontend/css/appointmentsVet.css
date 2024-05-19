@@ -191,3 +191,144 @@ thead th{
     cursor: pointer;
     color: #2E7D32;
 }
+
+
+.appointment-info{
+    display: flex;
+    height: 100%;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.info-client-pet{
+    width: 100%;
+    min-height: 40vh;
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.client-info{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+
+}
+
+.client-info h3{
+    width: 100%;
+    text-align: start;
+    color: #2E7D32;
+}
+
+.ci{
+    display: flex;
+    width: 30%;
+    margin: 0 auto;
+    flex-direction: column;
+}
+
+
+.ci div{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.pet-info{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    margin-top: 2rem;
+
+}
+
+.pet-info h3{
+    width: 100%;
+    text-align: start;
+    color: #2E7D32;
+}
+
+
+.pi{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.pi .pi-column1,
+.pi .pi-column2 {
+    width: 50%;
+    margin: 0 auto;
+    box-sizing: border-box; 
+    padding: 10px; 
+    display: flex;
+    flex-direction: column;
+}
+
+
+.pi-column1 div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
+
+.pi-column2 div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
+
+ .user-box {
+    position: relative;
+  }
+  
+  
+ .user-box input {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #000000;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid #000000;
+    outline: none;
+    background: transparent;
+  }
+  
+.user-box label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #000000;
+    pointer-events: none;
+    transition: .5s;
+  }
+
+
+ .user-box input:focus ~ label,
+.user-box input:valid ~ label {
+    top: -20px;
+    left: 0;
+    color: #000000;
+    font-size: 12px;
+  }
+
+
+.pet-medical-info{
+    display: flex;
+    width: 100%;
+    margin-top: 4rem;
+}
+
+.pet-medical-info div{
+    width: 100%;
+}
+
+
+
+

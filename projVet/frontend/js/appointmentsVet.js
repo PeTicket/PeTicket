@@ -3,7 +3,7 @@ let previousContentId = '';
 
 function updateTime() {
     const now = new Date();
-    const daysOfWeek = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
+    const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const dayOfWeek = daysOfWeek[now.getDay()];
 
     const hours = now.getHours().toString().padStart(2, '0');
@@ -19,6 +19,7 @@ function updateTime() {
     const dateTimeString = `${dayOfWeek}, ${dateString} ${timeString}`; 
     document.getElementById('date-time').textContent = dateTimeString;
 }
+
 
 
 setInterval(updateTime, 1000);
