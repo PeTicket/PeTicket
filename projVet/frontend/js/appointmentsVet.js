@@ -1,4 +1,102 @@
+
 let previousContentId = '';
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    fetchAppointments();
+
+    document.querySelectorAll('.menu-options > div').forEach(item => {
+        item.addEventListener('click', (event) => {
+            const option = event.currentTarget.getAttribute('onclick').match(/'(\w+)'/)[1];
+            changeContent(event, option);
+        });
+    });
+});
+
+async function fetchAppointments() {
+    try {
+        const response = await fetch('http://localhost:8081/api/vet/appointment/all');
+        const appointments = await response.json();
+        const todayAppointments = filterTodayAppointments(appointments);
+        console.log(appointments);
+        populateTodayAppointments(todayAppointments);
+    } catch (error) {
+        console.error('Error fetching appointments:', error);
+    }
+}
+
+function filterTodayAppointments(appointments) {
+    const today = new Date().toISOString().split('T')[0]; 
+    return appointments.filter(appointment => appointment.date === today);
+}
+
+function populateTodayAppointments(appointments) {
+    const tbody = document.querySelector('#content-today tbody');
+    tbody.innerHTML = ''; 
+
+    appointments.forEach(appointment => {
+        const stateClass = getStateClass(appointment.status);
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td class="eye-app">
+                <i onclick="changeContentColumn('content-appointment')" onclick="viewAppointmentDetails(${encodeURIComponent(JSON.stringify(appointment))})" class="fas fa-eye"></i>
+            </td>
+            <td>${appointment.date}</td>
+            <td>${appointment.time}</td>
+            <td>${appointment.client}</td>
+            <td>${appointment.pet}</td>
+            <td class="tdtd"><div class="state-app ${stateClass}"><p>${appointment.status}</p></div></td>
+        `;
+        tbody.appendChild(tr);
+    });
+}
+
+function getStateClass(state) {
+    if (typeof state === 'undefined') {
+        return '';
+    }
+    
+    if (state === null) {
+        return 'null'; 
+    }
+    
+    switch (state.toLowerCase()) {
+        case 'in progress':
+            return 'state-in-progress';
+        case 'on hold':
+            return 'state-on-hold';
+        case 'done':
+            return 'state-done';
+        case 'waiting':
+            return 'state-waiting';
+        default:
+            return '';
+    }
+}
+
+
+function viewAppointmentDetails(appointmentData) {
+    const appointment = JSON.parse(decodeURIComponent(appointmentData));
+
+    document.getElementById('name-client').textContent = appointment.client;
+    document.getElementById('name-pet').textContent = appointment.pet;
+    document.getElementById('type-pet').textContent = appointment.petType;
+    document.getElementById('breed-pet').textContent = appointment.breed;
+    document.getElementById('color-pet').textContent = appointment.color;
+    document.getElementById('age-pet').textContent = appointment.age;
+    document.getElementById('weight-pet').value = appointment.weight;
+    document.getElementById('height-pet').value = appointment.height;
+    document.getElementById('bloodtype-pet').value = appointment.bloodType;
+    document.getElementById('medical-info-pet').value = appointment.medicalInfo;
+    document.querySelector('.app-occurence p').textContent = appointment.occurrence;
+
+    const stateDetailDiv = document.getElementById('state-detail');
+    stateDetailDiv.className = `state-app ${getStateClass(appointment.state)}`;
+    document.getElementById('state-detail-text').textContent = appointment.state;
+
+    changeContentColumn('content-appointment');
+}
+
 
 
 function updateTime() {
