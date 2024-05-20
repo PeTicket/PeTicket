@@ -12,7 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.time.LocalDate;
 import tqs.peticket.vet.model.Appointment;
+import tqs.peticket.vet.security.jwt.AuthHandler;
 import tqs.peticket.vet.service.AppointmentService;
+import tqs.peticket.vet.service.PetService;
+import tqs.peticket.vet.service.UserService;
+import tqs.peticket.vet.service.VetService;
 
 @RestController
 @RequestMapping("/api/vet/appointment")
@@ -23,16 +27,28 @@ public class AppointmentController {
     @Autowired
     private AppointmentService appointmentService;
 
+    @Autowired 
+    private AuthHandler authHandler;
+
+    @Autowired
+    private UserService userService;
+    
+    @Autowired
+    private VetService vetService;
+
+    @Autowired  
+    private PetService petService;
+
     @GetMapping("/all")
     public ResponseEntity<List<Appointment>> getTodaysAppointments() {
-        logger.info("Getting today's appointments");
-        String currentDate = LocalDate.now().toString();
-        List<Appointment> appointments = appointmentService.findByDate(currentDate);
-        if (appointments.isEmpty()) {
-            logger.info("No appointments found");
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        logger.info("GET /api/vet/appointment/all");
+        if (!authHandler.isVet()) {
+            logger.error("GET /api/vet/appointment/all 403");
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
-        logger.info(appointments.size() + " appointments found");
+        List<Appointment> appointments = appointmentService.findAll();
+        logger.info("GET /api/vet/appointment/all 200");
         return new ResponseEntity<>(appointments, HttpStatus.OK);
     }
+
 }
