@@ -323,12 +323,220 @@ thead th{
     display: flex;
     width: 100%;
     margin-top: 4rem;
+    flex-direction: column;
 }
 
 .pet-medical-info div{
     width: 100%;
 }
 
+.app-occurence{
+    width: 78%;
+    padding: 1%;
+    border: 2px solid black;
+    border-radius: 10px;
+    height: 10rem;
+    margin-bottom: 3rem;
+}
+
+.app-occurence p{
+    width: 90%;
+    margin: 0 auto;
+}
+
+
+#box2{
+    margin-top: 2rem;
+}
+
+
+.button-app-info-div{
+    width: 50%;
+    margin: 0 auto;
+    padding: 5rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.button-add-info {
+    padding: 15px 25px;
+    border: unset;
+    border-radius: 15px;
+    color: #212121;
+    z-index: 1;
+    background: #e8e8e8;
+    position: relative;
+    font-weight: 1000;
+    font-size: 17px;
+    -webkit-box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+    box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+    transition: all 250ms;
+    overflow: hidden;
+   }
+   
+   .button-add-info::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0;
+    border-radius: 15px;
+    background-color: #212121;
+    z-index: -1;
+    -webkit-box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+    box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+    transition: all 250ms
+   }
+   
+   .button-add-info:hover {
+    color: #e8e8e8;
+    cursor: pointer;
+   }
+   
+   .button-add-info:hover::before {
+    width: 100%;
+   }
+
+
+   .button-add-info:nth-child(1){
+    background-color: red;
+    color: white;
+   }
+
+
+   .button-add-info:nth-child(3){
+    background-color: #2E7D32;
+    color: white;
+   }
 
 
 
+   .button-call {
+    padding: 15px 25px;
+    border: unset;
+    border-radius: 15px;
+    color: #212121;
+    z-index: 1;
+    background: #e8e8e8;
+    position: relative;
+    font-weight: 1000;
+    font-size: 17px;
+    -webkit-box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+    box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+    transition: all 250ms;
+    overflow: hidden;
+   }
+   
+   .button-call::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0;
+    border-radius: 15px;
+    background-color: #212121;
+    z-index: -1;
+    -webkit-box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+    box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+    transition: all 250ms
+   }
+   
+   .button-call:hover {
+    color: #e8e8e8;
+    cursor: pointer;
+   }
+   
+   .button-call:hover::before {
+    width: 100%;
+   }
+
+
+
+   .remove-prescription-btn {
+    padding: 15px 10px;
+    border: unset;
+    border-radius: 15px;
+    color: white;
+    z-index: 1;
+    background: red;
+    position: relative;
+    font-weight: 1000;
+    font-size: 17px;
+    -webkit-box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+    box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+    transition: all 250ms;
+    overflow: hidden;
+   }
+   
+   .remove-prescription-btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0;
+    border-radius: 15px;
+    background-color: #212121;
+    z-index: -1;
+    -webkit-box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+    box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+    transition: all 250ms
+   }
+   
+   .remove-prescription-btn:hover {
+    color: #e8e8e8;
+    cursor: pointer;
+   }
+   
+   .remove-prescription-btn:hover::before {
+    width: 100%;
+   }
+
+
+   .user-box3 {
+    position: relative;
+    margin-top: 2rem;
+  }
+  
+  
+ .user-box3 input {
+    width: 82%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #000000;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid #000000;
+    outline: none;
+    background: transparent;
+  }
+  
+.user-box3 label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #000000;
+    pointer-events: none;
+    transition: .5s;
+  }
+
+
+ .user-box3 input:focus ~ label,
+.user-box3 input:valid ~ label {
+    top: -20px;
+    left: 0;
+    color: #000000;
+    font-size: 12px;
+  }
+
+
+
+
+
+
+  

@@ -70,3 +70,25 @@ function goBack() {
     previousContentId = 'content-appointment';
 }
 
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    const addPrescriptionBtn = document.getElementById('add-prescription-btn');
+    const petMedicalInfoDiv = document.getElementById('box2');
+
+    addPrescriptionBtn.addEventListener('click', () => {
+        const newPrescriptionDiv = document.createElement('div');
+        newPrescriptionDiv.className = 'user-box3';
+        newPrescriptionDiv.innerHTML = `
+            <input type="text" name="" required="">
+            <label>New Prescription</label>
+            <button type="button" class="remove-prescription-btn">Remove prescription</button>
+        `;
+        
+        const removeBtn = newPrescriptionDiv.querySelector('.remove-prescription-btn');
+        removeBtn.addEventListener('click', () => {
+            newPrescriptionDiv.remove();
+        });
+
+        petMedicalInfoDiv.parentNode.insertBefore(newPrescriptionDiv, petMedicalInfoDiv.nextSibling);
+    });
+});
