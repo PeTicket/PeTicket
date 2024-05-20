@@ -1,5 +1,6 @@
 
 let previousContentId = '';
+let appointments = [];
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -14,17 +15,57 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 async function fetchAppointments() {
+    const token = localStorage.getItem('token');
     try {
-        const response = await fetch('http://localhost:8081/api/vet/appointment/all');
-        const appointments = await response.json();
+        const response = await fetch('http://localhost:8081/api/vet/appointment/all',{
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+
+            },
+        });
+        appointments = await response.json();
         const todayAppointments = filterTodayAppointments(appointments);
         console.log(appointments);
         populateTodayAppointments(todayAppointments);
+        populateAllAppointments(appointments);
+        const afterTodayAppointments = filterAppointmentsAfterToday(appointments);
+        const todayAndOldDoneAppointments = filterTodayAndOldDoneAppointments(appointments);
+        populateUpcomingAppointments(afterTodayAppointments);
+        populateLastAppointments(todayAndOldDoneAppointments);
     } catch (error) {
         console.error('Error fetching appointments:', error);
     }
 }
 
+function filterAppointmentsAfterToday(appointments) {
+    const today = new Date().toISOString().split('T')[0];
+    return appointments.filter(appointment => new Date(appointment.date) > new Date(today));
+}
+
+function filterTodayAndOldDoneAppointments(appointments) {
+    const today = new Date().toISOString().split('T')[0];
+    return appointments.filter(appointment => {
+        const appointmentDate = new Date(appointment.date);
+        return (appointmentDate.toISOString().split('T')[0] === today && appointment.status.toLowerCase() === 'done') || appointmentDate < new Date(today);
+    });
+}
+
+function findAppointmentById(appointmentId) {
+    return appointments.find(appointment => appointment.id === appointmentId);
+}
+
+
+function handleEyeClick(appointmentId) {
+    const appointment = findAppointmentById(appointmentId); 
+    if (appointment) {
+        changeContentColumn('content-appointment');
+        viewAppointmentDetails(appointment);
+    } else {
+        console.error('Appointment not found with ID:', appointmentId);
+    }
+}
 function filterTodayAppointments(appointments) {
     const today = new Date().toISOString().split('T')[0]; 
     return appointments.filter(appointment => appointment.date === today);
@@ -39,12 +80,76 @@ function populateTodayAppointments(appointments) {
         const tr = document.createElement('tr');
         tr.innerHTML = `
             <td class="eye-app">
-                <i onclick="changeContentColumn('content-appointment')" onclick="viewAppointmentDetails(${encodeURIComponent(JSON.stringify(appointment))})" class="fas fa-eye"></i>
+            <i onclick="handleEyeClick('${appointment.id}')" class="fas fa-eye"></i>
             </td>
             <td>${appointment.date}</td>
             <td>${appointment.time}</td>
-            <td>${appointment.client}</td>
-            <td>${appointment.pet}</td>
+            <td>${appointment.user.firstName}</td>
+            <td>${appointment.pet.name}</td>
+            <td class="tdtd"><div class="state-app ${stateClass}"><p>${appointment.status}</p></div></td>
+        `;
+        tbody.appendChild(tr);
+    });
+}
+
+
+function populateAllAppointments(appointments) {
+    const tbody = document.querySelector('#content-all tbody');
+    tbody.innerHTML = ''; 
+
+    appointments.forEach(appointment => {
+        const stateClass = getStateClass(appointment.status);
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td class="eye-app">
+            <i onclick="handleEyeClick('${appointment.id}')" class="fas fa-eye"></i>
+            </td>
+            <td>${appointment.date}</td>
+            <td>${appointment.time}</td>
+            <td>${appointment.user.firstName}</td>
+            <td>${appointment.pet.name}</td>
+            <td class="tdtd"><div class="state-app ${stateClass}"><p>${appointment.status}</p></div></td>
+        `;
+        tbody.appendChild(tr);
+    });
+}
+
+function populateLastAppointments(lastAppointments) {
+    const tbody = document.querySelector('#content-last tbody');
+    tbody.innerHTML = ''; 
+
+    lastAppointments.forEach(appointment => {
+        const stateClass = getStateClass(appointment.status);
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td class="eye-app">
+                <i onclick="handleEyeClick(${appointment.id})" class="fas fa-eye"></i>
+            </td>
+            <td>${appointment.date}</td>
+            <td>${appointment.time}</td>
+            <td>${appointment.user.firstName}</td>
+            <td>${appointment.pet.name}</td>
+            <td class="tdtd"><div class="state-app ${stateClass}"><p>${appointment.status}</p></div></td>
+        `;
+        tbody.appendChild(tr);
+    });
+}
+
+function populateUpcomingAppointments(upcomingAppointments) {
+    const tbody = document.querySelector('#content-upcoming tbody');
+    tbody.innerHTML = ''; 
+
+    upcomingAppointments.forEach(appointment => {
+        const stateClass = getStateClass(appointment.status);
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td class="eye-app">
+                <i onclick="handleEyeClick(${appointment.id})" class="fas fa-eye"></i>
+            </td>
+            <td>${appointment.date}</td>
+            <td>${appointment.time}</td>
+            <td>${appointment.user.firstName}</td>
+            <td>${appointment.pet.name}</td>
             <td class="tdtd"><div class="state-app ${stateClass}"><p>${appointment.status}</p></div></td>
         `;
         tbody.appendChild(tr);
@@ -67,28 +172,31 @@ function getStateClass(state) {
             return 'state-on-hold';
         case 'done':
             return 'state-done';
-        case 'waiting':
-            return 'state-waiting';
         default:
             return '';
     }
 }
 
 
-function viewAppointmentDetails(appointmentData) {
-    const appointment = JSON.parse(decodeURIComponent(appointmentData));
 
-    document.getElementById('name-client').textContent = appointment.client;
-    document.getElementById('name-pet').textContent = appointment.pet;
-    document.getElementById('type-pet').textContent = appointment.petType;
-    document.getElementById('breed-pet').textContent = appointment.breed;
-    document.getElementById('color-pet').textContent = appointment.color;
-    document.getElementById('age-pet').textContent = appointment.age;
-    document.getElementById('weight-pet').value = appointment.weight;
-    document.getElementById('height-pet').value = appointment.height;
-    document.getElementById('bloodtype-pet').value = appointment.bloodType;
-    document.getElementById('medical-info-pet').value = appointment.medicalInfo;
-    document.querySelector('.app-occurence p').textContent = appointment.occurrence;
+
+function viewAppointmentDetails(appointmentData) {
+    const appointment =appointmentData;
+    console.log(appointment);
+
+    document.getElementById('name-client').textContent = appointment.user.firstName;
+    document.getElementById('email-client').textContent = appointment.user.email;
+    document.getElementById('phone-client').textContent = appointment.user.phone | "N/A";
+    document.getElementById('name-pet').textContent = appointment.pet.name;
+    document.getElementById('type-pet').textContent = appointment.pet.type;
+    document.getElementById('breed-pet').textContent = appointment.pet.breed;
+    document.getElementById('color-pet').textContent = appointment.pet.color;
+    document.getElementById('age-pet').textContent = appointment.pet.age;
+    document.getElementById('weight-pet').value = appointment.weight | 0;
+    document.getElementById('height-pet').value = appointment.height | 0
+    document.getElementById('bloodtype-pet').value = appointment.bloodType | "BloodType";
+    document.getElementById('medical-info-pet').value = appointment.pet.medicalInfo;
+    document.querySelector('.app-occurence p').textContent = appointment.observations;
 
     const stateDetailDiv = document.getElementById('state-detail');
     stateDetailDiv.className = `state-app ${getStateClass(appointment.state)}`;
