@@ -26,9 +26,10 @@
 
 
 
-// @SpringJUnitConfig
+// //@SpringJUnitConfig
+// @SpringBootTest
 // @Testcontainers
-// @DataJpaTest
+//@DataJpaTest
 // public class PetRepositoryTest {
 
 //     @Container

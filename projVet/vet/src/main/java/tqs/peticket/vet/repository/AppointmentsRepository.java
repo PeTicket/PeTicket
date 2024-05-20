@@ -18,4 +18,5 @@ public interface AppointmentsRepository extends JpaRepository<Appointment, Long>
     List<Appointment> findByDateAndTime(String date, String time);
     List<Appointment> findByDate(String date);
     List<Appointment> findByTime(String time);
+    List<Appointment> findAll();
 }
