@@ -91,7 +91,6 @@ function addAppointment() {
         time:selectedTime
     };
 
-    console.log(currentUserInfo.id);
 
 
     fetch('http://localhost:8080/api/client/appointment/add', {
