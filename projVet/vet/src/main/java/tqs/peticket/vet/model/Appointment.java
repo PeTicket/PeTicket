@@ -171,7 +171,6 @@ public class Appointment {
         this.clinic_number = clinic_number;
     }
 
-
     public User getUser() {
         return user;
     }
