@@ -42,7 +42,7 @@ public class AppointmentController {
     @GetMapping("/all")
     public ResponseEntity<List<Appointment>> getTodaysAppointments() {
         logger.info("GET /api/vet/appointment/all");
-        if (!authHandler.isVet()) {
+        if (authHandler.isVet()) {
             logger.error("GET /api/vet/appointment/all 403");
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }

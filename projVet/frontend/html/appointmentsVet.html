@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vet Page</title>
+    <link rel="stylesheet" href="../css/appointmentsVet.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div class="top-div-service">
+        <div class="top-service-info">
+            <p>PeTicket Service</p> <span id="date-time"></span>
+        </div>
+    </div>
+
+    <div class="appointments-bigdiv">
+        <div class="menu-column">
+            <div class="menu-name">
+                <h2>Hello</h2>
+                <h2>, TestUser</h2>
+            </div>
+            <div class="menu-options">
+                <div onclick="changeContent(event, 'upcoming')"> 
+                    <p>Upcoming Appointments</p>
+                </div>
+                <div onclick="changeContent(event, 'last')">
+                    <p>Last Appointments</p>
+                </div>
+                <div onclick="changeContent(event, 'today')" class="selected"> 
+                    <p>Today Appointments</p>
+                </div>
+                <div onclick="changeContent(event, 'all')">
+                    <p>All Appointments</p>
+                </div>
+            </div>
+        </div>
+        <div class="content-column">    
+            <div class="appointments-today" id="content-today"> 
+                <div class="info-eachtop">
+                    <h3>Today appointments</h3>
+                    <button class="button-call">
+                        Next Appointment <i class="fas fa-bell"></i>
+                    </button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>See</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Client</th>
+                            <th>Pet</th>
+                            <th>State</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div class="appointments-upcoming" id="content-upcoming" style="display: none;"> 
+                <div class="info-eachtop">
+                    <h3>Upcoming appointments</h3>
+                    <button class="button-call">
+                        Next Appointment <i class="fas fa-bell"></i>
+                    </button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>See</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Client</th>
+                            <th>Pet</th>
+                            <th>State</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       
+                    </tbody>
+                </table>
+            </div>
+            <div class="appointments-last" id="content-last" style="display: none;">
+                <div class="info-eachtop">
+                    <h3>Last appointments</h3>
+                    <button class="button-call">
+                        Next Appointment <i class="fas fa-bell"></i>
+                    </button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>See</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Client</th>
+                            <th>Pet</th>
+                            <th>State</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div class="appointments-all" id="content-all" style="display: none;">
+                <div class="info-eachtop">
+                    <h3>All appointments</h3>
+                    <button class="button-call">
+                        Next Appointment <i class="fas fa-bell"></i>
+                    </button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>See</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Client</th>
+                            <th>Pet</th>
+                            <th>State</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div class="appointments-all" id="content-appointment" style="display: none;">
+                <div class="info-eachtop">
+                    <span onclick="goBack()" class="back-arrow">&larr;</span>
+                    <h3>Info appointment</h3>
+                </div>
+                <div class="appointment-info">
+                    <div class="info-client-pet">
+                        <div class="client-info">
+                            <h3>Client:</h3>
+                            <div class="ci">
+                                <div>
+                                    <p>Name: </p>
+                                    <p id="name-client"></p>
+                                </div>
+                                <div>
+                                    <p>Email:</p>
+                                    <p id="email-client"></p>
+                                </div>
+                                <div>
+                                    <p>Phone:</p>
+                                    <p id="phone-client"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pet-info">
+                            <h3>Pet:</h3>
+                            <div class="pi">
+                                <div class="pi-column1">
+                                    <div>
+                                        <p>Name:</p>
+                                        <p id="name-pet"></p>
+                                    </div>
+                                    <div>
+                                        <p>Type: </p>
+                                        <p id="type-pet"></p>
+                                    </div>
+                                    <div>
+                                        <p>Breed:</p>
+                                        <p id="breed-pet"></p>
+                                    </div>
+                                    <div>
+                                        <p>Color:</p>
+                                        <p id="color-pet"></p>
+                                    </div>
+                                    <div>
+                                        <p>Age: </p>
+                                        <p  id="age-pet"></p>
+                                    </div>
+                                </div>
+                                <div class="pi-column2">
+                                    <div class="user-box">
+                                        <input type="text" name="" id="weight-pet" required="">
+                                        <label>Weight</label>
+                                        <p>Kg</p>
+                                      </div>
+                                      <div class="user-box">
+                                        <input type="text" name="" id="height-pet" required="">
+                                        <label>Height</label>
+                                        <p>m</p>
+                                      </div>
+                                      <div class="user-box">
+                                        <input type="text" name="" id="bloodtype-pet" required="">
+                                        <label>BloodType</label>
+                                      </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pet-medical-info">
+                            <div class="app-occurence">
+                                <h4>Occurence:</h4>
+                                <p>
+                                    
+                                </p>
+                            </div>
+                            <div class="user-box">
+                                <input type="text" name="" id="medical-info-pet" required="">
+                                <label>Observations</label>
+                              </div>
+                              <div class="user-box" id="box2">
+                                <input type="text" name="" id="medical-info-pet" required="">
+                                <label>Pet Medical Info</label>
+                              </div>
+                        </div>
+                        <div>
+                            
+                        </div>
+                        <div class="button-app-info-div">
+                            <button class="button-add-info">
+                                Cancel
+                            </button>
+                            <button class="button-add-info" id="add-prescription-btn">
+                                Add prescripiton
+                            </button>
+                            <button class="button-add-info">
+                                Done
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/appointmentsVet.js"></script> 
+</body>
+</html>
