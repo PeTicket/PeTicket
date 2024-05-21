@@ -26,10 +26,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import tqs.peticket.vet.model.User;
+import tqs.peticket.vet.model.Vet;
 import tqs.peticket.vet.service.UserService;
 import tqs.peticket.vet.repository.UserRepository;
+import tqs.peticket.vet.repository.VetRepository;
 import tqs.peticket.vet.security.services.UserDetailsImpl;
 import tqs.peticket.vet.security.jwt.JwtUtils;
+
 
 
 @RestController
@@ -47,6 +50,10 @@ public class AuthController {
 
     @Autowired
     AuthenticationManager authenticationManager;
+
+
+    @Autowired
+    VetRepository vetRepository;
 
     @Autowired
     private UserService userService;
@@ -92,6 +99,9 @@ public class AuthController {
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
+
+        Vet vet = new Vet(user.getId());
+        vetRepository.save(vet);
 
         logger.info("User " + user.getEmail() + " registered");
 

@@ -142,6 +142,7 @@ public class AppointmentController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
         }
         appointment.setUserId(userId);
+        appointment.setStatus("scheduled");
 
         byte[] img = qrCodeService.generateCompressedQRCodeImage(userId, appointment.getPetId(), appointment.getId());
 

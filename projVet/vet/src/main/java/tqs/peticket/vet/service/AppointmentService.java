@@ -9,13 +9,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import tqs.peticket.vet.model.Appointment;
+import tqs.peticket.vet.model.Pet;
+import tqs.peticket.vet.model.User;
+import tqs.peticket.vet.model.Vet;
 import tqs.peticket.vet.repository.AppointmentsRepository;
+import tqs.peticket.vet.repository.PetRepository;
+import tqs.peticket.vet.repository.UserRepository;
+import tqs.peticket.vet.repository.VetRepository;
 
 @Service
 public class AppointmentService {
 
     @Autowired
     private AppointmentsRepository appointmentRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+    
+    @Autowired
+    private PetRepository petRepository;
+    
+    @Autowired
+    private VetRepository vetRepository;
 
     public void changeStatus(Appointment appointment, String status){ //Done; In Progress; Done; On Hold
         if (appointmentRepository.existsById(appointment.getId())) {
@@ -105,4 +120,20 @@ public class AppointmentService {
             appointmentRepository.delete(appointment);
         }
     }
+    public List<Appointment> findAll() {
+            List<Appointment> appointments = appointmentRepository.findAll();
+            for (Appointment appointment : appointments) {
+                UUID userId = appointment.getUserId();
+                UUID petId = appointment.getPetId();
+                UUID vetId = appointment.getVetId();
+
+                User user = userRepository.findById(userId);
+                Pet pet = petRepository.findById(petId);
+
+                appointment.setUser(user);
+                appointment.setPet(pet);
+
+            }
+            return appointments;
+        }
 }

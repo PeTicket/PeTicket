@@ -2,6 +2,7 @@ package tqs.peticket.vet.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import jakarta.persistence.GeneratedValue;
@@ -36,6 +37,15 @@ public class Appointment {
     @Lob
     private Byte[] qrCode;
     private String status;
+
+    @Transient
+    private User user;
+
+    @Transient
+    private Pet pet;
+
+    @Transient
+    private Vet vet;
 
     public Appointment() {
     }
@@ -160,5 +170,28 @@ public class Appointment {
     public void setClinic_number(String clinic_number) {
         this.clinic_number = clinic_number;
     }
-    
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Pet getPet() {
+        return pet;
+    }
+
+    public void setPet(Pet pet) {
+        this.pet = pet;
+    }
+
+    public Vet getVet() {
+        return vet;
+    }
+
+    public void setVet(Vet vet) {
+        this.vet = vet;
+    }
 }
