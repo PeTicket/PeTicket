@@ -2,6 +2,7 @@ package tqs.peticket.client.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import jakarta.persistence.GeneratedValue;
@@ -37,6 +38,9 @@ public class Appointment {
     @Column(name = "qr_code", columnDefinition = "BLOB")
     private byte[] qrCode;
     private String status;
+
+    @Transient
+    private Pet pet;
 
     public Appointment() {
     }
@@ -156,6 +160,14 @@ public class Appointment {
 
     public String getClinic_number() {
         return clinic_number;
+    }
+
+    public Pet getPet() {
+        return pet;
+    }
+
+    public void setPet(Pet pet) {
+        this.pet = pet;
     }
 
     public void setClinic_number(String clinic_number) {
