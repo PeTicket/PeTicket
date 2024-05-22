@@ -58,7 +58,7 @@ public class PetController {
         UUID userId = authHandler.getUserId();
         logger.info("Getting pets by user id " + userId);
         List<Pet> pets = petService.findByUserId(userId);
-        if (pets.isEmpty()) {
+        if (pets == null || pets.isEmpty()) {
             logger.info("No pets found");
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -148,7 +148,9 @@ public class PetController {
             logger.info("Pet not found");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        if (petService.findById(id).getUserId() != userId) {
+
+        Pet pet = petService.findById(id);
+        if (!pet.getUserId().equals(userId)) {
             logger.info("User not authorized");
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }

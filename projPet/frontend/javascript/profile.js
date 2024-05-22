@@ -395,7 +395,7 @@ let starCount = 0;
         };
 
         
-        fetch('/updateProfile', {
+        fetch('`http://localhost:8080/api/client//updateProfile', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
