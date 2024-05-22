@@ -2,6 +2,7 @@ package tqs.peticket.client.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -30,6 +31,13 @@ public class Pet {
     private String bloodType;
     @Column(name = "medical_info")
     private String medicalInfo;
+
+     @Transient
+    private User user;
+
+    @Transient
+    private Pet pet;
+
 
     public Pet() {
     }
@@ -144,4 +152,20 @@ public class Pet {
     public void setMedicalInfo(String medicalInfo) {
         this.medicalInfo = medicalInfo;
     }    
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Pet getPet() {
+        return pet;
+    }
+
+    public void setPet(Pet pet) {
+        this.pet = pet;
+    }
 }
