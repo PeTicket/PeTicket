@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import org.springframework.http.HttpStatus;
@@ -101,5 +102,32 @@ public class UserController {
         userService.deleteById(userId);
         logger.info("User deleted");
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<User> updateUser(@RequestBody User userDetails) {
+        UUID userId = authHandler.getUserId();
+        logger.info("Updating user with id " + userId);
+        User existingUser = userService.findById(userId);
+        if (existingUser == null) {
+            logger.info("User not found");
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+
+        existingUser.setFirstName(userDetails.getFirstName());
+        existingUser.setLastName(userDetails.getLastName());
+        existingUser.setEmail(userDetails.getEmail());
+        existingUser.setPassword(userDetails.getPassword());
+        existingUser.setAddress(userDetails.getAddress());
+        existingUser.setPhone(userDetails.getPhone());
+
+        User updatedUser = userService.save(existingUser);
+        if (updatedUser == null) {
+            logger.info("User not updated");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        logger.info("User updated");
+        return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }
 }
