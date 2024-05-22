@@ -144,7 +144,7 @@ function populateUpcomingAppointments(upcomingAppointments) {
         const tr = document.createElement('tr');
         tr.innerHTML = `
             <td class="eye-app">
-                <i onclick="handleEyeClick(${appointment.id})" class="fas fa-eye"></i>
+            <i onclick="handleEyeClick('${appointment.id}')" class="fas fa-eye"></i>
             </td>
             <td>${appointment.date}</td>
             <td>${appointment.time}</td>
