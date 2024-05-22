@@ -2,6 +2,17 @@
 let previousContentId = '';
 let appointments = [];
 
+document.addEventListener('DOMContentLoaded', () => {
+    const logoutButton = document.getElementById('logout-button');
+
+    logoutButton.addEventListener('click', () => {
+       
+        window.location.href = './index.html';
+        
+      
+        localStorage.removeItem('token');
+    });
+});
 
 document.addEventListener('DOMContentLoaded', () => {
     fetchAppointments();
@@ -182,8 +193,7 @@ function getStateClass(state) {
 
 function viewAppointmentDetails(appointmentData) {
     const appointment =appointmentData;
-    console.log(appointment);
-
+    document.getElementById('app-id').textContent = appointment.id;
     document.getElementById('name-client').textContent = appointment.user.firstName;
     document.getElementById('email-client').textContent = appointment.user.email;
     document.getElementById('phone-client').textContent = appointment.user.phone | "N/A";
@@ -298,3 +308,68 @@ document.addEventListener('DOMContentLoaded', (event) => {
         petMedicalInfoDiv.parentNode.insertBefore(newPrescriptionDiv, petMedicalInfoDiv.nextSibling);
     });
 });
+
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    const doneButton = document.querySelector('.button-add-info:last-child');
+    doneButton.addEventListener('click', () => {
+        const appointmentId = document.getElementById('app-id').textContent;;
+        const agePet = document.getElementById('age-pet').textContent;
+        const weightPet = document.getElementById('weight-pet').value;
+        const heightPet = document.getElementById('height-pet').value;
+        const bloodTypePet = document.getElementById('bloodtype-pet').value;
+        const observations= document.getElementById('medical-observations').value;
+        const medicalInfoPet= document.getElementById('medical-info-pet').value;
+        const occurence = document.querySelector('.app-occurence p').textContent;
+
+
+    
+        const prescriptions = [];
+        document.querySelectorAll('.user-box3 input').forEach(input => {
+            const prescription = input.value.trim();
+            if (prescription) {
+                prescriptions.push(prescription);
+            }
+        });
+
+       
+        const appointmentData = {
+            id: appointmentId,
+            weightPet: weightPet,
+            heightPet: heightPet,
+            bloodTypePet: bloodTypePet,
+            occurence:occurence,
+            observations:observations,
+            prescriptions: prescriptions
+        };
+
+
+
+      
+        updateAppointment(appointmentData);
+    });
+});
+
+async function updateAppointment(appointmentData) {
+    console.log(appointmentData);
+    const token = localStorage.getItem('token');
+    try {
+        const response = await fetch(`http://localhost:8081/api/vet/appointment/update/${appointmentData.id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(appointmentData)
+        });
+
+        if (response.ok) {
+            const updatedAppointment = await response.json();
+            console.log('Appointment updated:', updatedAppointment);
+        } else {
+            console.error('Failed to update appointment');
+        }
+    } catch (error) {
+        console.error('Error updating appointment:', error);
+    }
+}

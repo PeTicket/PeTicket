@@ -114,6 +114,12 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
 
+        if (userDetails.getFirstName()== null) {
+            logger.info("User Details:", userDetails.toString());
+            logger.info("User details null");
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+
         logger.info("User Details:", userDetails.toString());
 
         existingUser.setFirstName(userDetails.getFirstName());

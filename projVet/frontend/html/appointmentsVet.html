@@ -12,6 +12,9 @@
         <div class="top-service-info">
             <p>PeTicket Service</p> <span id="date-time"></span>
         </div>
+        <div id="logout-container">
+            <button id="logout-button">Logout</button>
+        </div>
     </div>
 
     <div class="appointments-bigdiv">
@@ -132,6 +135,9 @@
                 </div>
                 <div class="appointment-info">
                     <div class="info-client-pet">
+                        <div style="display: none;">
+                            <p id="app-id"></p>
+                        </div>
                         <div class="client-info">
                             <h3>Client:</h3>
                             <div class="ci">
@@ -153,6 +159,7 @@
                             <h3>Pet:</h3>
                             <div class="pi">
                                 <div class="pi-column1">
+                                   
                                     <div>
                                         <p>Name:</p>
                                         <p id="name-pet"></p>
@@ -200,7 +207,7 @@
                                 </p>
                             </div>
                             <div class="user-box">
-                                <input type="text" name="" id="medical-info-pet" required="">
+                                <input type="text" name="" id="medical-observations" required="">
                                 <label>Observations</label>
                               </div>
                               <div class="user-box" id="box2">

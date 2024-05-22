@@ -65,14 +65,16 @@ public class AppointmentController {
         return new ResponseEntity<>(appointment, HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("update/{id}")
     public ResponseEntity<Appointment> updateAppointment(@PathVariable UUID id, @RequestBody Appointment appointmentDetails) {
-        logger.info("Updating appointment with id " + id);
+        logger.info("Updating appointment id " + id);
         Appointment existingAppointment = appointmentService.findById(id);
         if (existingAppointment == null) {
             logger.info("Appointment not found");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+
+        logger.info(existingAppointment.getVet());
 
         UUID loggedInVetId = authHandler.getUserId();
         if (!loggedInVetId.equals(existingAppointment.getVetId())) {
