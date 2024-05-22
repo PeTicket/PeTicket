@@ -39,6 +39,15 @@ public class UserService {
         userRepository.delete(user);
     }
 
+    public User updateById(UUID id, User user) {
+        if (userRepository.existsById(id)) {
+            user.setId(id);
+            return userRepository.save(user);
+        } else {
+            return null;
+        }
+    }
+
     public void deleteById(UUID id) {
         if (userRepository.existsById(id)) {
             userRepository.deleteById(id);
