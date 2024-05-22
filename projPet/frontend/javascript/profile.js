@@ -393,26 +393,38 @@ let starCount = 0;
             address: document.getElementById('update-address').value,
             phone: document.getElementById('update-phone').value
         };
-
-        
-        fetch('`http://localhost:8080/api/client//updateProfile', {
-            method: 'POST',
+    
+        const jwtToken = localStorage.getItem('jwtToken');
+    
+        fetch('http://localhost:8080/api/client/user/update', {
+            method: 'PUT',
             headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${jwtToken}`
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${jwtToken}`
             },
             body: JSON.stringify(updatedUserInfo)
         })
-        .then(response => response.json())
+        .then(response => {
+            if (response.status === 204) {
+                console.log('No content, user not found.');
+                return null;
+            } else if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Unexpected response');
+            }
+        })
         .then(data => {
-           
-            console.log('Success:', data);
-           
+            if (data) {
+                console.log('Success:', data);
+                restoreOriginalProfileInfo()
+            }
         })
         .catch((error) => {
             console.error('Error:', error);
         });
     });
+    
     }
 
     function restoreOriginalProfileInfo() {

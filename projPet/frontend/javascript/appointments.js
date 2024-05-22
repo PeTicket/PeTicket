@@ -119,7 +119,7 @@ function renderAppointments(containerId, appointments) {
       <div class="appointment-div">
         <div class="appointment-container">
           <div>
-          <p>Pet Name: ${appointment.petName}</p>
+          <p>Pet Name: ${appointment}</p>
           <p>Date: ${appointment.date} </p>
           <p>Horas: ${appointment.time}</p>
           </div>
