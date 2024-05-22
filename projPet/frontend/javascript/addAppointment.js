@@ -251,7 +251,8 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 
 
-  function logout() {
-    window.location.href = './Homepage.html';
-}
+    function logout() {
+        localStorage.removeItem('jwtToken');
+        window.location.href = './Homepage.html';
+    }
 

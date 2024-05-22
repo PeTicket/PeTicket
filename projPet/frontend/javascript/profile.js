@@ -447,5 +447,6 @@ let starCount = 0;
 
 
   function logout() {
+    localStorage.removeItem('jwtToken');
     window.location.href = './Homepage.html';
 }

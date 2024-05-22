@@ -227,6 +227,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
   function logout() {
+    localStorage.removeItem('jwtToken');
     window.location.href = './Homepage.html';
 }
 
