@@ -121,7 +121,7 @@ public class UserController {
         existingUser.setAddress(userDetails.getAddress());
         existingUser.setPhone(userDetails.getPhone());
 
-        User updatedUser = userService.save(existingUser);
+        User updatedUser = userService.update(existingUser);
         if (updatedUser == null) {
             logger.info("User not updated");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
