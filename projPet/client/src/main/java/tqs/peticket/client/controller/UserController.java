@@ -107,6 +107,7 @@ public class UserController {
     @PutMapping("/update")
     public ResponseEntity<User> updateUser(@RequestBody User userDetails) {
         UUID userId = authHandler.getUserId();
+        logger.info("userDetails", userDetails);
         logger.info("Updating user with id " + userId);
 
         User existingUser = userService.findById(userId);
