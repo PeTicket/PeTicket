@@ -108,14 +108,16 @@ public class UserController {
     public ResponseEntity<User> updateUser(@RequestBody User userDetails) {
         UUID userId = authHandler.getUserId();
         logger.info("Updating user with id " + userId);
+
         User existingUser = userService.findById(userId);
+
         if (existingUser == null) {
             logger.info("User not found");
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
 
         if (userDetails.getFirstName()== null) {
-            logger.info("User Details:", userDetails.toString());
+            logger.info("User Details:", userDetails);
             logger.info("User details null");
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
