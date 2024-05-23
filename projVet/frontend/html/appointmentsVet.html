@@ -42,7 +42,7 @@
             <div class="appointments-today" id="content-today"> 
                 <div class="info-eachtop">
                     <h3>Today appointments</h3>
-                    <button class="button-call">
+                    <button class="button-call" onclick="getNextAppointment('02')">
                         Next Appointment <i class="fas fa-bell"></i>
                     </button>
                 </div>
@@ -236,5 +236,34 @@
     </div>
 
     <script src="../js/appointmentsVet.js"></script> 
+    <script>
+        function getNextAppointment(clinicNumber) {
+    const url = `http://localhost:8081/api/vet/appointment/next/${clinicNumber}`;
+    const token = localStorage.getItem('token');
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`  // Include authorization header with token
+        }
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data) {
+                // Handle successful response
+                console.log("Next appointment:", data);
+                // You can further process the appointment data here, such as displaying it to the user or sending a notification
+            } else {
+                // Handle no appointment found
+                console.log("No appointments found for clinic " + clinicNumber);
+            }
+        })
+        .catch(error => {
+            // Handle API request error
+            console.error("Error fetching next appointment:", error);
+        });
+}
+
+    </script>
 </body>
 </html>
