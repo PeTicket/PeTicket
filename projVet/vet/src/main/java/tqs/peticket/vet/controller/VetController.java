@@ -112,4 +112,16 @@ public class VetController {
         logger.info("Pet found");
         return new ResponseEntity<>(pet, HttpStatus.OK);
     }
+
+    @PutMapping("/pets/{id}")
+    public ResponseEntity<Pet> updatePet(@PathVariable UUID id, @RequestBody Pet pet) {
+        logger.info("Updating pet with id " + id);
+        Pet updatedPet = petService.update(id, pet);
+        if (updatedPet.getId() == null) {
+            logger.info("Pet not found");
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        logger.info("Pet updated");
+        return new ResponseEntity<>(updatedPet, HttpStatus.OK);
+    }
 }

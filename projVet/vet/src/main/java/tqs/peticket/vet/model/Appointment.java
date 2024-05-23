@@ -32,10 +32,11 @@ public class Appointment {
     private String diagnosis;
     private String prescription;
     private String observations;
-    private String appointment_number;
+    private Integer appointment_number;
     private String clinic_number;
     @Lob
-    private Byte[] qrCode;
+    @Column(name = "qr_code", columnDefinition = "BLOB")
+    private byte[] qrCode;
     private String status;
 
     @Transient
@@ -147,19 +148,19 @@ public class Appointment {
         this.status = status;
     }
 
-    public Byte[] getQrCode() {
+    public byte[] getQrCode() {
         return qrCode;
     }
 
-    public void setQrCode(Byte[] qrCode) {
+    public void setQrCode(byte[] qrCode) {
         this.qrCode = qrCode;
     }
 
-    public String getAppointment_number() {
+    public Integer getAppointment_number() {
         return appointment_number;
     }
 
-    public void setAppointment_number(String appointment_number) {
+    public void setAppointment_number(Integer appointment_number) {
         this.appointment_number = appointment_number;
     }
 
