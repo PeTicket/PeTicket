@@ -6,16 +6,21 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import tqs.peticket.func.security.services.UserDetailsImpl;
+import tqs.peticket.func.repository.FuncRepository;
 
 
 @Component
 public final class AuthHandler {
     
+    @Autowired
+    private FuncRepository funcRepository;
+
     public Authentication getAuthentication() {
         return SecurityContextHolder.getContext().getAuthentication();
     }
@@ -40,5 +45,13 @@ public final class AuthHandler {
             }
         }
         return null;
+    }
+
+    public boolean isFunc() {
+        UUID userId = getUserId();
+        if (userId != null && funcRepository.existsById(userId)) {
+            return true;
+        }
+        return false;
     }
 }

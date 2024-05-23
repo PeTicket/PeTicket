@@ -25,8 +25,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import tqs.peticket.func.model.Func;
 import tqs.peticket.func.model.User;
 import tqs.peticket.func.service.UserService;
+import tqs.peticket.func.repository.FuncRepository;
 import tqs.peticket.func.repository.UserRepository;
 import tqs.peticket.func.security.services.UserDetailsImpl;
 import tqs.peticket.func.security.jwt.JwtUtils;
@@ -44,6 +46,9 @@ public class AuthController {
 
     @Autowired
     PasswordEncoder passwordEncoder;
+
+    @Autowired
+    FuncRepository funcRepository;
 
     @Autowired
     AuthenticationManager authenticationManager;
@@ -92,6 +97,9 @@ public class AuthController {
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
+
+        Func func = new Func(user.getId());
+        funcRepository.save(func);
 
         logger.info("User " + user.getEmail() + " registered");
 
