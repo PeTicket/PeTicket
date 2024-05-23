@@ -55,12 +55,13 @@ public class PetService {
         return petRepository.existsByUserId(userId);
     }
 
-    public Pet update(Pet pet) {
-        if (petRepository.existsById(pet.getId())) {
-            return petRepository.save(pet);
-        } else {
+    public Pet update(UUID petID ,Pet pet) {
+        if (!petRepository.existsById(petID)) {
             return null;
         }
+        pet.setId(petID);
+        return petRepository.save(pet);
+        
     }
 
     public List<Pet> findByUserId(UUID userId) {
