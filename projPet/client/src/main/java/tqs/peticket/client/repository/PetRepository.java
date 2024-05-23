@@ -19,6 +19,6 @@ public interface PetRepository extends JpaRepository<Pet, Long> {
     List<Pet> findByBreed(String breed);
     List<Pet> findByBloodType(String bloodType);
     Boolean existsByUserId(UUID userId);
-    Void deleteByUserId(UUID userId);
+    void deleteByUserId(UUID userId);
     Boolean existsByIdAndUserId(UUID userId, UUID petId);
 }
