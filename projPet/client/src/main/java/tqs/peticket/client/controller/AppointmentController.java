@@ -76,17 +76,20 @@ public class AppointmentController {
         UUID userId = authHandler.getUserId();
         logger.info("Getting appointments by user id " + userId);
         List<Appointment> appointments = appointmentService.findByUserId(userId);
-        // em cada appointment adiciona o user e o pet
-        for (Appointment appointment : appointments) {
-            appointment.setUser(userService.findById(appointment.getUserId()));
-            appointment.setPet(petService.findById(appointment.getPetId()));
-        }
         if (appointments.isEmpty()) {
             logger.info("No appointments found");
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        logger.info(appointments.size() + " appointments found");
-        return new ResponseEntity<>(appointments, HttpStatus.OK);
+        else{
+            // em cada appointment adiciona o user e o pet
+            for (Appointment appointment : appointments) {
+                appointment.setUser(userService.findById(appointment.getUserId()));
+                appointment.setPet(petService.findById(appointment.getPetId()));
+            }
+
+            logger.info(appointments.size() + " appointments found");
+            return new ResponseEntity<>(appointments, HttpStatus.OK);
+        }
     }
 
     @GetMapping("/by-pet-id/{petId}")
