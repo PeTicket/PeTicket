@@ -193,7 +193,7 @@ public class AppointmentController {
             logger.info("Appointment not found");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        if (userId != appointment.getUserId()) {
+        if (!userId.equals(appointment.getUserId())) {
             logger.info("User not authorized");
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }

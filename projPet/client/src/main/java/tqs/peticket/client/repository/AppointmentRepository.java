@@ -12,7 +12,7 @@ import tqs.peticket.client.model.Appointment;
 public interface AppointmentRepository extends JpaRepository<Appointment, Long>{
  
     Appointment findById(UUID id);
-    Void deleteById(UUID id);
+    void deleteById(UUID id);
     Boolean existsById(UUID id);
     Boolean existsByUserId(UUID userId);
     Boolean existsByPetId(UUID petId);

@@ -119,7 +119,7 @@ function renderAppointments(containerId, appointments) {
       <div class="appointment-div">
         <div class="appointment-container">
           <div>
-          <p>Pet Name: ${appointment}</p>
+          <p>Pet Name: ${appointment.pet.name}</p>
           <p>Date: ${appointment.date} </p>
           <p>Horas: ${appointment.time}</p>
           </div>
@@ -150,6 +150,8 @@ function renderAppointments(containerId, appointments) {
 
 
 function displayConfirmationModal(appointmentId) {
+
+  const jwtToken = localStorage.getItem('jwtToken');
   
   const confirmed = confirm('Are you sure you want to delete this appointment?');
   if (confirmed) {
@@ -157,10 +159,25 @@ function displayConfirmationModal(appointmentId) {
     deleteAppointment(appointmentId);
   }
 }
+const headers = {
+  'Content-Type': 'application/json',
+  'Authorization': `Bearer ${jwtToken}`
+};
+
 
 function deleteAppointment(appointmentId) {
+
+  const jwtToken = localStorage.getItem('jwtToken');
+
+  const headers = {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${jwtToken}`
+  };
+
+  
   fetch(`http://localhost:8080/api/client/appointment/delete/${appointmentId}`, {
     method: 'DELETE',
+    headers: headers
   })
   .then(response => {
     if (response.ok) {

@@ -125,10 +125,10 @@ document.addEventListener("DOMContentLoaded", function() {
     .then(appointments => {
         console.log('Appointments:', appointments);
         
-        // Get the current date and time
+
         const now = new Date();
 
-        // Filter and sort the appointments to find the next one
+     
         const upcomingAppointments = appointments
             .filter(appointment => new Date(appointment.date) > now)
             .sort((a, b) => new Date(a.date) - new Date(b.date));
@@ -139,7 +139,7 @@ document.addEventListener("DOMContentLoaded", function() {
               const nextAppointment = upcomingAppointments[0];
               console.log('Next appointment:', nextAppointment);
 
-              const appointmentDate = new Date(nextAppointment.date);
+              const appointmentDate = nextAppointment.date;
               appointmentInfo.innerHTML = `
                   <p>Next appointment date: ${appointmentDate}</p>
                   <i class="fas fa-qrcode"  style="font-size: 40px;"></i>
