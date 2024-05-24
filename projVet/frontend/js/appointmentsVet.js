@@ -1,7 +1,64 @@
 
 let previousContentId = '';
 let appointments = [];
-let currentApp=null;
+let currentAppointmentDetails = null;
+let infouser = null;
+
+
+function getUserInfoFromJWT() {
+  
+    const jwtToken = localStorage.getItem('token');
+    if (jwtToken) {
+        try {
+            const userInfo = JSON.parse(atob(jwtToken.split('.')[1]));
+            return userInfo;
+        } catch (error) {
+            console.error('Error decoding JWT token:', error);
+            return null;
+        }
+    } else {
+        return null;
+    }
+  }
+
+
+
+  document.addEventListener("DOMContentLoaded", function() {
+
+    const userInfo = getUserInfoFromJWT();
+   
+    if (userInfo) {
+        const email = userInfo.sub;
+        const jwtToken = localStorage.getItem('token');
+  
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${jwtToken}`
+        };
+  
+        fetch(`http://localhost:8080/api/client/user/by-email/${email}`, {
+            method: 'GET',
+            headers: headers
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Failed to fetch user information');
+            }
+        })
+        .then(user => {
+            console.log('User information:', user);
+            infouser = user;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    } else {
+        console.log('User information not available');
+    }
+  
+});
 
 document.addEventListener('DOMContentLoaded', () => {
     const logoutButton = document.getElementById('logout-button');
@@ -74,7 +131,6 @@ function handleEyeClick(appointmentId) {
     if (appointment) {
         changeContentColumn('content-appointment');
         viewAppointmentDetails(appointment);
-        currentApp=appointment;
     } else {
         console.error('Appointment not found with ID:', appointmentId);
     }
@@ -195,6 +251,30 @@ function getStateClass(state) {
 
 function viewAppointmentDetails(appointmentData) {
     const appointment =appointmentData;
+
+    const appointmentDetails = {
+        id: appointment.id,
+        appointment_number:"0",
+        clinic_number:"0",
+        diagnosis:"none",
+        observations:appointment.occurence,
+        occurence:appointment.observations,
+        qrCode:appointment.qrCode,
+        status:appointment.status,
+        vetId:"2c7bb00c-6022-4866-9165-a8f4886f3406",
+        time:appointment.time,
+        userId: appointment.userId,
+        oetId: appointment.pet.id,
+        petWeight: appointment.weight || 0,
+        petHeight: appointment.height || 0,
+        petBloodType: appointment.bloodType || "BloodType",
+        observations: appointment.observations,
+        state: appointment.state
+    };
+
+    currentAppointmentDetails=appointmentDetails;
+
+
     document.getElementById('app-id').textContent = appointment.id;
     document.getElementById('id-client').textContent = appointment.user.id;
     document.getElementById('name-client').textContent = appointment.user.firstName;
@@ -206,9 +286,9 @@ function viewAppointmentDetails(appointmentData) {
     document.getElementById('breed-pet').textContent = appointment.pet.breed;
     document.getElementById('color-pet').textContent = appointment.pet.color;
     document.getElementById('age-pet').textContent = appointment.pet.age;
-    document.getElementById('weight-pet').value = appointment.weight | 0;
-    document.getElementById('height-pet').value = appointment.height | 0
-    document.getElementById('bloodtype-pet').value = appointment.bloodType | "BloodType";
+    document.getElementById('weight-pet').value = appointment.pet.weight ;
+    document.getElementById('height-pet').value = appointment.pet.height ;
+    document.getElementById('bloodtype-pet').value = appointment.pet.bloodType | "BloodType";
     document.getElementById('medical-info-pet').value = appointment.pet.medicalInfo;
     document.querySelector('.app-occurence p').textContent = appointment.observations;
 
@@ -357,14 +437,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
             medicalInfo:medicalInfoPet
         }
 
-        currentApp.observations = observations;
-        currentApp.occurence=currence;
-        currentApp.prescriptions = prescriptions;
-
+        currentAppointmentDetails.prescriptions = prescriptions;
 
 
         updatepet(petData);
-        updateAppointment(currentApp);
+        updateAppointment(currentAppointmentDetails);
     });
 });
 
