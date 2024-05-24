@@ -53,12 +53,12 @@ public class UserService {
         return userRepository.existsById(id);
     }
 
-    public User update(User user) {
-        if (userRepository.existsById(user.getId())) {
-            return userRepository.save(user);
-        } else {
+    public User update(UUID userId, User user) {
+        if (!userRepository.existsById(userId)) {
             return null;
         }
+        user.setId(userId);
+        return userRepository.save(user);
     }
 
     public List<User> getAllUsers() {
