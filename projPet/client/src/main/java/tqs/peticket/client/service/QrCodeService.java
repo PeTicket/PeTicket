@@ -53,7 +53,7 @@ public class QrCodeService {
         String qrText = "UserID:" + userId + ";PetID:" + petId + ";AppointmentID:" + appId;
 
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
-        BitMatrix bitMatrix = qrCodeWriter.encode(qrText, BarcodeFormat.QR_CODE, 50, 50);
+        BitMatrix bitMatrix = qrCodeWriter.encode(qrText, BarcodeFormat.QR_CODE, 150, 150);
 
         // Escreve a matriz do QR code em um array de bytes
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -94,7 +94,7 @@ public class QrCodeService {
         return outputStream.toByteArray();
     }
 
-    private byte[] decompress(byte[] compressedData) throws IOException {
+    public byte[] decompress(byte[] compressedData) throws IOException {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         try (InflaterInputStream inflaterInputStream = new InflaterInputStream(new ByteArrayInputStream(compressedData))) {
             byte[] buffer = new byte[1024];

@@ -72,12 +72,14 @@ public class AppointmentController {
     }
 
     @GetMapping("/by-user-id")
-    public ResponseEntity<List<Appointment>> getAppointmentsByUserId() {
+    public ResponseEntity<List<Appointment>> getAppointmentsByUserId() throws IOException {
         UUID userId = authHandler.getUserId();
         logger.info("Getting appointments by user id " + userId);
         List<Appointment> appointments = appointmentService.findByUserId(userId);
         // em cada appointment adiciona o user e o pet
         for (Appointment appointment : appointments) {
+            byte[] qrcode = appointment.getQrCode();
+            appointment.setQrCode(qrCodeService.decompress(qrcode));
             appointment.setUser(userService.findById(appointment.getUserId()));
             appointment.setPet(petService.findById(appointment.getPetId()));
         }
@@ -151,11 +153,15 @@ public class AppointmentController {
         appointment.setUserId(userId);
         appointment.setStatus("scheduled");
 
-        byte[] img = qrCodeService.generateCompressedQRCodeImage(userId, appointment.getPetId(), appointment.getId());
+      
 
-        appointment.setQrCode(img);
+       
         logger.info("Adding appointment");
         appointmentService.save(appointment);
+        logger.info(appointment.getId());
+        byte[] img = qrCodeService.generateCompressedQRCodeImage(userId, appointment.getPetId(), appointment.getId());
+        appointment.setQrCode(img);
+        appointmentService.update(appointment);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 

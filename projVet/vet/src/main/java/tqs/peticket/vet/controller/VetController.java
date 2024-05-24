@@ -117,6 +117,8 @@ public class VetController {
     public ResponseEntity<Pet> updatePet(@PathVariable UUID id, @RequestBody Pet pet) {
         logger.info("Updating pet with id " + id);
         Pet updatedPet = petService.update(id, pet);
+
+        logger.info(updatedPet.toString());
         if (updatedPet.getId() == null) {
             logger.info("Pet not found");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
