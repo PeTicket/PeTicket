@@ -173,7 +173,6 @@ public class AppointmentController {
             logger.info("Pet not found");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
         if (appointmentService.findById(appointment.getId()) == null) {
             logger.info("Appointment not found");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
