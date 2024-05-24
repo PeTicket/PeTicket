@@ -7,7 +7,7 @@
 | 108317 | Miguel Aido Miragaia         | [miguelmiragaia@ua.pt](https://github.com/Miragaia)              |
 | 108536 | Cristiano Antunes Nicolau    | [cristianonicolau@ua.pt](https://github.com/cristiano-nicolau)   |
 | 107323 | Vasco Miguel Faria Fernandes | [vascmfaria@ua.pt](https://github.com/vasco-faria)               |
-| 97541  | Andre Lourenço Gomes         | [andregomes@ua.pt](https://github.com/andregomes04)              |
+| 97541  | Andre Lourenço Gomes         | [alg@ua.pt](https://github.com/andregomes04)              |
 
 ## 2. Notes:
 * **Drive wiht Documentation:** [Link](https://drive.google.com/drive/folders/1TmTxcr5QHyxkNuKgjCWnforqc507J474?usp=sharing6)
