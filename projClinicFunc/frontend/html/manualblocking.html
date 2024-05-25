@@ -39,14 +39,49 @@
         </div>
     </nav>
 
-    <div class="main-div-manual">
-      <div class="column-1">
-        
+    <div class="addapp-div">
+      <div class="addapp-container">
+        <form id="appointment-form">
+          <div class="form-title">
+            <h3>Add Appointment</h3>
+            <p>Please fill out the form to add an appointment.</p>
+          </div>
+          <div class="input-box">
+            <div class="user-box" style="width:60%;margin-top: 2rem;">
+              <input type="text" name="observations">
+              <label>User</label>
+            </div>
+            <div class="user-box">
+              <select id="pet-select" name="petId">
+                  <option value="" disabled selected >Select pet</option>
+              </select>
+            </div>
+            <p class="selected-date-time"></p>
+            <div>
+              <button type="button" class="button-adddateapp"></button>
+            </div>
+            <div class="user-box" style="width:100%;margin-top: 2rem;">
+              <input type="text" name="observations">
+              <label>Observations</label>
+            </div>
+          </div>
+        </form>
+        <div class="button-addapp-div">
+          <button type="submit" class="button-addapp"></button>
+        </div>
       </div>
-      <div class="column-2">
-       
+  
+    </div>
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>Select the desired data and time:</p>
+        <input type="date" name="dateofbirth" id="dateofbirth">
+        <div id="consultationTimes"></div>
       </div>
     </div>
+
+   
 
     <script src="../js/manualblocking.js"></script>
     <script>
