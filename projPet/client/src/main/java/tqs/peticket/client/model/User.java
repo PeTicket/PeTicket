@@ -43,6 +43,14 @@ public class User {
         this.phone = phone;
     }
 
+    public User(String firstName, String lastName, String email, String address, String phone) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.address = address;
+        this.phone = phone;
+    }
+
     public UUID getId() {
         return id;
     }

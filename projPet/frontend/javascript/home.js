@@ -125,10 +125,9 @@ document.addEventListener("DOMContentLoaded", function() {
     .then(appointments => {
         console.log('Appointments:', appointments);
         
-        // Get the current date and time
         const now = new Date();
 
-        // Filter and sort the appointments to find the next one
+     
         const upcomingAppointments = appointments
             .filter(appointment => new Date(appointment.date) > now)
             .sort((a, b) => new Date(a.date) - new Date(b.date));
@@ -139,11 +138,24 @@ document.addEventListener("DOMContentLoaded", function() {
               const nextAppointment = upcomingAppointments[0];
               console.log('Next appointment:', nextAppointment);
 
-              const appointmentDate = new Date(nextAppointment.date);
+              const appointmentDate = nextAppointment.date;
               appointmentInfo.innerHTML = `
+              <div class="qrcode-icon">
                   <p>Next appointment date: ${appointmentDate}</p>
-                  <i class="fas fa-qrcode"  style="font-size: 40px;"></i>
+                  <i class="fas fa-qrcode"  style="font-size: 40px;" data-id="${nextAppointment.id}"></i>
+                </div>
               `;
+
+              const qrIcons = document.querySelectorAll('.qrcode-icon i');
+              qrIcons.forEach(icon => {
+                icon.addEventListener('click', () => {
+                  const appointmentId = icon.getAttribute('data-id');
+                  const appointment = appointments.find(app => app.id === appointmentId);
+                  if (appointment) {
+                    displayQRModal(appointment);
+                  }
+                });
+              });
           } else {
               console.log('No upcoming appointments');
               appointmentInfo.innerHTML = '<p>No upcoming appointments</p>';
@@ -152,6 +164,8 @@ document.addEventListener("DOMContentLoaded", function() {
     .catch(error => {
         console.error('Error:', error);
     });
+
+
 }
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -166,3 +180,53 @@ document.addEventListener("DOMContentLoaded", function() {
     localStorage.removeItem('jwtToken');
     window.location.href = './Homepage.html';
 }
+
+
+
+
+function displayQRModal(appointment) {
+    const modal = document.getElementById("qrModal");
+    const span = document.getElementsByClassName("close2")[0];
+    const qrcodeDiv = document.getElementById("qrcode");
+
+    const qrCodeBase64 = appointment.qrCode;
+
+   const dataUrl = `data:image/png;base64,${qrCodeBase64}`;
+
+   const imgElement = document.createElement('img');
+  imgElement.src = dataUrl;
+  imgElement.style.display = 'block';
+  imgElement.style.margin = 'auto auto'; 
+
+  if (window.innerWidth < 1000) {
+    imgElement.style.width = '250px';
+    imgElement.style.height = '250px';
+} else {
+    imgElement.style.width = '400px';
+    imgElement.style.height = '400px';
+}
+  imgElement.alt = 'QR Code Image';
+
+  qrcodeDiv.innerHTML = '';
+
+  qrcodeDiv.appendChild(imgElement);
+  const petName = appointment.pet.name;
+  const pElement = document.createElement('p');
+  pElement.textContent = `QR code for appointment with ${petName}`;
+  pElement.style.textAlign = 'center';
+  pElement.style.marginTop = '10px';
+
+  qrcodeDiv.appendChild(pElement);
+
+    modal.style.display = "block";
+
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+  }

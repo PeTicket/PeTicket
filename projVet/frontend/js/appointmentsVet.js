@@ -1,6 +1,64 @@
 
 let previousContentId = '';
 let appointments = [];
+let currentAppointmentDetails = null;
+let infouser = null;
+
+
+function getUserInfoFromJWT() {
+  
+    const jwtToken = localStorage.getItem('token');
+    if (jwtToken) {
+        try {
+            const userInfo = JSON.parse(atob(jwtToken.split('.')[1]));
+            return userInfo;
+        } catch (error) {
+            console.error('Error decoding JWT token:', error);
+            return null;
+        }
+    } else {
+        return null;
+    }
+  }
+
+
+
+  document.addEventListener("DOMContentLoaded", function() {
+
+    const userInfo = getUserInfoFromJWT();
+   
+    if (userInfo) {
+        const email = userInfo.sub;
+        const jwtToken = localStorage.getItem('token');
+  
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${jwtToken}`
+        };
+  
+        fetch(`http://localhost:8080/api/client/user/by-email/${email}`, {
+            method: 'GET',
+            headers: headers
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Failed to fetch user information');
+            }
+        })
+        .then(user => {
+            console.log('User information:', user);
+            infouser = user;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    } else {
+        console.log('User information not available');
+    }
+  
+});
 
 document.addEventListener('DOMContentLoaded', () => {
     const logoutButton = document.getElementById('logout-button');
@@ -177,9 +235,9 @@ function getStateClass(state) {
     }
     
     switch (state.toLowerCase()) {
-        case 'in progress':
+        case 'in_progress':
             return 'state-in-progress';
-        case 'on hold':
+        case 'on_hold':
             return 'state-on-hold';
         case 'done':
             return 'state-done';
@@ -193,18 +251,44 @@ function getStateClass(state) {
 
 function viewAppointmentDetails(appointmentData) {
     const appointment =appointmentData;
+
+    const appointmentDetails = {
+        id: appointment.id,
+        appointment_number:"0",
+        clinic_number:"0",
+        diagnosis:"none",
+        observations:appointment.occurence,
+        occurence:appointment.observations,
+        qrCode:appointment.qrCode,
+        status:appointment.status,
+        vetId:"2c7bb00c-6022-4866-9165-a8f4886f3406",
+        time:appointment.time,
+        userId: appointment.userId,
+        oetId: appointment.pet.id,
+        petWeight: appointment.weight || 0,
+        petHeight: appointment.height || 0,
+        petBloodType: appointment.bloodType || "BloodType",
+        observations: appointment.observations,
+        state: appointment.state
+    };
+
+    currentAppointmentDetails=appointmentDetails;
+
+
     document.getElementById('app-id').textContent = appointment.id;
+    document.getElementById('id-client').textContent = appointment.user.id;
     document.getElementById('name-client').textContent = appointment.user.firstName;
     document.getElementById('email-client').textContent = appointment.user.email;
     document.getElementById('phone-client').textContent = appointment.user.phone | "N/A";
+    document.getElementById('id-pet').textContent = appointment.pet.id;
     document.getElementById('name-pet').textContent = appointment.pet.name;
     document.getElementById('type-pet').textContent = appointment.pet.type;
     document.getElementById('breed-pet').textContent = appointment.pet.breed;
     document.getElementById('color-pet').textContent = appointment.pet.color;
     document.getElementById('age-pet').textContent = appointment.pet.age;
-    document.getElementById('weight-pet').value = appointment.weight | 0;
-    document.getElementById('height-pet').value = appointment.height | 0
-    document.getElementById('bloodtype-pet').value = appointment.bloodType | "BloodType";
+    document.getElementById('weight-pet').value = appointment.pet.weight ;
+    document.getElementById('height-pet').value = appointment.pet.height ;
+    document.getElementById('bloodtype-pet').value = appointment.pet.bloodType | "BloodType";
     document.getElementById('medical-info-pet').value = appointment.pet.medicalInfo;
     document.querySelector('.app-occurence p').textContent = appointment.observations;
 
@@ -313,8 +397,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
 document.addEventListener('DOMContentLoaded', (event) => {
     const doneButton = document.querySelector('.button-add-info:last-child');
     doneButton.addEventListener('click', () => {
-        const appointmentId = document.getElementById('app-id').textContent;;
+        const appointmentId = document.getElementById('app-id').textContent;
+        const userId = document.getElementById('id-client').textContent;;
         const agePet = document.getElementById('age-pet').textContent;
+        const namePet = document.getElementById('name-pet').textContent;
+        const typePet = document.getElementById('type-pet').textContent;
+        const breedPet = document.getElementById('breed-pet').textContent;
+        const colorPet = document.getElementById('color-pet').textContent;
+        const petid = document.getElementById('id-pet').textContent;
         const weightPet = document.getElementById('weight-pet').value;
         const heightPet = document.getElementById('height-pet').value;
         const bloodTypePet = document.getElementById('bloodtype-pet').value;
@@ -332,23 +422,56 @@ document.addEventListener('DOMContentLoaded', (event) => {
             }
         });
 
-       
-        const appointmentData = {
-            id: appointmentId,
-            weightPet: weightPet,
-            heightPet: heightPet,
-            bloodTypePet: bloodTypePet,
-            occurence:occurence,
-            observations:observations,
-            prescriptions: prescriptions
-        };
+
+        const petData ={
+            id:petid,
+            userId:userId,
+            name:namePet,
+            type:typePet,
+            breed:breedPet,
+            color:colorPet,
+            age:agePet,
+            weight: weightPet,
+            height: heightPet,
+            bloodType: bloodTypePet,
+            medicalInfo:medicalInfoPet
+        }
+
+        currentAppointmentDetails.prescriptions = prescriptions;
 
 
-
-      
-        updateAppointment(appointmentData);
+        updatepet(petData);
+        updateAppointment(currentAppointmentDetails);
     });
 });
+
+
+async function updatepet(petData){
+    console.log(petData);
+
+    const token =localStorage.getItem('token'); 
+
+    try{
+        const response = await fetch(`http://localhost:8081/api/vet/pets/${petData.id}`,{
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(petData)
+        });
+        if (response.ok) {
+            const updatedAppointment = await response.json();
+            console.log('Pet updated:', updatedAppointment);
+        } else {
+            console.error('Failed to update pet');
+        }
+    } catch (error){
+        console.error('Error updating pet:', error);
+    }
+
+
+}
 
 async function updateAppointment(appointmentData) {
     console.log(appointmentData);

@@ -27,6 +27,7 @@ public class AppointmentService {
         return appointmentRepository.findById(id);
     }
 
+    @Transactional
     public void delete(Appointment appointment) {
         if (appointmentRepository.existsById(appointment.getId())) {
             appointmentRepository.deleteById(appointment.getId());

@@ -72,10 +72,17 @@ public class AppointmentController {
     }
 
     @GetMapping("/by-user-id")
-    public ResponseEntity<List<Appointment>> getAppointmentsByUserId() {
+    public ResponseEntity<List<Appointment>> getAppointmentsByUserId() throws IOException {
         UUID userId = authHandler.getUserId();
         logger.info("Getting appointments by user id " + userId);
         List<Appointment> appointments = appointmentService.findByUserId(userId);
+
+        for (Appointment appointment : appointments) {
+            byte[] qrcode = appointment.getQrCode();
+            appointment.setQrCode(qrCodeService.decompress(qrcode));
+            appointment.setUser(userService.findById(appointment.getUserId()));
+            appointment.setPet(petService.findById(appointment.getPetId()));
+        }
         if (appointments.isEmpty()) {
             logger.info("No appointments found");
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -154,11 +161,15 @@ public class AppointmentController {
         appointment.setUserId(userId);
         appointment.setStatus("scheduled");
 
-        byte[] img = qrCodeService.generateCompressedQRCodeImage(userId, appointment.getPetId(), appointment.getId());
+      
 
-        appointment.setQrCode(img);
+       
         logger.info("Adding appointment");
         appointmentService.save(appointment);
+        logger.info(appointment.getId());
+        byte[] img = qrCodeService.generateCompressedQRCodeImage(userId, appointment.getPetId(), appointment.getId());
+        appointment.setQrCode(img);
+        appointmentService.update(appointment);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
@@ -195,7 +206,7 @@ public class AppointmentController {
             logger.info("Appointment not found");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        if (userId != appointment.getUserId()) {
+        if (!userId.equals(appointment.getUserId())) {
             logger.info("User not authorized");
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }

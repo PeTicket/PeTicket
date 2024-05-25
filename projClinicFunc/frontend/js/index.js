@@ -12,7 +12,7 @@ document.getElementById('loginButton').addEventListener('click', async function(
 
     if (response.ok) {
         const token = await response.text();
-        localStorage.setItem('token', token);
+        localStorage.setItem('tokenF', token);
         Toastify({
             text: "Login successful",
             duration: 3000,
@@ -33,3 +33,9 @@ document.getElementById('loginButton').addEventListener('click', async function(
         }).showToast();
     }
 });
+
+
+function logout() {
+    localStorage.removeItem('jwtToken');
+    window.location.href = './index.html';
+}
