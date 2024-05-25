@@ -53,13 +53,12 @@ public class AppointmentService {
         return appointmentRepository.existsByVetId(vetId);
     }
 
-    public Appointment update(Appointment appointment) {
-        if (appointmentRepository.existsById(appointment
-                .getId())) {
-            return appointmentRepository.save(appointment);
-        } else {
+    public Appointment update(UUID appointmentId, Appointment appointment) {
+        if (!appointmentRepository.existsById(appointment.getId())) {
             return null;
         }
+        appointment.setId(appointmentId);
+        return appointmentRepository.save(appointment);
     }
 
     public List<Appointment> findByUserId(UUID userId) {
@@ -92,5 +91,22 @@ public class AppointmentService {
     
     public List<Appointment> getAllAppointments() {
         return appointmentRepository.findAll();
+    }
+
+    public Appointment findNextAppointment(){
+        // ve os appointments de hoje, e pega so nos que estao on_hold, e ve qual o pprimeiro
+        LocalDate today = LocalDate.now();
+        List<Appointment> appointments = appointmentRepository.findByDate(today.toString());
+        Appointment nextAppointment = null;
+        // ordena crescentemente consoante o appointment_number
+        appointments.sort((a1, a2) -> a1.getAppointment_number().compareTo(a2.getAppointment_number()));
+        for (Appointment appointment : appointments) {
+            if (appointment.getStatus().equals("on_hold")) {
+                nextAppointment = appointment;
+                return nextAppointment;
+            }
+        }
+        return null;
+
     }
 }

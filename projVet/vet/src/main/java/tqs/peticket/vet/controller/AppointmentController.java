@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import tqs.peticket.vet.middleware.SenderConfig;
 import tqs.peticket.vet.model.Appointment;
 import tqs.peticket.vet.security.jwt.AuthHandler;
 import tqs.peticket.vet.service.AppointmentService;
@@ -39,6 +40,9 @@ public class AppointmentController {
 
     @Autowired  
     private PetService petService;
+
+    @Autowired
+    private SenderConfig senderConfig;
 
     @GetMapping("/all")
     public ResponseEntity<List<Appointment>> getTodaysAppointments() {
@@ -134,6 +138,21 @@ public class AppointmentController {
 
         logger.info("Prescription updated");
         return new ResponseEntity<>(updatedAppointment, HttpStatus.OK);
+    }
+
+    @PostMapping("/next/{clinicNumber}")
+    public ResponseEntity<Appointment> getNextAppointment(@PathVariable String clinicNumber) {
+        logger.info("Getting next appointment for clinic number " + clinicNumber);
+        Appointment appointment = appointmentService.findNextAppointment();
+        if (appointment == null) {
+            logger.info("No appointments found");
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        logger.info("Appointment found");
+        String message = "C"+clinicNumber+" - "+appointment.getAppointment_number();
+        senderConfig.send(message);
+        appointment.setStatus("in_progress");
+        return new ResponseEntity<>(appointment, HttpStatus.OK);
     }
 }
 

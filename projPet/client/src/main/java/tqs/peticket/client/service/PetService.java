@@ -106,11 +106,9 @@ public class PetService {
     }
 
     @Transactional
-    public Void deleteByUserId(UUID userId) {
+    public void deleteByUserId(UUID userId) {
         if (petRepository.existsByUserId(userId)) {
-            return petRepository.deleteByUserId(userId);
-        } else {
-            return null;
+            petRepository.deleteByUserId(userId);
         }
     }
 

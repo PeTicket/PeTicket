@@ -1,4 +1,3 @@
-/*
 package tqs.peticket.client.repositoryTests;
 
 import org.junit.jupiter.api.Test;
@@ -12,7 +11,7 @@ import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DataJpaTest
+@DataJpaTest(properties = {"spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.H2Dialect"})
 public class UserRepositoryTests {
 
     @Autowired
@@ -31,7 +30,7 @@ public class UserRepositoryTests {
 
     @Test
     void whenInvalidUserId_thenReturnNull() {
-        UUID uuid = UUID.fromString("esteIDnaoexiste");
+        UUID uuid = UUID.fromString("bbcc4621-d88f-4a94-ae2f-b38072bf5087");
         User fromDb = userRepository.findById(uuid);
         assertThat(fromDb).isNull();
     }
@@ -84,4 +83,3 @@ public class UserRepositoryTests {
     }
     
 }
-*/

@@ -15,6 +15,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -197,5 +198,60 @@ class UserControllerTests {
                 .andExpect(status().isNoContent());
 
         verify(service, times(1)).findById(userId);
+    }
+
+    @Test
+    void testUpdateSuccessful() throws Exception {
+        User user = new User("John", "Doe", "john.doe@email.com", "password123", "Some Address", "123-456-7890");
+        UUID userId = UUID.randomUUID();
+        User updatedUser = new User("Jane", "Doe", "jane.doe@email.com", "newPassword", "Another Address", "987-654-3210");
+
+        when(authHandler.getUserId()).thenReturn(userId);
+        when(service.findById(userId)).thenReturn(user);
+        when(service.update(user)).thenReturn(updatedUser);
+
+        mvc.perform(put("/api/client/user/update")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(JsonUtils.toJson(user)))
+            .andExpect(status().isOk());
+
+        verify(service, times(1)).findById(userId);
+        verify(service, times(1)).update(user);
+    }
+
+    @Test
+    void testUpdateUserNotFound() throws Exception {
+        User updatedUser = new User("Jane", "Doe", "jane.doe@email.com", "newPassword", "Another Address", "987-654-3210");
+        UUID userId = UUID.randomUUID();
+
+        when(authHandler.getUserId()).thenReturn(userId);
+        when(service.findById(userId)).thenReturn(null);
+
+        mvc.perform(put("/api/client/user/update")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(JsonUtils.toJson(updatedUser)))
+            .andExpect(status().isNoContent());
+
+        verify(service, times(1)).findById(userId);
+        verify(service, never()).update(any());
+    }
+
+    @Test
+    void testUpdateUserFailed() throws Exception {
+        User existingUser = new User("John", "Doe", "john.doe@email.com", "password123", "Some Address", "123-456-7890");
+        User updatedUser = new User("Jane", "Doe", "jane.doe@email.com", "newPassword", "Another Address", "987-654-3210");
+        UUID userId = UUID.randomUUID();
+
+        when(authHandler.getUserId()).thenReturn(userId);
+        when(service.findById(userId)).thenReturn(existingUser);
+        when(service.update(existingUser)).thenReturn(null);
+
+        mvc.perform(put("/api/client/user/update")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(JsonUtils.toJson(updatedUser)))
+            .andExpect(status().isBadRequest());
+
+        verify(service, times(1)).findById(userId);
+        verify(service, times(1)).update(existingUser);
     }
 }
