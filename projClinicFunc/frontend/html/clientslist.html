@@ -28,18 +28,39 @@
     }
   </style>
 <body>
-    <nav class="large-nav">
-        <div class="nav-wrapper">
-          <h2 class="brand-logo">PeTicket</h2>
-          <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a href="./appointments.html">Appointments</a></li>
-            <li><a href="./manualblocking.html">Manual</a></li>
-            <li><a href="./clientslist.html">Clients</a></li>
-            <li><a href="./reports.html">Reports</a></li>
-            <li><a class="logout-navbar" onclick="logout()" >Logout</a></li>
-          </ul>
-        </div>
-    </nav>
+  <nav class="large-nav">
+    <div class="nav-wrapper">
+      <h2 class="brand-logo">PeTicket</h2>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="./appointments.html">Appointments</a></li>
+        <li><a href="./clientslist.html">Clients</a></li>
+        <li><a href="./reports.html">Reports</a></li>
+        <li><a class="logout-navbar" onclick="logout()">Logout</a></li>
+      </ul>
+      </div>
+  </nav>
+
+
+
+<div class="clients-main-div">
+  <div class="top-div">
+
+  <h2> Clients</h2>
+    <div class="search-bar">
+      <div class="user-box">
+        <input type="text" id="breed" name="breed" required="">
+        <label>Search by email</label>
+      </div>
+      <button class="search-button" type="button">Search</button>
+    </div>
+    <button id="create-button" class="create-button2" type="button">Create Client</button>
+    <button id="create-button2" class="create-button2" type="button">Create pet</button>
+  </div>
+
+  <div class="clients-container">
+
+  </div>
+</div>
 
 
 

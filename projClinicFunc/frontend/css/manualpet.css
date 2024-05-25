@@ -1,18 +1,16 @@
-
-body{
+body {
     font-family: 'Courier New', Courier, monospace;
     font-weight: bold;
-}
-
-nav {
-    
+  }
+  
+  nav {
     color: #2E7D32; 
     padding: 10px 20px;
     height: 8vh;
     width: 65%;
     margin: 0 auto;
     position: relative;
-    border-bottom:1px solid #2E7D32 ;
+    border-bottom: 1px solid #2E7D32;
     font-family: 'Courier New', Courier, monospace;
     font-weight: bold;
   }
@@ -31,7 +29,7 @@ nav {
   
   .dropdown {
     position: absolute;
-    top: 100%; 
+    top: 100%;
     left: 59%;
     display: none;
     background-color: #fff; 
@@ -46,7 +44,7 @@ nav {
     border: 1px solid #2E7D32;
   }
   
-  .dropdown-item:hover{
+  .dropdown-item:hover {
     cursor: pointer;
   }
   
@@ -56,7 +54,6 @@ nav {
     align-items: center;
     justify-content: center;
     padding: 10px 0;
-  
   }
   
   .dropdown li a:before {
@@ -77,7 +74,7 @@ nav {
     transform: scaleX(1);
   }
   
-  .dropdown-item  .show {
+  .dropdown-item .show {
     display: block;
   }
   
@@ -124,133 +121,151 @@ nav {
     transform: scaleX(1);
   }
   
-  .logout-navbar{
-    border: 1px solid #2E7D32 ;
+  .logout-navbar {
+    border: 1px solid #2E7D32;
     padding: 10px;
-    border-radius:2rem ;
+    border-radius: 2rem;
     transition: background-color 0.5s ease, color 0.5s ease;
   }
   
-  .logout-navbar:hover{
+  .logout-navbar:hover {
     background-color: #2E7D32;
     color: white !important;
     cursor: pointer;
   }
   
-  
-  .logout-navbar::before{
+  .logout-navbar::before {
     display: none;
   }
-
-
-  .appointment-main-div{
+  
+  
+.addpet-div{
   display: flex;
-  margin: auto;
-  margin-top: 2rem;
   width: 95%;
   height: 83vh;
+  margin: auto;
+  margin-top: 2rem;
+}
+
+
+.addpet-container{
+  width: 40%;
+  margin: auto;
+  height: 100%;
+  border: 2px solid black;
+  border-radius: 5%;
+}
+
+
+.button-addpet-div{
+  height: 15% ;
+  margin-top: 2%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button-addpet{
+  position: relative;
+  background-color: transparent;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+  color: #e8e8e8;
+  font-size: 17px;
+  font-weight: 600;
+  border-radius: 10px;
+  width: 150px;
+  height: 60px;
+  border: none;
+  text-transform: uppercase;
+  border-radius: 2rem;
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(51, 51, 51, 0.2);
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.button-addpet::before {
+  content: "Add";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background:rgb(23, 133, 74) ;
+  transform: translate(0%,100%);
+  z-index: 99;
+  position: relative;
+  transform-origin: bottom;
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.button-addpet::after {
+  content: "Client";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #333;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  transform-origin: top;
+  transform: translate(0%,-100%);
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.button-addpet:hover::before {
+  transform: translate(0%,0%);
+}
+
+.button-addpet:hover::after {
+  transform: translate(0%,-200%);
+}
+
+.button-addpet:focus {
+  outline: none;
+}
+
+.button-addpet:active {
+  scale: 0.95;
+}
+
+
+.addpet-container form{
+  height: 85%;
+  width: 95%;
+  margin: auto;
+  display: flex;
+  align-items: center;
   flex-direction: column;
-  }
-
-  .top-div{
-    display: flex;
-    width: 70%;
-    flex-direction: row;
-    align-items: center;
-    height: 10rem;
-    justify-content: space-between;
-    margin: 0 auto;
-  }
+}
 
 
-  .search-bar{
-    display: flex;
-    flex-direction: row;
-  }
-  
+.form-title{
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+}
+.form-title h3{
+  font-size: 1.7em;
+  color: #2E7D32;
+}
 
+.input-box{
+  margin-top: 2rem;
+  width: 50%;
+  margin: auto;
+}
 
-
-  .create-button2 {
-    border-radius: 20px;
-    border: 1px solid #2E7D32;
-    background-color: #2E7D32;
-    color: #FFFFFF;
-    font-size: 12px;
-    font-weight: bold;
-    padding: 12px 35px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    transition: transform 80ms ease-in;
-    margin: auto 0;
-  }
-  
-  
-  .create-button2:hover{
-      cursor: pointer;
-      border: 3px solid #2E7D32;
-  }
-  
-  .create-button2:active {
-    transform: scale(0.95);
-  }
-  
-  .create-button2:focus {
-    outline: none;
-  }
-  
-  .create-button2.ghost {
-    background-color: transparent;
-    border-color: #FFFFFF;
-  }
-  
-
-
-  .search-button {
-    border-radius: 20px;
-    border: 1px solid #2E7D32;
-    background-color: #2E7D32;
-    color: #FFFFFF;
-    font-size: 12px;
-    font-weight: bold;
-    padding: 12px 35px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    transition: transform 80ms ease-in;
-    margin: auto 0;
-    margin-left: 2rem;
-  }
-  
-  
-  .search-button:hover{
-      cursor: pointer;
-      border: 3px solid #2E7D32;
-  }
-  
-  .search-button:active {
-    transform: scale(0.95);
-  }
-  
-  .search-button:focus {
-    outline: none;
-  }
-  
-  .search-button.ghost {
-    background-color: transparent;
-    border-color: #FFFFFF;
-  }
-  
-
-
- .user-box {
+.input-box .user-box {
   position: relative;
   padding: 10px 0;
   display: flex;
   flex-direction: row;
-  margin-top: 1rem;
 }
 
-.user-box input {
+.input-box .user-box input {
   width: 100%;
   padding: 10px 0;
   font-size: 16px;
@@ -262,7 +277,7 @@ nav {
   background: transparent;
 }
 
-.user-box label {
+.input-box .user-box label {
   position: absolute;
   top: 0;
   left: 5%;
@@ -273,8 +288,8 @@ nav {
   transition: .5s;
 }
 
- .user-box input:focus ~ label,
-.user-box input:valid ~ label {
+.input-box .user-box input:focus ~ label,
+.input-box .user-box input:valid ~ label {
   top: -20px;
   left: 0;
   color: #bdb8b8;
@@ -282,15 +297,13 @@ nav {
 }
 
 
-
-
-
-.appointments-container{
-  width: 90%;
-  margin: 0 auto;
-  min-height: 70vh;
-  max-height: 75vh;
-  overflow-y: auto;
-  border-top: 2px dashed black
-
+.user-box select{
+  height: 50%;
+  margin-left: 2rem;
+  margin-top: 0.5rem;
+  background-color: white;
+  color: #000000;
+  border: 2px solid black;
+  border-radius: 10%;
+  padding: 5px;
 }
