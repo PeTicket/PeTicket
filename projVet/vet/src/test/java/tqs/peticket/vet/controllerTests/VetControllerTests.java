@@ -1,8 +1,6 @@
 package tqs.peticket.vet.controllerTests;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 import java.util.UUID;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -14,7 +12,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 
-import tqs.peticket.vet.controller.AppointmentController;
 import tqs.peticket.vet.controller.VetController;
 import tqs.peticket.vet.model.Pet;
 import tqs.peticket.vet.model.User;
@@ -22,7 +19,6 @@ import tqs.peticket.vet.repository.PetRepository;
 import tqs.peticket.vet.service.PetService;
 import tqs.peticket.vet.service.UserService;
 
-import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
