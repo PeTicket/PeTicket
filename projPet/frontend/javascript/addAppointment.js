@@ -184,42 +184,71 @@ window.onclick = function(event) {
     }
 }
 
+function fetchAllAppointments() {
+    const jwtToken = localStorage.getItem('jwtToken');
+    return fetch('http://localhost:8080/api/client/appointment/all', {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${jwtToken}`
+        },
+    })
+    .then(response => response.json())
+    .catch(error => console.error('Error fetching appointments:', error));
+}
 function createConsultationTimes() {
-    var consultationTimesDiv = document.getElementById('consultationTimes');
-    consultationTimesDiv.innerHTML = '';
+    fetchAllAppointments().then(appointments => {
+        var consultationTimesDiv = document.getElementById('consultationTimes');
+        consultationTimesDiv.innerHTML = '';
 
-    var startTime = 10;
-    var endTime = 18;
+        var startTime = 10;
+        var endTime = 18;
 
-    for (var hour = startTime; hour <= endTime; hour++) {
-        var timeSlot = document.createElement('div');
-        timeSlot.classList.add('time-slot');
-        timeSlot.textContent = hour.toString().padStart(2, '0') + ':00';
-        consultationTimesDiv.appendChild(timeSlot);
+        for (var hour = startTime; hour <= endTime; hour++) {
+            createConsultationTimeSlot(hour, '00', consultationTimesDiv, appointments);
+            if (hour < endTime) {
+                createConsultationTimeSlot(hour, '30', consultationTimesDiv, appointments);
+            }
+        }
 
-        timeSlot.addEventListener('click', function() {
+        dateOfBirthInput.addEventListener('change', function() {
+            selectedDate = this.value;
+            updateAppointmentText();
+            markUnavailableTimes(appointments);
+        });
+    });
+}
+
+function createConsultationTimeSlot(hour, minute, parentDiv, appointments) {
+    var timeSlot = document.createElement('div');
+    timeSlot.classList.add('time-slot');
+    timeSlot.textContent = hour.toString().padStart(2, '0') + ':' + minute;
+    parentDiv.appendChild(timeSlot);
+
+    timeSlot.addEventListener('click', function() {
+        if (!this.classList.contains('unavailable')) {
             selectedTime = this.textContent;
             updateAppointmentText();
             modal.style.display = "none";
-        });
-
-        if (hour < endTime) {
-            var halfHourSlot = document.createElement('div');
-            halfHourSlot.classList.add('half-hour-slot');
-            halfHourSlot.textContent = hour.toString().padStart(2, '0') + ':30';
-            consultationTimesDiv.appendChild(halfHourSlot);
-
-            halfHourSlot.addEventListener('click', function() {
-                selectedTime = this.textContent;
-                updateAppointmentText();
-                modal.style.display = "none";
-            });
         }
-    }
+    });
+}
 
-    dateOfBirthInput.addEventListener('change', function() {
-        selectedDate = this.value;
-        updateAppointmentText();
+function markUnavailableTimes(appointments) {
+    const slots = document.querySelectorAll('.time-slot, .half-hour-slot');
+    slots.forEach(slot => {
+        slot.classList.remove('unavailable');
+        slot.disabled = false;
+    });
+
+    const selectedDateAppointments = appointments.filter(app => app.date === selectedDate);
+
+    selectedDateAppointments.forEach(app => {
+        slots.forEach(slot => {
+            if (slot.textContent === app.time) {
+                slot.classList.add('unavailable');
+                slot.disabled = true;
+            }
+        });
     });
 }
 
