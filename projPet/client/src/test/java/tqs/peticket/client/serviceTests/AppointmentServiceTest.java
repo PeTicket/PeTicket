@@ -4,7 +4,6 @@ import tqs.peticket.client.service.AppointmentService;
 import tqs.peticket.client.model.Appointment;
 import tqs.peticket.client.repository.AppointmentRepository;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -20,9 +19,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @ExtendWith(MockitoExtension.class)
 public class AppointmentServiceTest {
@@ -88,10 +84,25 @@ public class AppointmentServiceTest {
     }
 
     @Test
+    @DisplayName("Test delete appointment by id not found")
+    void testDeleteAppointmentByIdNotFound() {
+        when(appointmentRepository.existsById(appointment1.getId())).thenReturn(false);
+        appointmentService.deleteById(appointment1.getId());
+        verify(appointmentRepository, never()).deleteById(appointment1.getId());
+    }
+
+    @Test
     @DisplayName("Test exists appointment by id")
     void testExistsAppointmentById() {
         when(appointmentRepository.existsById(appointment1.getId())).thenReturn(true);
         assertThat(appointmentService.existsById(appointment1.getId())).isTrue();
+    }
+
+    @Test
+    @DisplayName("Test exists appointment by id not found")
+    void testExistsAppointmentByIdNotFound() {
+        when(appointmentRepository.existsById(appointment1.getId())).thenReturn(false);
+        assertThat(appointmentService.existsById(appointment1.getId())).isFalse();
     }
 
     @Test
@@ -121,6 +132,13 @@ public class AppointmentServiceTest {
         when(appointmentRepository.existsById(appointment1.getId())).thenReturn(true);
         when(appointmentRepository.save(appointment1)).thenReturn(appointment1);
         assertThat(appointmentService.update(appointment1)).isEqualTo(appointment1);
+    }
+
+    @Test
+    @DisplayName("Test update non-existing appointment")
+    void testUpdateNonExistingAppointment() {
+        when(appointmentRepository.existsById(appointment1.getId())).thenReturn(false);
+        assertThat(appointmentService.update(appointment1)).isNull();
     }
 
     @Test
@@ -154,6 +172,26 @@ public class AppointmentServiceTest {
     }
 
     @Test
+    @DisplayName("Test find appointments by status")
+    void testFindAppointmentsByStatus() {
+        List<Appointment> appointments = new ArrayList<>();
+        appointments.add(appointment1);
+        appointments.add(appointment2);
+        when(appointmentRepository.findByStatus(appointment1.getStatus())).thenReturn(appointments);
+        assertThat(appointmentService.findByStatus(appointment1.getStatus())).isEqualTo(appointments);
+    }
+
+    @Test
+    @DisplayName("Test find appointments by date and time")
+    void testFindAppointmentsByDateAndTime() {
+        List<Appointment> appointments = new ArrayList<>();
+        appointments.add(appointment1);
+        appointments.add(appointment2);
+        when(appointmentRepository.findByDateAndTime(appointment1.getDate(), appointment1.getTime())).thenReturn(appointments);
+        assertThat(appointmentService.findByDateAndTime(appointment1.getDate(), appointment1.getTime())).isEqualTo(appointments);
+    }
+
+    @Test
     @DisplayName("Test find appointments by date")
     void testFindAppointmentsByDate() {
         List<Appointment> appointments = new ArrayList<>();
@@ -164,13 +202,44 @@ public class AppointmentServiceTest {
     }
 
     @Test
-    @DisplayName("Test find appointments by status")
-    void testFindAppointmentsByStatus() {
+    @DisplayName("Test find appointments by time")
+    void testFindAppointmentsByTime() {
         List<Appointment> appointments = new ArrayList<>();
         appointments.add(appointment1);
         appointments.add(appointment2);
-        when(appointmentRepository.findByStatus(appointment1.getStatus())).thenReturn(appointments);
-        assertThat(appointmentService.findByStatus(appointment1.getStatus())).isEqualTo(appointments);
+        when(appointmentRepository.findByTime(appointment1.getTime())).thenReturn(appointments);
+        assertThat(appointmentService.findByTime(appointment1.getTime())).isEqualTo(appointments);
+    }
+
+    @Test
+    @DisplayName("Test get all appointments")
+    void testGetAllAppointments() {
+        List<Appointment> appointments = new ArrayList<>();
+        appointments.add(appointment1);
+        appointments.add(appointment2);
+        when(appointmentRepository.findAll()).thenReturn(appointments);
+        assertThat(appointmentService.getAllAppointments()).isEqualTo(appointments);
+    }
+
+    @Test
+    @DisplayName("Test get all appointments empty")
+    void testGetAllAppointmentsEmpty() {
+        when(appointmentRepository.findAll()).thenReturn(new ArrayList<>());
+        assertThat(appointmentService.getAllAppointments()).isEmpty();
+    }
+
+    @Test
+    @DisplayName("Test exists pet by user id")
+    void testExistsPetByUserId() {
+        when(appointmentRepository.existsByPetIdAndUserId(appointment1.getPetId(), appointment1.getUserId())).thenReturn(true);
+        assertThat(appointmentService.existsPetByUserId(appointment1.getUserId(), appointment1.getPetId())).isTrue();
+    }
+
+    @Test
+    @DisplayName("Test exists pet by user id not found")
+    void testExistsPetByUserIdNotFound() {
+        when(appointmentRepository.existsByPetIdAndUserId(appointment1.getPetId(), appointment1.getUserId())).thenReturn(false);
+        assertThat(appointmentService.existsPetByUserId(appointment1.getUserId(), appointment1.getPetId())).isFalse();
     }
     
 }
