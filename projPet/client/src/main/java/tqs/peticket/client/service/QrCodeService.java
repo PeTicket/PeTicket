@@ -11,19 +11,14 @@ import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.common.HybridBinarizer;
-import com.google.zxing.qrcode.QRCodeReader;
 import com.google.zxing.qrcode.QRCodeWriter;
-import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import com.google.zxing.Result;
 import com.google.zxing.NotFoundException;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.nio.file.FileSystems;
-import java.nio.file.Path;
 import java.util.EnumMap;
 import java.util.EnumSet;
-import java.util.HashMap;
 import java.util.UUID;
 import java.util.zip.Deflater;
 import java.util.zip.DeflaterOutputStream;
@@ -31,17 +26,7 @@ import java.util.zip.InflaterInputStream;
 import java.util.Map;
 import java.awt.image.BufferedImage;
 
-import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-import java.io.*;
-import java.util.EnumMap;
-import java.util.Map;
-import java.util.UUID;
 import javax.imageio.ImageIO;
-import com.google.zxing.*;
-import com.google.zxing.common.*;
-import com.google.zxing.qrcode.*;
-import com.google.zxing.client.j2se.*;
 
 
 
