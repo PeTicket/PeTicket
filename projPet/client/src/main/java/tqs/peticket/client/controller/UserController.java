@@ -117,25 +117,12 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
 
-        if (userDetails.getFirstName()== null) {
-            logger.info("User Details:", userDetails);
-            logger.info("User details null");
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-
-        logger.info("User Details:", userDetails.toString());
-
         existingUser.setFirstName(userDetails.getFirstName());
         existingUser.setLastName(userDetails.getLastName());
         existingUser.setEmail(userDetails.getEmail());
         existingUser.setPassword(userDetails.getPassword());
         existingUser.setAddress(userDetails.getAddress());
         existingUser.setPhone(userDetails.getPhone());
-
-        logger.info("User updated:", existingUser.toString());
-        //store existing user id in a variable
-        // UUID existingUser_id = existingUser.getId();
-        // User updatedUser = userService.updateById(existingUser_id, existingUser)
 
         User updatedUser = userService.update(existingUser);
         if (updatedUser == null) {
