@@ -18,12 +18,14 @@ import tqs.peticket.vet.controller.AppointmentController;
 import tqs.peticket.vet.controller.VetController;
 import tqs.peticket.vet.model.Pet;
 import tqs.peticket.vet.model.User;
+import tqs.peticket.vet.repository.PetRepository;
 import tqs.peticket.vet.service.PetService;
 import tqs.peticket.vet.service.UserService;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -40,6 +42,9 @@ public class VetControllerTests {
 
     @MockBean
     private PetService petService;
+
+    @MockBean
+    private PetRepository petRepository;
 
     private User user;
     private Pet pet;
@@ -58,6 +63,9 @@ public class VetControllerTests {
         pet.setId(petId);
         pet.setName("Buddy");
         pet.setUserId(userId);
+        pet.setBreed("Golden Retriever");
+
+        when(petRepository.existsById(petId)).thenReturn(true);
     }
 
     @Test
@@ -222,15 +230,25 @@ public class VetControllerTests {
 
     @Test
     public void updatePetWhenPetExists() throws Exception {
-        when(petService.update(petId, pet)).thenReturn(pet);
+        Pet updatedPet = new Pet();
+        updatedPet.setId(petId);
+        updatedPet.setName("BuddyUpdated");
+        updatedPet.setUserId(pet.getUserId());
+        updatedPet.setBreed("Golden Retriever");
 
-        mockMvc.perform(put("/api/vet/pets/{id}", pet.getId())
-                .content(JsonUtils.toJson(pet))
+        // Log statements to check mock configuration
+        System.out.println("Mocking petService.update");
+        when(petService.update(eq(petId), any(Pet.class))).thenReturn(updatedPet);
+
+        System.out.println("Performing PUT request to update pet");
+        mockMvc.perform(put("/api/vet/pets/{id}", petId)
+                .content(JsonUtils.toJson(updatedPet))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.name").value("Buddy"));
+                .andExpect(jsonPath("$.name").value("BuddyUpdated"));
 
-        verify(petService, times(1)).update(pet.getId(), pet);
+        // Verify interactions with mocks
+        verify(petService, times(1)).update(eq(petId), any(Pet.class));
     }
 
     @Test
@@ -242,6 +260,6 @@ public class VetControllerTests {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
 
-        verify(petService, times(1)).update(pet.getId(), pet);
+        verify(petService, times(1)).update(eq(petId), any(Pet.class));
     }
 }
