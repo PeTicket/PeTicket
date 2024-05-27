@@ -48,7 +48,7 @@
   <h2> Clients</h2>
     <div class="search-bar">
       <div class="user-box">
-        <input type="text" id="breed" name="breed" required="">
+        <input type="text" id="searchemail" name="breed" required="">
         <label>Search by email</label>
       </div>
       <button class="search-button" type="button">Search</button>
@@ -57,8 +57,16 @@
     <button id="create-button2" class="create-button2" type="button">Create pet</button>
   </div>
 
-  <div class="clients-container">
+  <div class="clients-container" id="clients-container">
 
+  </div>
+</div>
+
+<div id="petModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Pets do Cliente</h2>
+    <div id="petList"></div>
   </div>
 </div>
 
