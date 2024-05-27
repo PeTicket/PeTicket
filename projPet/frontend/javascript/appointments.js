@@ -105,6 +105,9 @@ function displayAppointments(appointments) {
   const futureAppointments = appointments.filter(appointment => new Date(appointment.date) > now);
   const pastAppointments = appointments.filter(appointment => new Date(appointment.date) <= now);
 
+  futureAppointments.sort((a, b) => new Date(a.date) - new Date(b.date));
+  pastAppointments.sort((a, b) => new Date(a.date) - new Date(b.date));
+
   
   renderAppointments('future-appointments', futureAppointments);
   renderAppointments('past-appointments', pastAppointments);
@@ -126,6 +129,7 @@ function renderAppointments(containerId, appointments) {
       
           <div>
             <p>Observation: ${appointment.observations}</p>
+            <p>Prescriptions: ${appointment.prescription ? appointment.prescription : '&nbsp;'}</p>
           </div>
 
           <div class="qrcode-icon">
