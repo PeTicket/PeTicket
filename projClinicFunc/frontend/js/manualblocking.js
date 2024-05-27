@@ -1,5 +1,6 @@
 let selectedDate;
 let selectedTime;
+let currentUserInfo;
 
 function logout() {
     localStorage.removeItem('tokenF');
@@ -13,6 +14,13 @@ document.addEventListener('DOMContentLoaded', function() {
     createStarsPeriodically();
     createConsultationTimes();
 
+    document.getElementById('useremail').addEventListener('input', function(event) {
+        const email = event.target.value;
+        if (email) {
+            fetchUserByEmail(email);
+        }
+    });
+
     document.querySelector('.button-addapp').addEventListener('click', function() {
       addAppointment();
     });
@@ -21,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function addAppointment() {
     const petId = document.getElementById('pet-select').value;
     const observations = document.querySelector('input[name="observations"]').value;
-    const jwtToken = localStorage.getItem('jwtToken');
+    const jwtToken = localStorage.getItem('tokenF');
 
     if (!petId || !selectedDate || !selectedTime) {
         alert('Please fill out all fields.');
@@ -109,42 +117,72 @@ window.onclick = function(event) {
     }
 }
 
+function fetchAllAppointments() {
+    const jwtToken = localStorage.getItem('tokenF');
+    return fetch('http://localhost:8082/api/func/appointment/appointments', {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${jwtToken}`
+        },
+    })
+    .then(response => response.json())
+    .catch(error => console.error('Error fetching appointments:', error));
+}
+
 function createConsultationTimes() {
-    var consultationTimesDiv = document.getElementById('consultationTimes');
-    consultationTimesDiv.innerHTML = '';
+    fetchAllAppointments().then(appointments => {
+        var consultationTimesDiv = document.getElementById('consultationTimes');
+        consultationTimesDiv.innerHTML = '';
 
-    var startTime = 10;
-    var endTime = 18;
+        var startTime = 10;
+        var endTime = 18;
 
-    for (var hour = startTime; hour <= endTime; hour++) {
-        var timeSlot = document.createElement('div');
-        timeSlot.classList.add('time-slot');
-        timeSlot.textContent = hour.toString().padStart(2, '0') + ':00';
-        consultationTimesDiv.appendChild(timeSlot);
+        for (var hour = startTime; hour <= endTime; hour++) {
+            createConsultationTimeSlot(hour, '00', consultationTimesDiv, appointments);
+            if (hour < endTime) {
+                createConsultationTimeSlot(hour, '30', consultationTimesDiv, appointments);
+            }
+        }
 
-        timeSlot.addEventListener('click', function() {
+        dateOfBirthInput.addEventListener('change', function() {
+            selectedDate = this.value;
+            updateAppointmentText();
+            markUnavailableTimes(appointments);
+        });
+    });
+}
+
+function createConsultationTimeSlot(hour, minute, parentDiv, appointments) {
+    var timeSlot = document.createElement('div');
+    timeSlot.classList.add('time-slot');
+    timeSlot.textContent = hour.toString().padStart(2, '0') + ':' + minute;
+    parentDiv.appendChild(timeSlot);
+
+    timeSlot.addEventListener('click', function() {
+        if (!this.classList.contains('unavailable')) {
             selectedTime = this.textContent;
             updateAppointmentText();
             modal.style.display = "none";
-        });
-
-        if (hour < endTime) {
-            var halfHourSlot = document.createElement('div');
-            halfHourSlot.classList.add('half-hour-slot');
-            halfHourSlot.textContent = hour.toString().padStart(2, '0') + ':30';
-            consultationTimesDiv.appendChild(halfHourSlot);
-
-            halfHourSlot.addEventListener('click', function() {
-                selectedTime = this.textContent;
-                updateAppointmentText();
-                modal.style.display = "none";
-            });
         }
-    }
+    });
+}
 
-    dateOfBirthInput.addEventListener('change', function() {
-        selectedDate = this.value;
-        updateAppointmentText();
+function markUnavailableTimes(appointments) {
+    const slots = document.querySelectorAll('.time-slot, .half-hour-slot');
+    slots.forEach(slot => {
+        slot.classList.remove('unavailable');
+        slot.disabled = false;
+    });
+
+    const selectedDateAppointments = appointments.filter(app => app.date === selectedDate);
+
+    selectedDateAppointments.forEach(app => {
+        slots.forEach(slot => {
+            if (slot.textContent === app.time) {
+                slot.classList.add('unavailable');
+                slot.disabled = true;
+            }
+        });
     });
 }
 
@@ -174,3 +212,72 @@ document.addEventListener("DOMContentLoaded", function() {
       });
     });
   });
+
+ 
+async function fetchUserByEmail(email) {
+    const jwtToken = localStorage.getItem("tokenF");
+    try {
+        const response = await fetch(`http://localhost:8082/api/func/user/${email}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${jwtToken}`
+            },
+        });
+        if (!response.ok) {
+            throw new Error('User not found');
+        }
+        const user = await response.json();
+        fetchedUserId = user.id;
+        currentUserInfo=user;
+        console.log('User ID fetched:', fetchedUserId);
+        
+        fetchPetsByUserId(fetchedUserId);
+    } catch (error) {
+        console.error(error);
+        fetchedUserId = null;
+    }
+}
+
+async function fetchPetsByUserId(userId) {
+    const jwtToken = localStorage.getItem("tokenF");
+    try {
+        const response = await fetch(`http://localhost:8082/api/func/pets/users/${userId}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${jwtToken}`
+            },
+        });
+        if (!response.ok) {
+            throw new Error('Pets not found');
+        }
+        const pets = await response.json();
+        console.log('Pets fetched:', pets);
+        populatePetSelect(pets);
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+function populatePetSelect(pets) {
+    const petSelect = document.getElementById('pet-select');
+    petSelect.innerHTML = ''; 
+
+    const defaultOption = document.createElement('option');
+    defaultOption.value = '';
+    defaultOption.textContent = 'Select pet';
+    defaultOption.disabled = true;
+    defaultOption.selected = true;
+    petSelect.appendChild(defaultOption);
+
+
+    if (pets && pets.length > 0) {
+        pets.forEach(pet => {
+            const option = document.createElement('option');
+            option.value = pet.id;
+            option.textContent = pet.name;
+            petSelect.appendChild(option);
+        });
+    }
+}

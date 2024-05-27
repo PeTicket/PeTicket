@@ -460,3 +460,9 @@ transition: background-color 0.5s ease, color 0.5s ease;
 cursor: pointer;
 background-color: rgba(0, 128, 0, 0.3);
 }
+
+.unavailable {
+  background-color: red;
+  pointer-events: none;
+  opacity: 0.6;
+}

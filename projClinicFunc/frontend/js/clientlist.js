@@ -96,7 +96,7 @@ function displayPets(pets) {
   } else {
     pets.forEach(pet => {
       const petItem = document.createElement('div');
-      petItem.innerHTML = `<p><strong>Nome:</strong> ${pet.name}, <strong>Espécie:</strong> ${pet.specie}, <strong>Raça:</strong> ${pet.breed}</p>`;
+      petItem.innerHTML = `<p><strong>Nome:</strong> ${pet.name}, <strong>Espécie:</strong> ${pet.type}, <strong>Raça:</strong> ${pet.breed}</p>`;
       petList.appendChild(petItem);
     });
   }
