@@ -74,4 +74,4 @@ jobs:
         run: |
           cd projVet/vet
           docker-compose up -d
-          mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=VetTicket_VetTicket
+          mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=PeTicket_PeTicket
