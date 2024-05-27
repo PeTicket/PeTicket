@@ -292,9 +292,17 @@ nav {
     max-height: 75vh;
     overflow-y: auto;
     border-top: 2px dashed black
-  
+
   }
 
+  .clients-container div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid black;
+  }
 
   .modal {
     display: none; 

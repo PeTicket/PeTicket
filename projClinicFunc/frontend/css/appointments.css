@@ -323,3 +323,38 @@ nav {
   padding: 8px 16px;
   cursor: pointer;
 }
+
+
+
+.create-button3 {
+  border-radius: 20px;
+  border: 1px solid #2E7D32;
+  background-color: #2E7D32;
+  color: #FFFFFF;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 12px 35px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: transform 80ms ease-in;
+  margin: auto 0;
+}
+
+
+.create-button3:hover{
+    cursor: pointer;
+    border: 3px solid #2E7D32;
+}
+
+.create-button3:active {
+  transform: scale(0.95);
+}
+
+.create-button3:focus {
+  outline: none;
+}
+
+.create-button3.ghost {
+  background-color: transparent;
+  border-color: #FFFFFF;
+}

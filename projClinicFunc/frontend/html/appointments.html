@@ -51,6 +51,7 @@
           </div>
           <button class="search-button" type="button">Search</button>
         </div>
+        <button  id="toggleButton" class="create-button3" type="button" onclick="toggleAppointments()">Show Today's Appointments</button>
         <button  id="create-button" class="create-button2" type="button">Create Appointment</button>
       </div>
 
@@ -87,6 +88,7 @@
       function createStarsPeriodically() {
         setInterval(createStar, 1000);
       }
+      
     
       document.addEventListener('DOMContentLoaded', createStarsPeriodically);
       </script>
