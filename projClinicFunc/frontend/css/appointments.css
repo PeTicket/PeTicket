@@ -294,3 +294,32 @@ nav {
   border-top: 2px dashed black
 
 }
+
+.appointment{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid black;
+}
+
+.scheduled {
+  background-color: #ffcc00; 
+}
+
+.in-progress {
+  background-color: #00cc66; 
+}
+
+.done {
+  background-color: #3399ff; 
+}
+
+.status-button {
+  color: white;
+  border: 2px solid black;
+  border-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
