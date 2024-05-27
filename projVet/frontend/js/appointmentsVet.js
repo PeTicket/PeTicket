@@ -144,6 +144,16 @@ function populateTodayAppointments(appointments) {
     const tbody = document.querySelector('#content-today tbody');
     tbody.innerHTML = ''; 
 
+    appointments.sort((a, b) => {
+       
+        const dateComparison = new Date(b.date) - new Date(a.date);
+        if (dateComparison !== 0) {
+            return dateComparison; 
+        } else {
+           
+            return a.time.localeCompare(b.time);
+        }
+    });
     appointments.forEach(appointment => {
         const stateClass = getStateClass(appointment.status);
         const tr = document.createElement('tr');
@@ -166,6 +176,18 @@ function populateAllAppointments(appointments) {
     const tbody = document.querySelector('#content-all tbody');
     tbody.innerHTML = ''; 
 
+    appointments.sort((a, b) => {
+       
+        const dateComparison = new Date(b.date) - new Date(a.date);
+        if (dateComparison !== 0) {
+            return dateComparison; 
+        } else {
+           
+            return a.time.localeCompare(b.time);
+        }
+    });
+
+   
     appointments.forEach(appointment => {
         const stateClass = getStateClass(appointment.status);
         const tr = document.createElement('tr');
@@ -187,6 +209,16 @@ function populateLastAppointments(lastAppointments) {
     const tbody = document.querySelector('#content-last tbody');
     tbody.innerHTML = ''; 
 
+    lastAppointments.sort((a, b) => {
+        // Compara as datas
+        const dateComparison = new Date(b.date) - new Date(a.date);
+        if (dateComparison !== 0) {
+            return dateComparison; 
+        } else {
+           
+            return a.time.localeCompare(b.time);
+        }
+    });
     lastAppointments.forEach(appointment => {
         const stateClass = getStateClass(appointment.status);
         const tr = document.createElement('tr');
@@ -208,6 +240,16 @@ function populateUpcomingAppointments(upcomingAppointments) {
     const tbody = document.querySelector('#content-upcoming tbody');
     tbody.innerHTML = ''; 
 
+    upcomingAppointments.sort((a, b) => {
+       
+        const dateComparison = new Date(b.date) - new Date(a.date);
+        if (dateComparison !== 0) {
+            return dateComparison; 
+        } else {
+           
+            return a.time.localeCompare(b.time);
+        }
+    }); 
     upcomingAppointments.forEach(appointment => {
         const stateClass = getStateClass(appointment.status);
         const tr = document.createElement('tr');
