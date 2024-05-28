@@ -20,3 +20,24 @@ services:
       - 5672:5672
       - 15672:15672
 
+
+  pet-frontend:
+    build: ./projPet/frontend/
+    ports:
+      - "3001:80"
+
+  vet-frontend:
+    build: ./projVet/frontend/
+    ports:
+      - "3002:80"
+
+  func-frontend:
+    build: ./projClinicFunc/frontend/
+    ports:
+      - "3003:80"
+
+  display-frontend:
+    build: ./projDS/frontend/
+    ports:
+      - "3004:80"
+
