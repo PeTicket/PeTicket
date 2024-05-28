@@ -46,13 +46,13 @@ public class AppointmentService {
 
     public void addPrescription(Appointment appointment, String presc){
         if (appointmentRepository.existsById(appointment.getId())) {
-            appointmentRepository.findById(appointment.getId()).setDiagnosis(presc);
+            appointmentRepository.findById(appointment.getId()).setPrescription(presc);
         }
     }
 
     public void addObservations(Appointment appointment, String obs){
         if (appointmentRepository.existsById(appointment.getId())) {
-            appointmentRepository.findById(appointment.getId()).setDiagnosis(obs);
+            appointmentRepository.findById(appointment.getId()).setObservations(obs);
         }
     }
 

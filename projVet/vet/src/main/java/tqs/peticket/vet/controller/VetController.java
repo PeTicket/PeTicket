@@ -45,7 +45,7 @@ public class VetController {
     public ResponseEntity<User> getUserByEmail(@PathVariable String email) {
         logger.info("Getting user by email " + email);
         User user = userService.findByEmail(email);
-        if (user.getId() == null) {
+        if (user == null) {
             logger.info("No user found");
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -53,11 +53,11 @@ public class VetController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @GetMapping("/users/by-id")
+    @GetMapping("/users/by-id/{id}")
     public ResponseEntity<User> getUserById(@PathVariable UUID id) {
         logger.info("Getting user by id " + id);
         User user = userService.findById(id);
-        if (user.getId() == null) {
+        if (user == null) {
             logger.info("No user found");
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -77,7 +77,7 @@ public class VetController {
         return new ResponseEntity<>(pets, HttpStatus.OK);
     }
 
-    @GetMapping("/pets/user")
+    @GetMapping("/pets/user/{userId}")
     public ResponseEntity<List<Pet>> getPetsByUserId(@PathVariable UUID userId) {
         logger.info("Getting pets by user id " + userId);
         List<Pet> pets = petService.findByUserId(userId);
@@ -105,7 +105,7 @@ public class VetController {
     public ResponseEntity<Pet> getPetById(@PathVariable UUID id) {
         logger.info("Getting pet by id " + id);
         Pet pet = petService.findById(id);
-        if (pet.getId() == null) {
+        if (pet == null) {
             logger.info("Pet not found");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -117,9 +117,7 @@ public class VetController {
     public ResponseEntity<Pet> updatePet(@PathVariable UUID id, @RequestBody Pet pet) {
         logger.info("Updating pet with id " + id);
         Pet updatedPet = petService.update(id, pet);
-
-        logger.info(updatedPet.toString());
-        if (updatedPet.getId() == null) {
+        if (updatedPet == null) {
             logger.info("Pet not found");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
