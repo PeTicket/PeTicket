@@ -116,7 +116,7 @@ public class AppointmentController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PutMapping("/{id}/prescription")
+    @PutMapping("/{id}/{prescription}")
     public ResponseEntity<Appointment> updatePrescription(@PathVariable UUID id, @PathVariable String prescription) {
         Appointment appointment = appointmentService.findById(id);
         logger.info("Updating prescription for appointment with id " + id);
