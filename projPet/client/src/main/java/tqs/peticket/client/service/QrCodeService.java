@@ -54,7 +54,7 @@ public class QrCodeService {
             byte[] bytes = imageFile.getBytes();
             byte[] decompressedBytes = decompress(bytes);
             ByteArrayInputStream bis = new ByteArrayInputStream(decompressedBytes);
-            BufferedImage image = ImageIO.read(bis);
+                BufferedImage image = ImageIO.read(bis);
 
             Map<DecodeHintType, Object> hints = new EnumMap<>(DecodeHintType.class);
             hints.put(DecodeHintType.TRY_HARDER, Boolean.TRUE); // Tente mais para encontrar e decodificar códigos de barras na imagem
