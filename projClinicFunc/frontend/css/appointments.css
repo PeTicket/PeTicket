@@ -1,0 +1,360 @@
+
+body{
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+}
+
+nav {
+    
+    color: #2E7D32; 
+    padding: 10px 20px;
+    height: 8vh;
+    width: 65%;
+    margin: 0 auto;
+    position: relative;
+    border-bottom:1px solid #2E7D32 ;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+  }
+  
+  .nav-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+  }
+  
+  .brand-logo {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .dropdown {
+    position: absolute;
+    top: 100%; 
+    left: 59%;
+    display: none;
+    background-color: #fff; 
+    color: #2E7D32; 
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    list-style-type: none;
+    padding: 10px; 
+    margin: 0;
+    width: 200px; 
+    z-index: 1; 
+    border-radius: 10px;
+    border: 1px solid #2E7D32;
+  }
+  
+  .dropdown-item:hover{
+    cursor: pointer;
+  }
+  
+  .dropdown li {
+    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0;
+  
+  }
+  
+  .dropdown li a:before {
+    content: "";
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #2E7D32; 
+    visibility: hidden;
+    transform: scaleX(0);
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .dropdown li a:hover:before {
+    visibility: visible;
+    transform: scaleX(1);
+  }
+  
+  .dropdown-item  .show {
+    display: block;
+  }
+  
+  #nav-mobile {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 60%; 
+    margin: 0; 
+    padding: 0; 
+    margin-right: 2rem;
+  }
+  
+  #nav-mobile li {
+    list-style-type: none; 
+  }
+  
+  #nav-mobile a {
+    text-decoration: none;
+    color: inherit;
+    font-size: 20px;
+  }
+  
+  .nav-wrapper a {
+    position: relative;
+    font-size: 20px;
+  }
+  
+  .nav-wrapper a:before {
+    content: "";
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #2E7D32; 
+    visibility: hidden;
+    transform: scaleX(0);
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .nav-wrapper a:hover:before {
+    visibility: visible;
+    transform: scaleX(1);
+  }
+  
+  .logout-navbar{
+    border: 1px solid #2E7D32 ;
+    padding: 10px;
+    border-radius:2rem ;
+    transition: background-color 0.5s ease, color 0.5s ease;
+  }
+  
+  .logout-navbar:hover{
+    background-color: #2E7D32;
+    color: white !important;
+    cursor: pointer;
+  }
+  
+  
+  .logout-navbar::before{
+    display: none;
+  }
+
+
+  .appointment-main-div{
+  display: flex;
+  margin: auto;
+  margin-top: 2rem;
+  width: 95%;
+  height: 83vh;
+  flex-direction: column;
+  }
+
+  .top-div{
+    display: flex;
+    width: 70%;
+    flex-direction: row;
+    align-items: center;
+    height: 10rem;
+    justify-content: space-between;
+    margin: 0 auto;
+  }
+
+
+  .search-bar{
+    display: flex;
+    flex-direction: row;
+  }
+  
+
+
+
+  .create-button2 {
+    border-radius: 20px;
+    border: 1px solid #2E7D32;
+    background-color: #2E7D32;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 12px 35px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+    margin: auto 0;
+  }
+  
+  
+  .create-button2:hover{
+      cursor: pointer;
+      border: 3px solid #2E7D32;
+  }
+  
+  .create-button2:active {
+    transform: scale(0.95);
+  }
+  
+  .create-button2:focus {
+    outline: none;
+  }
+  
+  .create-button2.ghost {
+    background-color: transparent;
+    border-color: #FFFFFF;
+  }
+  
+
+
+  .search-button {
+    border-radius: 20px;
+    border: 1px solid #2E7D32;
+    background-color: #2E7D32;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 12px 35px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+    margin: auto 0;
+    margin-left: 2rem;
+  }
+  
+  
+  .search-button:hover{
+      cursor: pointer;
+      border: 3px solid #2E7D32;
+  }
+  
+  .search-button:active {
+    transform: scale(0.95);
+  }
+  
+  .search-button:focus {
+    outline: none;
+  }
+  
+  .search-button.ghost {
+    background-color: transparent;
+    border-color: #FFFFFF;
+  }
+  
+
+
+ .user-box {
+  position: relative;
+  padding: 10px 0;
+  display: flex;
+  flex-direction: row;
+  margin-top: 1rem;
+}
+
+.user-box input {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #000000;
+  margin-bottom: 30px;
+  border: none;
+  border-bottom: 1px solid #000000;
+  outline: none;
+  background: transparent;
+}
+
+.user-box label {
+  position: absolute;
+  top: 0;
+  left: 5%;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #000000;
+  pointer-events: none;
+  transition: .5s;
+}
+
+ .user-box input:focus ~ label,
+.user-box input:valid ~ label {
+  top: -20px;
+  left: 0;
+  color: #bdb8b8;
+  font-size: 12px;
+}
+
+
+
+
+
+.appointments-container{
+  width: 90%;
+  margin: 0 auto;
+  min-height: 70vh;
+  max-height: 75vh;
+  overflow-y: auto;
+  border-top: 2px dashed black
+
+}
+
+.appointment{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid black;
+}
+
+.scheduled {
+  background-color: #ffcc00; 
+}
+
+.in-progress {
+  background-color: #00cc66; 
+}
+
+.done {
+  background-color: #3399ff; 
+}
+
+.status-button {
+  color: white;
+  border: 2px solid black;
+  border-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+
+
+.create-button3 {
+  border-radius: 20px;
+  border: 1px solid #2E7D32;
+  background-color: #2E7D32;
+  color: #FFFFFF;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 12px 35px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: transform 80ms ease-in;
+  margin: auto 0;
+}
+
+
+.create-button3:hover{
+    cursor: pointer;
+    border: 3px solid #2E7D32;
+}
+
+.create-button3:active {
+  transform: scale(0.95);
+}
+
+.create-button3:focus {
+  outline: none;
+}
+
+.create-button3.ghost {
+  background-color: transparent;
+  border-color: #FFFFFF;
+}

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Func Inteface</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> 
-    <link rel="stylesheet" href="../css/appointments.css">
+    <link rel="stylesheet" href="../css/clientlist.css">
 </head>
 <style>
 
@@ -37,32 +37,42 @@
         <li><a href="./reports.html">Reports</a></li>
         <li><a class="logout-navbar" onclick="logout()">Logout</a></li>
       </ul>
-    </div>
-</nav>
-
-    <div class="appointment-main-div">
-      <div class="top-div">
-
-      <h2> Appointments</h2>
-        <div class="search-bar">
-          <div class="user-box">
-            <input type="text" id="breed" name="breed" required="">
-            <label>Search by user email</label>
-          </div>
-          <button class="search-button" type="button">Search</button>
-        </div>
-        <button  id="toggleButton" class="create-button3" type="button" onclick="toggleAppointments()">Show Today's Appointments</button>
-        <button  id="create-button" class="create-button2" type="button">Create Appointment</button>
       </div>
+  </nav>
 
-      <div class="appointments-container">
 
+
+<div class="clients-main-div">
+  <div class="top-div">
+
+  <h2> Clients</h2>
+    <div class="search-bar">
+      <div class="user-box">
+        <input type="text" id="searchemail" name="breed" required="">
+        <label>Search by email</label>
       </div>
+      <button class="search-button" type="button">Search</button>
     </div>
+    <button id="create-button" class="create-button2" type="button">Create Client</button>
+    <button id="create-button2" class="create-button2" type="button">Create pet</button>
+  </div>
+
+  <div class="clients-container" id="clients-container">
+
+  </div>
+</div>
+
+<div id="petModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Pets do Cliente</h2>
+    <div id="petList"></div>
+  </div>
+</div>
 
 
 
-    <script src="../js/appointments.js"></script>
+    <script src="../js/clientlist.js"></script>
     <script>
         let starCount = 0;
     
@@ -88,7 +98,6 @@
       function createStarsPeriodically() {
         setInterval(createStar, 1000);
       }
-      
     
       document.addEventListener('DOMContentLoaded', createStarsPeriodically);
       </script>

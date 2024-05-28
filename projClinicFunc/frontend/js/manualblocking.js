@@ -1,71 +1,25 @@
-
-let starCount = 0;
 let selectedDate;
 let selectedTime;
-let currentUserInfo =null ;
+let currentUserInfo;
 
-function getUserInfoFromJWT() {
-  
-    const jwtToken = localStorage.getItem('jwtToken');
-    if (jwtToken) {
-        try {
-            const userInfo = JSON.parse(atob(jwtToken.split('.')[1]));
-            return userInfo;
-        } catch (error) {
-            console.error('Error decoding JWT token:', error);
-            return null;
-        }
-    } else {
-        return null;
-    }
-  }
+function logout() {
+    localStorage.removeItem('tokenF');
+    window.location.href = './index.html';
+}
 
 
-document.addEventListener("DOMContentLoaded", function() {
-
-    const userInfo = getUserInfoFromJWT();
-   
-      
-     
-      if (userInfo) {
-        const email = userInfo.sub;
-        const jwtToken = localStorage.getItem('jwtToken');
-  
-  
-        const headers = {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${jwtToken}`
-      };
-  
-      fetch(`http://localhost:8080/api/client/user/by-email/${email}`, {
-              method: 'GET',
-              headers: headers
-          })
-          .then(response => {
-              if (response.ok) {
-                  return response.json();
-              } else {
-                  throw new Error('Failed to fetch user information');
-              }
-          })
-          .then(user => {
-            currentUserInfo = user;
-            fetchPets();
-              console.log('User information:', user);
-          })
-          .catch(error => {
-              console.error('Error:', error);
-          });
-         
-      } else {
-          console.log('User information not available');
-      }
-    });  
 
 
 document.addEventListener('DOMContentLoaded', function() {
     createStarsPeriodically();
     createConsultationTimes();
+
+    document.getElementById('useremail').addEventListener('input', function(event) {
+        const email = event.target.value;
+        if (email) {
+            fetchUserByEmail(email);
+        }
+    });
 
     document.querySelector('.button-addapp').addEventListener('click', function() {
       addAppointment();
@@ -75,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function addAppointment() {
     const petId = document.getElementById('pet-select').value;
     const observations = document.querySelector('input[name="observations"]').value;
-    const jwtToken = localStorage.getItem('jwtToken');
+    const jwtToken = localStorage.getItem('tokenF');
 
     if (!petId || !selectedDate || !selectedTime) {
         alert('Please fill out all fields.');
@@ -115,10 +69,10 @@ function addAppointment() {
     .catch(error => console.error('Error adding appointment:', error));
 }
 
+
 function fetchPets() {
-    const jwtToken = localStorage.getItem('jwtToken');
+    const jwtToken = localStorage.getItem('tokenF');
     
-    const userId = currentUserInfo.id; 
     fetch(`http://localhost:8080/api/client/pet/by-user-id`,{
         headers: {
             'Content-Type': 'application/json',
@@ -139,28 +93,7 @@ function populatePetSelect(pets) {
     });
 }
 
-function createStar() {
-    if (starCount >= 40) {
-        return;
-    }
 
-    const star = document.createElement('div');
-    star.classList.add('star');
-    star.style.top = Math.random() * window.innerHeight + 'px';
-    star.style.animationDuration = (Math.random() * 10 + 5) + 's';
-    document.body.appendChild(star);
-
-    starCount++;
-
-    star.addEventListener('animationend', function() {
-        star.remove();
-        starCount--;
-    });
-}
-
-function createStarsPeriodically() {
-    setInterval(createStar, 1000);
-}
 
 var btn = document.querySelector(".button-adddateapp");
 var modal = document.getElementById("myModal");
@@ -185,8 +118,8 @@ window.onclick = function(event) {
 }
 
 function fetchAllAppointments() {
-    const jwtToken = localStorage.getItem('jwtToken');
-    return fetch('http://localhost:8080/api/client/appointment/all', {
+    const jwtToken = localStorage.getItem('tokenF');
+    return fetch('http://localhost:8082/api/func/appointment/appointments', {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${jwtToken}`
@@ -195,6 +128,7 @@ function fetchAllAppointments() {
     .then(response => response.json())
     .catch(error => console.error('Error fetching appointments:', error));
 }
+
 function createConsultationTimes() {
     fetchAllAppointments().then(appointments => {
         var consultationTimesDiv = document.getElementById('consultationTimes');
@@ -279,9 +213,71 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   });
 
-
-    function logout() {
-        localStorage.removeItem('jwtToken');
-        window.location.href = './Homepage.html';
+ 
+async function fetchUserByEmail(email) {
+    const jwtToken = localStorage.getItem("tokenF");
+    try {
+        const response = await fetch(`http://localhost:8082/api/func/user/${email}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${jwtToken}`
+            },
+        });
+        if (!response.ok) {
+            throw new Error('User not found');
+        }
+        const user = await response.json();
+        fetchedUserId = user.id;
+        currentUserInfo=user;
+        console.log('User ID fetched:', fetchedUserId);
+        
+        fetchPetsByUserId(fetchedUserId);
+    } catch (error) {
+        console.error(error);
+        fetchedUserId = null;
     }
+}
 
+async function fetchPetsByUserId(userId) {
+    const jwtToken = localStorage.getItem("tokenF");
+    try {
+        const response = await fetch(`http://localhost:8082/api/func/pets/users/${userId}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${jwtToken}`
+            },
+        });
+        if (!response.ok) {
+            throw new Error('Pets not found');
+        }
+        const pets = await response.json();
+        console.log('Pets fetched:', pets);
+        populatePetSelect(pets);
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+function populatePetSelect(pets) {
+    const petSelect = document.getElementById('pet-select');
+    petSelect.innerHTML = ''; 
+
+    const defaultOption = document.createElement('option');
+    defaultOption.value = '';
+    defaultOption.textContent = 'Select pet';
+    defaultOption.disabled = true;
+    defaultOption.selected = true;
+    petSelect.appendChild(defaultOption);
+
+
+    if (pets && pets.length > 0) {
+        pets.forEach(pet => {
+            const option = document.createElement('option');
+            option.value = pet.id;
+            option.textContent = pet.name;
+            petSelect.appendChild(option);
+        });
+    }
+}

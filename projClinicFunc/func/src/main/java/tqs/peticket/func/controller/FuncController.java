@@ -33,7 +33,7 @@ public class FuncController {
 
     private static final Logger logger = LogManager.getLogger(FuncController.class);
 
-    @PostMapping("/user")
+    @PostMapping("/user/create")
     public ResponseEntity<User> createClient(@RequestBody User user) {
         logger.info("Creating client");
         User createdUser = userService.save(user);
@@ -83,7 +83,7 @@ public class FuncController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    @GetMapping("/user/{userId}")
+    @GetMapping("/users/{userId}")
     public ResponseEntity<User> getClient(@PathVariable UUID userId) {
         logger.info("Fetching client with id " + userId);
         User user = userService.findById(userId);
@@ -127,7 +127,7 @@ public class FuncController {
         return new ResponseEntity<>(createdPet, HttpStatus.CREATED);
     }
 
-    @GetMapping("/pets/user/{userId}")
+    @GetMapping("/pets/users/{userId}")
     public ResponseEntity<List<Pet>> getPetsByUser(@PathVariable UUID userId) {
         logger.info("Fetching pets for user with id " + userId);
         List<Pet> pets = petService.findByUserId(userId);

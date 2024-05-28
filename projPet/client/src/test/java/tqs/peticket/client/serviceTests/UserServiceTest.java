@@ -4,13 +4,12 @@ import tqs.peticket.client.service.UserService;
 import tqs.peticket.client.model.User;
 import tqs.peticket.client.repository.UserRepository;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -55,7 +54,7 @@ public class UserServiceTest {
         user2.setPassword("password");
     }
 
-    @Test
+     @Test
     @DisplayName("Test findByEmail")
     void testFindByEmail() {
         when(userRepository.findByEmail("user1@example.com")).thenReturn(user1);
@@ -111,24 +110,88 @@ public class UserServiceTest {
     }
 
     @Test
-    @DisplayName("Test update")
-    void testUpdate() {
-        User updatedUser = new User();
-        updatedUser.setId(UUID.randomUUID());
-        updatedUser.setEmail("updateduser@example.com");
-        updatedUser.setFirstName("Updated");
-        updatedUser.setLastName("User");
-        updatedUser.setPhone("912345444");
-        updatedUser.setAddress("Rua do Updated");
-        updatedUser.setPassword("password");
-
-        when(userRepository.existsById(user1.getId())).thenReturn(true);
-        when(userRepository.save(user1)).thenReturn(updatedUser);
-        assertThat(userService.update(user1)).isEqualTo(updatedUser);
-
+    @DisplayName("Test deleteById not found")
+    void testDeleteByIdNotFound() {
+        when(userRepository.existsById(user1.getId())).thenReturn(false);
+        userService.deleteById(user1.getId());
+        verify(userRepository, never()).deleteById(user1.getId());
     }
 
+    @Test
+    @DisplayName("Test update")
+    void testUpdate() {
+        when(userRepository.existsById(user1.getId())).thenReturn(true);
+        when(userRepository.save(user1)).thenReturn(user1);
+        User updatedUser = userService.update(user1);
+        assertThat(updatedUser).isEqualTo(user1);
+    }
 
+    @Test
+    @DisplayName("Test update non-existing user")
+    void testUpdateNonExistingUser() {
+        when(userRepository.existsById(user1.getId())).thenReturn(false);
+        User updatedUser = userService.update(user1);
+        assertNull(updatedUser);
+    }
 
+    @Test
+    @DisplayName("Test updateById")
+    void testUpdateById() {
+        when(userRepository.existsById(user1.getId())).thenReturn(true);
+        when(userRepository.save(user1)).thenReturn(user1);
+        User updatedUser = userService.updateById(user1.getId(), user1);
+        assertThat(updatedUser).isEqualTo(user1);
+    }
+
+    @Test
+    @DisplayName("Test updateById non-existing user")
+    void testUpdateByIdNonExistingUser() {
+        when(userRepository.existsById(user1.getId())).thenReturn(false);
+        User updatedUser = userService.updateById(user1.getId(), user1);
+        assertNull(updatedUser);
+    }
+
+    @Test
+    @DisplayName("Test findById")
+    void testFindById() {
+        when(userRepository.findById(user1.getId())).thenReturn(user1);
+        User found = userService.findById(user1.getId());
+        assertThat(found).isEqualTo(user1);
+    }
+
+    @Test
+    @DisplayName("Test findById not found")
+    void testFindByIdNotFound() {
+        when(userRepository.findById(user1.getId())).thenReturn(null);
+        User found = userService.findById(user1.getId());
+        assertNull(found);
+    }
+
+    @Test
+    @DisplayName("Test existsById")
+    void testExistsById() {
+        when(userRepository.existsById(user1.getId())).thenReturn(true);
+        Boolean exists = userService.existsById(user1.getId());
+        assertThat(exists).isTrue();
+    }
+
+    @Test
+    @DisplayName("Test getAllUsers")
+    void testGetAllUsers() {
+        List<User> users = new ArrayList<>();
+        users.add(user1);
+        users.add(user2);
+        when(userRepository.findAll()).thenReturn(users);
+        List<User> allUsers = userService.getAllUsers();
+        assertThat(allUsers).isEqualTo(users);
+    }
+
+    @Test
+    @DisplayName("Test getAllUsers empty")
+    void testGetAllUsersEmpty() {
+        when(userRepository.findAll()).thenReturn(new ArrayList<>());
+        List<User> allUsers = userService.getAllUsers();
+        assertThat(allUsers).isEmpty();
+    }
     
 }

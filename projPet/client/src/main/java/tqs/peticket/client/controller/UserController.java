@@ -109,13 +109,13 @@ public class UserController {
         UUID userId = authHandler.getUserId();
         logger.info("userDetails", userDetails);
         logger.info("Updating user with id " + userId);
+
         User existingUser = userService.findById(userId);
+
         if (existingUser == null) {
             logger.info("User not found");
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-
-        logger.info("User Details:", userDetails.toString());
 
         existingUser.setFirstName(userDetails.getFirstName());
         existingUser.setLastName(userDetails.getLastName());
@@ -123,11 +123,6 @@ public class UserController {
         existingUser.setPassword(userDetails.getPassword());
         existingUser.setAddress(userDetails.getAddress());
         existingUser.setPhone(userDetails.getPhone());
-
-        logger.info("User updated:", existingUser.toString());
-        //store existing user id in a variable
-        // UUID existingUser_id = existingUser.getId();
-        // User updatedUser = userService.updateById(existingUser_id, existingUser)
 
         User updatedUser = userService.update(existingUser);
         if (updatedUser == null) {

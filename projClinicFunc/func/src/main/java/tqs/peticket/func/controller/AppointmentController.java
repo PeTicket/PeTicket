@@ -17,6 +17,10 @@ import java.util.UUID;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
+
 
 @RestController
 @RequestMapping("/api/func/appointment")
@@ -101,6 +105,7 @@ public class AppointmentController {
         }
         logger.info("Next appointment found");
         appointment.setStatus("in_progress");
+        appointmentService.save(appointment);
         return new ResponseEntity<>(appointment, HttpStatus.OK);
     }
 
@@ -115,6 +120,20 @@ public class AppointmentController {
         appointmentService.delete(appointment);
         logger.info("Appointment deleted");
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PutMapping("/appointmentQrCode/{appointmentId}")
+    public ResponseEntity<Appointment> updateQrCode(@PathVariable UUID appointmentId, @RequestBody String statusQrCode) {
+        logger.info("Updating qr code for appointment with id " + appointmentId);
+        Appointment appointment = appointmentService.findById(appointmentId);
+        if (appointment == null) {
+            logger.info("Appointment not found");
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        appointment.setStatus(statusQrCode);
+        Appointment updatedAppointment = appointmentService.save(appointment);
+        logger.info("Qr code updated");
+        return new ResponseEntity<>(updatedAppointment, HttpStatus.OK);
     }
 }
 

@@ -204,6 +204,7 @@ class UserControllerTests {
     void testUpdateSuccessful() throws Exception {
         User user = new User("John", "Doe", "john.doe@email.com", "password123", "Some Address", "123-456-7890");
         UUID userId = UUID.randomUUID();
+        user.setId(userId);
         User updatedUser = new User("Jane", "Doe", "jane.doe@email.com", "newPassword", "Another Address", "987-654-3210");
 
         when(authHandler.getUserId()).thenReturn(userId);
@@ -213,7 +214,13 @@ class UserControllerTests {
         mvc.perform(put("/api/client/user/update")
             .contentType(MediaType.APPLICATION_JSON)
             .content(JsonUtils.toJson(user)))
-            .andExpect(status().isOk());
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.firstName", is("Jane")))
+            .andExpect(jsonPath("$.lastName", is("Doe")))
+            .andExpect(jsonPath("$.email").value("jane.doe@email.com"))
+            .andExpect(jsonPath("$.password").value("newPassword"))
+            .andExpect(jsonPath("$.address").value("Another Address"))
+            .andExpect(jsonPath("$.phone").value("987-654-3210"));
 
         verify(service, times(1)).findById(userId);
         verify(service, times(1)).update(user);

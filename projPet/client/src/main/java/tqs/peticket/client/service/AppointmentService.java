@@ -1,7 +1,5 @@
 package tqs.peticket.client.service;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -27,6 +25,7 @@ public class AppointmentService {
         return appointmentRepository.findById(id);
     }
 
+    @Transactional
     public void delete(Appointment appointment) {
         if (appointmentRepository.existsById(appointment.getId())) {
             appointmentRepository.deleteById(appointment.getId());
