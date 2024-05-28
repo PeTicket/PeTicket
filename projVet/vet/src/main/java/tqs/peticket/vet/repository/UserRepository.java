@@ -9,7 +9,7 @@ import tqs.peticket.vet.model.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
     User findById(UUID Id);
-    User deleteById(UUID Id);
+    void deleteById(UUID Id);
     Boolean existsById(UUID Id);
     User findByEmail(String email);
     Boolean existsByEmail(String email);

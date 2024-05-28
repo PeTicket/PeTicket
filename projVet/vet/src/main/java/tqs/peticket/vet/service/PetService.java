@@ -56,12 +56,14 @@ public class PetService {
     }
 
     public Pet update(UUID petID ,Pet pet) {
+        System.out.println("Checking if pet exists with ID: " + petID);
         if (!petRepository.existsById(petID)) {
+            System.out.println("Pet not found");
             return null;
         }
+        System.out.println("Pet not found");
         pet.setId(petID);
         return petRepository.save(pet);
-        
     }
 
     public List<Pet> findByUserId(UUID userId) {
