@@ -42,5 +42,5 @@ jobs:
           cd projPet/client
           mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=PeTicket_PeTicket
           cd ../../projVet/vet
-          mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=PeTicket_PeTicket
+          mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=peticket_peticketvet
  
