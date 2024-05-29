@@ -10,7 +10,7 @@ import tqs.peticket.func.model.Pet;
 @Repository
 public interface PetRepository extends JpaRepository<Pet, Long> {
     Pet findById(UUID Id);
-    Pet deleteById(UUID Id);
+    void deleteById(UUID Id);
     Boolean existsById(UUID Id);
     List<Pet> findByName(String name);
     List<Pet> findByUserId(UUID userId);

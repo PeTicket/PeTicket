@@ -6,13 +6,15 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
 import tqs.peticket.func.model.Appointment;
 
-
+@Repository
 public interface AppointmentRepository extends JpaRepository<Appointment, Long>{
  
     Appointment findById(UUID id);
-    Appointment deleteById(UUID id);
+    void deleteById(UUID id);
     Boolean existsById(UUID id);
     Boolean existsByUserId(UUID userId);
     Boolean existsByPetId(UUID petId);
