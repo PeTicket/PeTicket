@@ -123,14 +123,14 @@ public class AppointmentController {
     }
 
     @PutMapping("/appointmentQrCode/{appointmentId}")
-    public ResponseEntity<Appointment> updateQrCode(@PathVariable UUID appointmentId, @RequestBody String statusQrCode) {
+    public ResponseEntity<Appointment> updateQrCode(@PathVariable UUID appointmentId) {
         logger.info("Updating qr code for appointment with id " + appointmentId);
         Appointment appointment = appointmentService.findById(appointmentId);
         if (appointment == null) {
             logger.info("Appointment not found");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        appointment.setStatus(statusQrCode);
+        appointment.setStatus("on_hold");
         Appointment updatedAppointment = appointmentService.save(appointment);
         logger.info("Qr code updated");
         return new ResponseEntity<>(updatedAppointment, HttpStatus.OK);
