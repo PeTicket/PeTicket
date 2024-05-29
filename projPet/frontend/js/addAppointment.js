@@ -103,7 +103,7 @@ function addAppointment() {
     })
     .then(response => {
         if (response.ok) {
-            alert('Appointment added successfully.');
+            // alert('Appointment added successfully.');
             document.getElementById('appointment-form').reset();
             document.querySelector('.selected-date-time').textContent = 'No data yet';
             selectedDate = null;

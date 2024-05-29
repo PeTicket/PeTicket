@@ -28,7 +28,7 @@ function loginUser() {
        
         localStorage.setItem('jwtToken', data);
         console.log('Login successful');
-        alert('Login successful');
+        // alert('Login successful');
         setTimeout(() => {
             window.location.href = './home.html';
         }, 2000);
@@ -72,7 +72,7 @@ function registerUser() {
         if (response.ok) {
             
             console.log('Registration successful');
-            alert('Registration successful');
+            // alert('Registration successful');
             setTimeout(() => {
                 window.location.reload();
             }, 2000);

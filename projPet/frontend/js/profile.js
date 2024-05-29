@@ -188,7 +188,7 @@ let starCount = 0;
         const jwtToken = localStorage.getItem('jwtToken');
     
         
-        if (confirm(`Are you sure you want to delete pet? This action cannot be undone.`)) {
+        // if (confirm(`Are you sure you want to delete pet? This action cannot be undone.`)) {
           fetch(`http://localhost:8080/api/client/pet/delete/${petId}`, {
             method: 'DELETE',
             headers: {
@@ -199,7 +199,7 @@ let starCount = 0;
           })
           .then(response => {
             if (response.ok) {
-              alert("Pet Deleted");
+              // alert("Pet Deleted");
               fetchPets();
             } else {
               console.error('Failed to delete pet:', response.status);
@@ -208,10 +208,10 @@ let starCount = 0;
           .catch(error => {
             console.error('Error deleting pet:', error);
           });
-        } else {
+        // } else {
           
-          console.log('Pet deletion canceled.'); 
-        }
+        //   console.log('Pet deletion canceled.'); 
+        // }
       });
     });
     
@@ -320,7 +320,7 @@ let starCount = 0;
     })
     .then(data => {
       console.log('Success:', data);
-      alert('Pet updated successfully');
+      // alert('Pet updated successfully');
       
       document.getElementById('pet-info-modal').style.display = 'none';
       

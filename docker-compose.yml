@@ -40,49 +40,49 @@ services:
     ports:
       - "3004:80"
 
-  vet-service:
-    depends_on:
-      - db
-      - rabbitmq
-    build:
-      context: ./projVet/vet
-    restart: always
-    ports:
-      - "8081:8081"
+#   vet-service:
+#     depends_on:
+#       - db
+#       - rabbitmq
+#     build:
+#       context: ./projVet/vet
+#     restart: always
+#     ports:
+#       - "8081:8081"
 
-  pet-service:
-    depends_on:
-      - db
-      - rabbitmq
-    build:
-      context: ./projPet/client
-    restart: always
-    ports:
-      - "8080:8080"
+#   pet-service:
+#     depends_on:
+#       - db
+#       - rabbitmq
+#     build:
+#       context: ./projPet/client
+#     restart: always
+#     ports:
+#       - "8080:8080"
 
-  func-service:
-    depends_on:
-      - db
-      - rabbitmq
-    build:
-      context: ./projFunc/func
-    restart: always
-    ports:
-      - "8082:8082"
+#   func-service:
+#     depends_on:
+#       - db
+#       - rabbitmq
+#     build:
+#       context: ./projClinicFunc/func
+#     restart: always
+#     ports:
+#       - "8082:8082"
 
-  display-service:
-    depends_on:
-      - db
-      - rabbitmq
-    build:
-      context: ./projDisplay/display
-    restart: always
-    ports:
-      - "8888:8888"
+#   display-service:
+#     depends_on:
+#       - db
+#       - rabbitmq
+#     build:
+#       context: ./projDS/display
+#     restart: always
+#     ports:
+#       - "8888:8888"
 
-networks:
-  internal-net:
-    ipam:
-      driver: default
-      config:
-        - subnet: 10.139.0.0/16
+# networks:
+#   internal-net:
+#     ipam:
+#       driver: default
+#       config:
+#         - subnet: 10.139.0.0/16

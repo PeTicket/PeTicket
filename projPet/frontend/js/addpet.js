@@ -138,7 +138,7 @@ document.addEventListener("DOMContentLoaded", function() {
     })
     .then(data => {
         console.log('Pet added:', data);
-        alert('Pet added successfully!');
+        // alert('Pet added successfully!');
         document.getElementById('add-pet-form').reset();
     })
     .catch(error => {
