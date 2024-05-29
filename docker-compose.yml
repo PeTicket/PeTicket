@@ -19,49 +19,70 @@ services:
       - 5672:5672
       - 15672:15672
 
-  vet-service:
-    depends_on:
-      - db
-      - rabbitmq
-    build:
-      context: ./projVet/vet
-    restart: always
-    ports:
-      - "8081:8081"
 
-  pet-service:
-    depends_on:
-      - db
-      - rabbitmq
-    build:
-      context: ./projPet/client
-    restart: always
+  pet-frontend:
+    build: ./projPet/frontend/
     ports:
-      - "8080:8080"
+      - "3001:80"
 
-  func-service:
-    depends_on:
-      - db
-      - rabbitmq
-    build:
-      context: ./projFunc/func
-    restart: always
+  vet-frontend:
+    build: ./projVet/frontend/
     ports:
-      - "8082:8082"
+      - "3002:80"
 
-  display-service:
-    depends_on:
-      - db
-      - rabbitmq
-    build:
-      context: ./projDisplay/display
-    restart: always
+  func-frontend:
+    build: ./projClinicFunc/frontend/
     ports:
-      - "8888:8888"
+      - "3003:80"
 
-networks:
-  internal-net:
-    ipam:
-      driver: default
-      config:
-        - subnet: 10.139.0.0/16
+  display-frontend:
+    build: ./projDS/frontend/
+    ports:
+      - "3004:80"
+
+#   vet-service:
+#     depends_on:
+#       - db
+#       - rabbitmq
+#     build:
+#       context: ./projVet/vet
+#     restart: always
+#     ports:
+#       - "8081:8081"
+
+#   pet-service:
+#     depends_on:
+#       - db
+#       - rabbitmq
+#     build:
+#       context: ./projPet/client
+#     restart: always
+#     ports:
+#       - "8080:8080"
+
+#   func-service:
+#     depends_on:
+#       - db
+#       - rabbitmq
+#     build:
+#       context: ./projClinicFunc/func
+#     restart: always
+#     ports:
+#       - "8082:8082"
+
+#   display-service:
+#     depends_on:
+#       - db
+#       - rabbitmq
+#     build:
+#       context: ./projDS/display
+#     restart: always
+#     ports:
+#       - "8888:8888"
+
+# networks:
+#   internal-net:
+#     ipam:
+#       driver: default
+#       config:
+#         - subnet: 10.139.0.0/16
