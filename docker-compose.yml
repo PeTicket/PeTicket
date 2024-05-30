@@ -1,7 +1,7 @@
 version: '3.2'
 
 services:
-  db:
+  MYSQL_DATABASE:
     image: mysql
     restart: always
     environment:
@@ -46,7 +46,7 @@ services:
 
   vet-service:
     depends_on:
-      - db
+      - MYSQL_DATABASE
       - rabbitmq
     build:
       context: ./projVet/vet
@@ -57,7 +57,7 @@ services:
 
   pet-service:
     depends_on:
-      - db
+      - MYSQL_DATABASE
       - rabbitmq
     build:
       context: ./projPet/client
@@ -68,7 +68,7 @@ services:
 
   func-service:
     depends_on:
-      - db
+      - MYSQL_DATABASE
       - rabbitmq      
     build:
       context: ./projClinicFunc/func
@@ -79,7 +79,7 @@ services:
 
   display-service:
     depends_on:
-      - db
+      - MYSQL_DATABASE
       - rabbitmq
     build:
       context: ./projDS/display
