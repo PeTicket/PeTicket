@@ -1,8 +1,9 @@
 version: '3.2'
 
 services:
-  MYSQL_DATABASE:
+  mysql-container:
     image: mysql
+    container_name: mysql-container
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
@@ -46,44 +47,63 @@ services:
 
   vet-service:
     depends_on:
-      - MYSQL_DATABASE
+      - mysql-container
       - rabbitmq
     build:
       context: ./projVet/vet
     restart: always
     ports:
       - "8081:8081"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-container:3306/peticket
+      - SPRING_DATASOURCE_USERNAME=peticket
+      - SPRING_DATASOURCE_PASSWORD=peticket
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
 
 
   pet-service:
     depends_on:
-      - MYSQL_DATABASE
+      - mysql-container
       - rabbitmq
     build:
       context: ./projPet/client
     restart: always
     ports:
       - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-container:3306/peticket
+      - SPRING_DATASOURCE_USERNAME=peticket
+      - SPRING_DATASOURCE_PASSWORD=peticket
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
 
 
-  func-service:
-    depends_on:
-      - MYSQL_DATABASE
-      - rabbitmq      
-    build:
-      context: ./projClinicFunc/func
-    restart: always
-    ports:
-      - "8082:8082"
+  # funcinario-service:
+  #   depends_on:
+  #     - mysql-container
+  #   build:
+  #     context: ./projClinicFunc/func
+  #   restart: always
+  #   ports:
+  #     - "8082:8082"
+  #   environment:
+  #     - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-container:3306/peticket
+  #     - SPRING_DATASOURCE_USERNAME=peticket
+  #     - SPRING_DATASOURCE_PASSWORD=peticket
+  #     - SPRING_JPA_HIBERNATE_DDL_AUTO=update
     
 
-  display-service:
-    depends_on:
-      - MYSQL_DATABASE
-      - rabbitmq
-    build:
-      context: ./projDS/display
-    restart: always
-    ports:
-      - "8888:8888"
+  # display-service:
+  #   depends_on:
+  #     - mysql-container
+  #     - rabbitmq
+  #   build:
+  #     context: ./projDS/display
+  #   restart: always
+  #   ports:
+  #     - "8888:8888"
+  #   environment:
+  #     - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-container:3306/peticket
+  #     - SPRING_DATASOURCE_USERNAME=peticket
+  #     - SPRING_DATASOURCE_PASSWORD=peticket
+  #     - SPRING_JPA_HIBERNATE_DDL_AUTO=update
    
