@@ -41,6 +41,4 @@ jobs:
           docker-compose up -d
           cd projPet/client
           mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=PeTicket_PeTicket
-          cd ../../projVet/vet
-          mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=PeTicket_PeTicket
- 
+  
