@@ -1,14 +1,13 @@
-name: Continuous Deployment VM
+name: Continuous Deployment
 
 on:
   push:
     branches:
-      - main
       - dev
 
 jobs:
   deploy:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
@@ -24,6 +23,6 @@ jobs:
           cd ~/PeTicket
           git pull origin dev
           # Build and deploy using docker-compose
-          docker compose down
-          docker compose build
-          docker compose up -d
+          docker-compose down
+          docker-compose build
+          docker-compose up -d
