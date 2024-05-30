@@ -96,6 +96,33 @@ public class AppointmentController {
         return new ResponseEntity<>(updatedAppointment, HttpStatus.OK);
     }
 
+    @PutMapping("/terminate/{id}")
+    public ResponseEntity<Appointment> terminateAppointment(@PathVariable UUID id) {
+        logger.info("Terminating appointment with id " + id);
+        Appointment appointment = appointmentService.findById(id);
+        if (appointment == null) {
+            logger.info("Appointment not found");
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        UUID loggedInVetId = authHandler.getUserId();
+        if (!loggedInVetId.equals(appointment.getVetId())) {
+            logger.info("Unauthorized access by vet " + loggedInVetId);
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
+        appointment.setStatus("Done");
+        Appointment updatedAppointment = appointmentService.save(appointment);
+        if (updatedAppointment == null) {
+            logger.info("Appointment not terminated");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        logger.info("Appointment terminated");
+        return new ResponseEntity<>(updatedAppointment, HttpStatus.OK);
+    }
+
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteAppointment(@PathVariable UUID id) {
         logger.info("Deleting appointment with id " + id);
@@ -152,6 +179,7 @@ public class AppointmentController {
         String message = "C"+clinicNumber+" - "+appointment.getAppointment_number();
         senderConfig.send(message);
         appointment.setStatus("in_progress");
+        appointmentService.save(appointment);
         return new ResponseEntity<>(appointment, HttpStatus.OK);
     }
 }
