@@ -10,10 +10,10 @@ import org.springframework.stereotype.Repository;
 
 import tqs.peticket.func.model.Func;
 
-
+@Repository
 public interface  FuncRepository extends JpaRepository<Func, Long>{
     Func findById(UUID id);
-    Func deleteById(UUID id);
+    void deleteById(UUID id);
     Boolean existsById(UUID id);
     Func findByUserId(UUID userId);
     Boolean existsByUserId(UUID userId);
