@@ -17,8 +17,8 @@ jobs:
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.SERVER_HOST }}
-        username: ${{ secrets.SERVER_USERNAME }}
-        password: ${{ secrets.SERVER_PASSWD }}
+        username: ${{ secrets.SERVER_USER }}
+        password: ${{ secrets.SERVER_PASSW }}
         script: |
           cd :~/actions-runner/_work/PeTicket/PeTicket
           # Build and run the Docker image on the VM using docker-compose
