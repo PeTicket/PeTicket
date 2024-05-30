@@ -3,5 +3,5 @@ WORKDIR /app
 COPY . .
 RUN sleep 60 && mvn package
 EXPOSE 8082
-ENTRYPOINT [ "java", "-jar", "target/clinic-0.0.1-SNAPSHOT.jar" ]
+ENTRYPOINT [ "java", "-jar", "target/func-0.0.1-SNAPSHOT.jar" ]
 
