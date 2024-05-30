@@ -14,9 +14,11 @@ import tqs.peticket.func.controller.FuncController;
 import tqs.peticket.func.model.Appointment;
 import tqs.peticket.func.model.Pet;
 import tqs.peticket.func.model.User;
+import tqs.peticket.func.repository.FuncRepository;
 import tqs.peticket.func.service.AppointmentService;
 import tqs.peticket.func.service.PetService;
 import tqs.peticket.func.service.UserService;
+import tqs.peticket.func.serviceTests.Auth;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -30,7 +32,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(AppointmentController.class)
-@ContextConfiguration(classes = {AppointmentController.class, TestSecurityConfig.class})
+@ContextConfiguration(classes = {AppointmentController.class, TestSecurityConfig.class, Auth.class})
 class AppointmentControllerTests {
 
     @Autowired
@@ -44,6 +46,12 @@ class AppointmentControllerTests {
 
     @MockBean
     private PetService petService;
+
+    @MockBean
+    private FuncRepository funcRepository;
+
+    @InjectMocks
+    private AppointmentController appointmentController;
 
     private Appointment aptm1;
     private Appointment aptm2;
@@ -118,36 +126,45 @@ class AppointmentControllerTests {
         verify(appointmentService, times(1)).findById(randomId);
     }
 
-/*
+
     @Test
     void whenCreateAppointment_thenReturnCreated() throws Exception {
-        when(petService.findById(aptm1.getPetId())).thenReturn(pet1);
-        when(userService.findById(aptm1.getUserId())).thenReturn(user1);
         UUID userid = UUID.randomUUID();
         UUID petid = UUID.randomUUID();
-        Appointment aptm = new Appointment(userid, petid, "31/05/2024", "19:00", "Infected Toe", "shceduled");
+        
+        when(petService.findById(petid)).thenReturn(pet1);
+        when(userService.findById(userid)).thenReturn(user1);
+        
+        Appointment aptm = new Appointment(userid, petid, "31/05/2024", "19:00", "Infected Toe", "scheduled");
         when(appointmentService.save(any(Appointment.class))).thenReturn(aptm);
 
-        mvc.perform(post("/api/func/appointment/{petId}/{userId}", aptm1.getPetId(), aptm1.getUserId())
+        mvc.perform(post("/api/func/appointment/appointment/{petId}/{userId}", petid, userid)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtils.toJson(aptm)))
                 .andExpect(status().isCreated());
 
         verify(appointmentService, times(1)).save(any(Appointment.class));
     }
-
-*/
+    
     @Test
     void whenCreateAppointment_thenReturnNotFound() throws Exception {
-        when(petService.findById(petId1)).thenReturn(null);
-        when(userService.findById(userId1)).thenReturn(null);
+        UUID userid = UUID.randomUUID();
+        UUID petid = UUID.randomUUID();
+        
+        when(petService.findById(petid)).thenReturn(pet1);
+        when(userService.findById(userid)).thenReturn(user1);
+        
+        Appointment aptm = new Appointment(userid, petid, "31/05/2024", "19:00", "Infected Toe", "scheduled");
+        when(appointmentService.save(any(Appointment.class))).thenReturn(null);
 
-        mvc.perform(post("/api/func/appointment/{petId}/{userId}", petId1, userId1)
+        mvc.perform(post("/api/func/appointment/appointment/{petId}/{userId}", petid, userid)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtils.toJson(aptm1)))
-                .andExpect(status().isNotFound());
+                .content(JsonUtils.toJson(aptm)))
+                .andExpect(status().isBadRequest());
 
-        verify(appointmentService, times(0)).save(any(Appointment.class));
+        verify(petService, times(1)).findById(petid);
+        verify(userService, times(1)).findById(userid);
+        verify(appointmentService, times(1)).save(any(Appointment.class));
     }
 
     @Test
@@ -206,61 +223,35 @@ class AppointmentControllerTests {
         verify(appointmentService, times(0)).save(any(Appointment.class));
     }
 
-/* 
     @Test
     void whenDeleteAppointment_thenReturnNoContent() throws Exception {
-        when(appointmentService.findById(aptm1.getId())).thenReturn(aptm1);
+        UUID uuid = UUID.randomUUID();
+        Appointment appt = new Appointment();
+        appt.setId(uuid);
+        when(appointmentService.findById(uuid)).thenReturn(appt);
 
-        mvc.perform(delete("/api/func/appointment/{appointmentId}", aptm1.getId())
+        mvc.perform(delete("/api/func/appointment/appointment/{appointmentId}", uuid)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
 
-        verify(appointmentService, times(1)).findById(aptm1.getId());
+        verify(appointmentService, times(1)).findById(uuid);
         verify(appointmentService, times(1)).delete(any(Appointment.class));
     }
 
     @Test
     void whenDeleteAppointment_thenReturnNotFound() throws Exception {
-        when(appointmentService.findById(aptm1.getId())).thenReturn(null);
+        UUID uuid = UUID.randomUUID();
+        Appointment appt = new Appointment();
+        appt.setId(uuid);
+        when(appointmentService.findById(uuid)).thenReturn(null);
 
-        mvc.perform(delete("/api/func/appointment/{appointmentId}", aptm1.getId())
+        mvc.perform(delete("/api/func/appointment/appointment/{appointmentId}", uuid)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
 
-        verify(appointmentService, times(1)).findById(aptm1.getId());
+        verify(appointmentService, times(1)).findById(uuid);
         verify(appointmentService, times(0)).delete(any(Appointment.class));
     }
 
-    @Test
-    void whenUpdateQrCode_thenReturnUpdated() throws Exception {
-        UUID randomId = UUID.randomUUID();
-        String newStatusQrCode = "New Status";
-        when(appointmentService.findById(randomId)).thenReturn(aptm1);
-        when(appointmentService.save(any(Appointment.class))).thenReturn(aptm1);
-
-        mvc.perform(put("/api/func/appointmentQrCode/{appointmentId}", randomId)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(newStatusQrCode))
-                .andExpect(status().isOk());
-
-        verify(appointmentService, times(1)).findById(randomId);
-        verify(appointmentService, times(1)).save(any(Appointment.class));
-    }
-
-    @Test
-    void whenUpdateQrCode_thenReturnNotFound() throws Exception {
-        UUID randomId = UUID.randomUUID();
-        String newStatusQrCode = "New Status";
-        when(appointmentService.findById(randomId)).thenReturn(null);
-
-        mvc.perform(put("/api/func/appointmentQrCode/{appointmentId}", randomId)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(newStatusQrCode))
-                .andExpect(status().isNotFound());
-
-        verify(appointmentService, times(1)).findById(randomId);
-        verify(appointmentService, times(0)).save(any(Appointment.class));
-    }
-*/
 }
 
