@@ -253,5 +253,35 @@ class AppointmentControllerTests {
         verify(appointmentService, times(0)).delete(any(Appointment.class));
     }
 
+    @Test
+    void testUpdateQrCode_AppointmentExists() throws Exception {
+        UUID my_uuid = UUID.randomUUID();
+        Appointment appoint = new Appointment();
+        appoint.setId(my_uuid);
+        appoint.setStatus("scheduled");
+
+        when(appointmentService.findById(my_uuid)).thenReturn(appoint);
+        when(appointmentService.save(any(Appointment.class))).thenReturn(appoint);
+
+        mvc.perform(put("/api/func/appointment/appointmentQrCode/" + my_uuid)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value("on_hold"));
+    }
+
+    @Test
+    void testUpdateQrCode_AppointmentNotFound() throws Exception {
+        UUID my_uuid = UUID.randomUUID();
+        Appointment appoint = new Appointment();
+        appoint.setId(my_uuid);
+        appoint.setStatus("scheduled");
+
+        when(appointmentService.findById(my_uuid)).thenReturn(null);
+
+        mvc.perform(put("/api/func/appointment/appointmentQrCode/" + my_uuid)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+    }
+
 }
 
