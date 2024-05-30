@@ -44,46 +44,46 @@ services:
       - "3004:80"
 
 
-  vet-service:
-    depends_on:
-      - MYSQL_DATABASE
-      - rabbitmq
-    build:
-      context: ./projVet/vet
-    restart: always
-    ports:
-      - "8081:8081"
+  # vet-service:
+  #   depends_on:
+  #     - MYSQL_DATABASE
+  #     - rabbitmq
+  #   build:
+  #     context: ./projVet/vet
+  #   restart: always
+  #   ports:
+  #     - "8081:8081"
 
 
-  pet-service:
-    depends_on:
-      - MYSQL_DATABASE
-      - rabbitmq
-    build:
-      context: ./projPet/client
-    restart: always
-    ports:
-      - "8080:8080"
+  # pet-service:
+  #   depends_on:
+  #     - MYSQL_DATABASE
+  #     - rabbitmq
+  #   build:
+  #     context: ./projPet/client
+  #   restart: always
+  #   ports:
+  #     - "8080:8080"
 
 
-  func-service:
-    depends_on:
-      - MYSQL_DATABASE
-      - rabbitmq      
-    build:
-      context: ./projClinicFunc/func
-    restart: always
-    ports:
-      - "8082:8082"
+  # func-service:
+  #   depends_on:
+  #     - MYSQL_DATABASE
+  #     - rabbitmq      
+  #   build:
+  #     context: ./projClinicFunc/func
+  #   restart: always
+  #   ports:
+  #     - "8082:8082"
     
 
-  display-service:
-    depends_on:
-      - MYSQL_DATABASE
-      - rabbitmq
-    build:
-      context: ./projDS/display
-    restart: always
-    ports:
-      - "8888:8888"
+  # display-service:
+  #   depends_on:
+  #     - MYSQL_DATABASE
+  #     - rabbitmq
+  #   build:
+  #     context: ./projDS/display
+  #   restart: always
+  #   ports:
+  #     - "8888:8888"
    
