@@ -48,10 +48,6 @@ services:
     depends_on:
       - db
       - rabbitmq
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/peticket
-      SPRING_DATASOURCE_USERNAME: peticket
-      SPRING_DATASOURCE_PASSWORD: peticket
     build:
       context: ./projVet/vet
     restart: always
@@ -63,10 +59,6 @@ services:
     depends_on:
       - db
       - rabbitmq
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/peticket
-      SPRING_DATASOURCE_USERNAME: peticket
-      SPRING_DATASOURCE_PASSWORD: peticket
     build:
       context: ./projPet/client
     restart: always
@@ -77,11 +69,7 @@ services:
   func-service:
     depends_on:
       - db
-      - rabbitmq
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/peticket
-      SPRING_DATASOURCE_USERNAME: peticket
-      SPRING_DATASOURCE_PASSWORD: peticket      
+      - rabbitmq      
     build:
       context: ./projClinicFunc/func
     restart: always
@@ -93,10 +81,6 @@ services:
     depends_on:
       - db
       - rabbitmq
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/peticket
-      SPRING_DATASOURCE_USERNAME: peticket
-      SPRING_DATASOURCE_PASSWORD: peticket
     build:
       context: ./projDS/display
     restart: always
