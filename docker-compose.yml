@@ -77,33 +77,33 @@ services:
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
 
 
-  # funcinario-service:
-  #   depends_on:
-  #     - mysql-container
-  #   build:
-  #     context: ./projClinicFunc/func
-  #   restart: always
-  #   ports:
-  #     - "8082:8082"
-  #   environment:
-  #     - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-container:3306/peticket
-  #     - SPRING_DATASOURCE_USERNAME=peticket
-  #     - SPRING_DATASOURCE_PASSWORD=peticket
-  #     - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+  funcinario-service:
+    depends_on:
+      - mysql-container
+    build:
+      context: ./projClinicFunc/func
+    restart: always
+    ports:
+      - "8082:8082"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-container:3306/peticket
+      - SPRING_DATASOURCE_USERNAME=peticket
+      - SPRING_DATASOURCE_PASSWORD=peticket
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
     
 
-  # display-service:
-  #   depends_on:
-  #     - mysql-container
-  #     - rabbitmq
-  #   build:
-  #     context: ./projDS/display
-  #   restart: always
-  #   ports:
-  #     - "8888:8888"
-  #   environment:
-  #     - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-container:3306/peticket
-  #     - SPRING_DATASOURCE_USERNAME=peticket
-  #     - SPRING_DATASOURCE_PASSWORD=peticket
-  #     - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+  display-service:
+    depends_on:
+      - mysql-container
+      - rabbitmq
+    build:
+      context: ./projDS/display
+    restart: always
+    ports:
+      - "8888:8888"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-container:3306/peticket
+      - SPRING_DATASOURCE_USERNAME=peticket
+      - SPRING_DATASOURCE_PASSWORD=peticket
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
    
