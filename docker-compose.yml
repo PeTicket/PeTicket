@@ -13,6 +13,7 @@ services:
     ports:
       - "3306:3306"
 
+
   rabbitmq:
     image: "rabbitmq:3.8.6-management"
     container_name: rabbitmq
@@ -43,6 +44,25 @@ services:
     build: ./projDS/frontend/
     ports:
       - "3004:80"
+
+
+  funcinario-service:
+    depends_on:
+      - mysql-container
+    build:
+      context: ./projClinicFunc/func
+    restart: always
+    ports:
+      - "8082:8082"
+    environment:
+      - SERVER_PORT=8082
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-container:3306/peticket
+      - SPRING_DATASOURCE_USERNAME=peticket
+      - SPRING_DATASOURCE_PASSWORD=peticket
+      - JWT_SECRET=myUltraSecretKeyForMyApllicationPeTicketwithultracaracteres
+      - JWT_EXPIRATION=86400000
+
+    
 
 
   vet-service:
@@ -77,21 +97,7 @@ services:
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
 
 
-  funcinario-service:
-    depends_on:
-      - mysql-container
-    build:
-      context: ./projClinicFunc/func
-    restart: always
-    ports:
-      - "8082:8082"
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-container:3306/peticket
-      - SPRING_DATASOURCE_USERNAME=peticket
-      - SPRING_DATASOURCE_PASSWORD=peticket
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
-    
-
+ 
   display-service:
     depends_on:
       - mysql-container
