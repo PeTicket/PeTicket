@@ -168,6 +168,8 @@
 						<exclude>tqs/peticket/client/**/UserDetailsImpl.class</exclude>
 						<exclude>tqs/peticket/client/**/UserDetailsServiceImpl.class</exclude>
 						<exclude>tqs/peticket/client/**/AuthTokenFilter.class</exclude>
+						<exclude>tqs/peticket/client/**/AuthEntryPointJwt.class</exclude>
+						<exclude>tqs/peticket/client/**/QrCodeService.class</exclude>
 					</excludes>
 				</configuration>
 		                <executions>
