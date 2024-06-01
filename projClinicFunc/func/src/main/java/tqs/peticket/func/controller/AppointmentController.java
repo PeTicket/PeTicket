@@ -102,6 +102,7 @@ public class AppointmentController {
         }
         logger.info("Next appointment found");
         appointment.setStatus("in_progress");
+        appointment.setAppointment_number(appointmentService.getLastAppointmentNumber() + 1);   
         appointmentService.save(appointment);
         return new ResponseEntity<>(appointment, HttpStatus.OK);
     }
