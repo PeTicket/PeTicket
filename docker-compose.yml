@@ -21,102 +21,102 @@ services:
       - 5672:5672
       - 15672:15672
 
-  # funcinario-service:
-  #   depends_on:
-  #     - mysql-container
-  #   build:
-  #     context: ./projClinicFunc/func
-  #   restart: always
-  #   ports:
-  #     - "8082:8082"
-  #   environment:
-  #     - SERVER_PORT=8082
-  #     - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-container:3306/peticket
-  #     - SPRING_DATASOURCE_USERNAME=peticket
-  #     - SPRING_DATASOURCE_PASSWORD=peticket
-  #     - JWT_SECRET=myUltraSecretKeyForMyApllicationPeTicketwithultracaracteres
-  #     - JWT_EXPIRATION=86400000
+  funcinario-service:
+    depends_on:
+      - mysql-container
+    build:
+      context: ./projClinicFunc/func
+    restart: always
+    ports:
+      - "8082:8082"
+    environment:
+      - SERVER_PORT=8082
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-container:3306/peticket
+      - SPRING_DATASOURCE_USERNAME=peticket
+      - SPRING_DATASOURCE_PASSWORD=peticket
+      - JWT_SECRET=myUltraSecretKeyForMyApllicationPeTicketwithultracaracteres
+      - JWT_EXPIRATION=86400000
 
     
 
 
-  # vet-service:
-  #   depends_on:
-  #     - mysql-container
-  #     - rabbitmq
-  #   build:
-  #     context: ./projVet/vet
-  #   restart: always
-  #   ports:
-  #     - "8081:8081"
-  #   environment:
-  #     - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-container:3306/peticket
-  #     - SPRING_DATASOURCE_USERNAME=peticket
-  #     - SPRING_DATASOURCE_PASSWORD=peticket
-  #     - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+  vet-service:
+    depends_on:
+      - mysql-container
+      - rabbitmq
+    build:
+      context: ./projVet/vet
+    restart: always
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-container:3306/peticket
+      - SPRING_DATASOURCE_USERNAME=peticket
+      - SPRING_DATASOURCE_PASSWORD=peticket
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
 
 
-  # pet-service:
-  #   depends_on:
-  #     - mysql-container
-  #     - rabbitmq
-  #   build:
-  #     context: ./projPet/client
-  #   restart: always
-  #   ports:
-  #     - "8080:8080"
-  #   environment:
-  #     - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-container:3306/peticket
-  #     - SPRING_DATASOURCE_USERNAME=peticket
-  #     - SPRING_DATASOURCE_PASSWORD=peticket
-  #     - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+  pet-service:
+    depends_on:
+      - mysql-container
+      - rabbitmq
+    build:
+      context: ./projPet/client
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-container:3306/peticket
+      - SPRING_DATASOURCE_USERNAME=peticket
+      - SPRING_DATASOURCE_PASSWORD=peticket
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
 
 
  
-  # display-service:
-  #   depends_on:
-  #     - mysql-container
-  #     - rabbitmq
-  #   build:
-  #     context: ./projDS/display
-  #   restart: always
-  #   ports:
-  #     - "8888:8888"
-  #   environment:
-  #     - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-container:3306/peticket
-  #     - SPRING_DATASOURCE_USERNAME=peticket
-  #     - SPRING_DATASOURCE_PASSWORD=peticket
-  #     - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+  display-service:
+    depends_on:
+      - mysql-container
+      - rabbitmq
+    build:
+      context: ./projDS/display
+    restart: always
+    ports:
+      - "8888:8888"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-container:3306/peticket
+      - SPRING_DATASOURCE_USERNAME=peticket
+      - SPRING_DATASOURCE_PASSWORD=peticket
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
    
 
 
-  # pet-frontend:
-  #   depends_on:
-  #     - pet-service
-  #   build: ./projPet/frontend/
-  #   ports:
-  #     - "3001:80"
+  pet-frontend:
+    depends_on:
+      - pet-service
+    build: ./projPet/frontend/
+    ports:
+      - "3001:80"
 
 
-  # vet-frontend:
-  #   depends_on:
-  #     - vet-service
-  #   build: ./projVet/frontend/
-  #   ports:
-  #     - "3002:80"
+  vet-frontend:
+    depends_on:
+      - vet-service
+    build: ./projVet/frontend/
+    ports:
+      - "3002:80"
 
 
-  # func-frontend:
-  #   depends_on:
-  #     - funcionario-service
-  #   build: ./projClinicFunc/frontend/
-  #   ports:
-  #     - "3003:80"
+  func-frontend:
+    depends_on:
+      - funcionario-service
+    build: ./projClinicFunc/frontend/
+    ports:
+      - "3003:80"
 
 
-  # display-frontend:
-  #   depends_on:
-  #     - display-service
-  #   build: ./projDS/frontend/
-  #   ports:
-  #     - "3004:80"
+  display-frontend:
+    depends_on:
+      - display-service
+    build: ./projDS/frontend/
+    ports:
+      - "3004:80"
