@@ -160,6 +160,12 @@ document.addEventListener("DOMContentLoaded", function() {
               console.log('No upcoming appointments');
               appointmentInfo.innerHTML = '<p>No upcoming appointments</p>';
           }
+
+          const onHoldAppointments = appointments.filter(appointment => appointment.status === 'on_hold');
+
+              if (onHoldAppointments.length > 0) {
+                displayOnHoldModal(onHoldAppointments[0]);
+              }
     })
     .catch(error => {
         console.error('Error:', error);
@@ -219,6 +225,39 @@ function displayQRModal(appointment) {
   qrcodeDiv.appendChild(pElement);
 
     modal.style.display = "block";
+
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+  }
+
+  function displayOnHoldModal(appointment) {
+    const modal = document.getElementById("onHoldModal");
+    const span = document.getElementsByClassName("close2")[1];
+    const onHoldInfo = document.getElementById("onHoldInfo");
+
+    console.log(appointment)
+
+    const appointmentDate = appointment.date;
+      const petName = appointment.pet.name;
+      const reason = appointment.reason; 
+      const appointmentNumber = appointment.appointment_number; 
+
+      onHoldInfo.innerHTML = `
+        <div style="margin: auto;">
+          <p>Appointment with ${petName} on ${appointmentDate} is currently on hold.</p>
+          <span style="margin-top:1rem;"></span>
+          <h3>Appointment Number:</h3>
+          <h3>${appointmentNumber}</h3>
+        </div>
+      `;
+    modal.style.display = "flex";
 
     span.onclick = function() {
       modal.style.display = "none";

@@ -54,12 +54,12 @@ function showTodayAppointments() {
   const today = new Date().toISOString().split('T')[0]; 
   const filteredAppointments = appointments.filter(appointment => appointment.date === today);
   filteredAppointments.sort((a, b) => a.time.localeCompare(b.time));
-  renderAppointments(filteredAppointments); // Render filtered appointments
+  renderAppointments(filteredAppointments);
 }
 
 function renderAppointments(appointmentsData) {
   const appointmentsContainer = document.querySelector('.appointments-container');
-  appointmentsContainer.innerHTML = ''; // Clear the container
+  appointmentsContainer.innerHTML = ''; 
   
   appointmentsData.forEach(appointment => {
     const appointmentDiv = document.createElement('div');
