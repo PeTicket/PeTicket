@@ -538,3 +538,33 @@ async function updateAppointment(appointmentData) {
         console.error('Error updating appointment:', error);
     }
 }
+
+
+document.getElementById('done-app').addEventListener('click', function() {
+    const appointmentId = document.getElementById('app-id').textContent.trim();
+    if (appointmentId) {
+        const url = `http://localhost:8081/api/vet/appointment/terminate/${appointmentId}`;
+        const token = localStorage.getItem('token');
+        fetch(url, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error('Failed to terminate appointment');
+        })
+        .then(data => {
+            console.log('Appointment terminated successfully:', data);
+        })
+        .catch(error => {
+            console.error('Error terminating appointment:', error);
+        });
+    } else {
+        console.error('Appointment ID is missing');
+    }
+});
