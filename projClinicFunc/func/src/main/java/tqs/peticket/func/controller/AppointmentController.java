@@ -128,8 +128,7 @@ public class AppointmentController {
             logger.info("Appointment not found");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        appointment.setStatus("on_hold");
-        appointment.setAppointment_number(appointmentService.getLastAppointmentNumber() + 1);    
+        appointment.setStatus("on_hold");  
 
         Appointment updatedAppointment = appointmentService.save(appointment);
         logger.info("Qr code updated");
