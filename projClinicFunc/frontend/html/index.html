@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/index.css">
+    
+    <title>Func Interface</title>
+    <style>
+
+        .star {
+          position: absolute;
+          width: 3px;
+          height: 3px;
+          background-color: green;
+          border-radius: 50%;
+          animation: moveStar linear infinite;
+        }
+      
+        @keyframes moveStar {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(100vw);
+          }
+        }
+      </style>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+</head>
+<body>
+<div class="container" id="container">
+	<div class="form-container sign-in-container">
+		<form id="loginForm" action="#">
+			<h1>Sign in</h1>
+            <input type="email" id="email" placeholder="Email" required />
+            <input type="password" id="password" placeholder="Password" required />
+			<a href="#">Forgot your password?</a>
+			<button type="button" id="loginButton"  class="button-signin">Sign In</button>
+		</form>
+	</div>
+	<div class="overlay-container">
+		<div class="overlay">
+			<div class="overlay-panel overlay-right">
+				<h1>Hello!</h1>
+				<p>Enter your personal details and start journey with us</p>
+			</div>
+		</div>s
+	</div>
+</div>
+
+<footer>
+	<p>
+		PeTicket Service
+	</p>
+</footer>
+<script src="../js/index.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<script>
+    let starCount = 0;
+
+  function createStar() {
+    if (starCount >= 30) {
+      return;
+    }
+
+    const star = document.createElement('div');
+    star.classList.add('star');
+    star.style.top = Math.random() * window.innerHeight + 'px';
+    star.style.animationDuration = (Math.random() * 10 + 5) + 's';
+    document.body.appendChild(star);
+
+    starCount++; 
+
+    star.addEventListener('animationend', function() {
+      star.remove();
+      starCount--; 
+    });
+  }
+
+  function createStarsPeriodically() {
+    setInterval(createStar, 1000);
+  }
+
+
+  </script>
+ 
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Addpet</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> 
+    <link rel="stylesheet" href="../css/addpet.css">
+    <style>
+
+  .star {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background-color: green;
+    border-radius: 50%;
+    animation: moveStar linear infinite;
+  }
+
+  @keyframes moveStar {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(100vw);
+    }
+  }
+</style>
+</head>
+<body>
+  <nav class="large-nav">
+    <div class="nav-wrapper">
+      <h2 class="brand-logo">PeTicket</h2>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="./home.html">Home</a></li>
+        <li><a href="./appointments.html">Appointments</a></li>
+        <li class="dropdown-item"><a href="#">Add<i style="margin-left: 1rem;" class="fas fa-chevron-down"></i></a>
+          <ul class="dropdown">
+            <li><a href="./addAppointment.html">Appointment</a></li>
+            <li><a href="./addpet.html">Pet</a></li>
+          </ul>
+        </li>
+        <li><a href="./profile.html">Profile</a></li>
+        <li><a class="logout-navbar" onclick="logout()" >Logout</a></li>
+      </ul>
+    </div>
+</nav>
+
+<nav class="small-nav">
+  <div class="nav-wrapper">
+    <h2 class="brand-logo">PeTicket</h2>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li class="dropdown-item"><a href="#">Menu<i style="margin-left: 1rem;" class="fas fa-chevron-down"></i></a>
+        <ul class="dropdown">
+          <li><a href="./home.html">Home</a></li>
+          <li><a href="./appointments.html">Appointments</a></li>
+          <li><a href="./addAppointment.html">Add Appointment</a></li>
+          <li><a href="./addpet.html">Add Pet</a></li>
+          <li><a href="./profile.html">Profile</a></li>
+          <li><a class="logout-navbar" onclick="logout()" >Logout</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+  <div class="addpet-div">
+    <div class="addpet-container">
+      <form id="add-pet-form">
+        <div class="form-title">
+          <h3>Add pet</h3>
+          <p>Please fill out the form to add your pet.</p>
+        </div>
+        <div class="input-box">
+          <div class="user-box">
+            <input type="text" id="name" name="name" required="">
+            <label>Name</label>
+          </div>
+          <div class="user-box">
+            <input type="text" id="type" name="type" required="">
+            <label>Specie</label>
+          </div>
+          <div class="user-box">
+            <input type="text" id="breed" name="breed" required="">
+            <label>Breed</label>
+          </div>
+          <div class="user-box">
+            <input type="number" name="age" id="age" required min="1" max="100">
+            <label for="age">Age</label>
+            <select class="unit-selector" id="unit-selector">
+              <option value="years">Years</option>
+              <option value="months">Months</option>
+            </select>
+          </div>
+          <div class="user-box">
+            <input type="text" id="color" name="color" required="">
+            <label>Color</label>
+          </div>
+        </div>
+      </form>
+      <div class="button-addpet-div">
+        <button class="button-addpet" onclick="addPet()"></button>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="../js/addpet.js"></script>
+  <script>
+    let starCount = 0;
+
+  function createStar() {
+    if (starCount >= 40) {
+      return; 
+    }
+
+    const star = document.createElement('div');
+    star.classList.add('star');
+    star.style.top = Math.random() * window.innerHeight + 'px';
+    star.style.animationDuration = (Math.random() * 10 + 5) + 's';
+    document.body.appendChild(star);
+
+    starCount++; 
+
+    star.addEventListener('animationend', function() {
+      star.remove();
+      starCount--;
+    });
+  }
+
+  function createStarsPeriodically() {
+    setInterval(createStar, 1000);
+  }
+
+  document.addEventListener('DOMContentLoaded', createStarsPeriodically);
+  </script>
+</body>
+</html>

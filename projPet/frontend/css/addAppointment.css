@@ -1,0 +1,623 @@
+
+body{
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+  }
+  
+  nav {
+      
+    color: #2E7D32; 
+    padding: 10px 20px;
+    height: 8vh;
+    width: 65%;
+    margin: 0 auto;
+    z-index: 999;
+    position: relative;
+    border-bottom:1px solid #2E7D32 ;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+  }
+  
+  .nav-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+  }
+  
+  .brand-logo {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .dropdown {
+    position: absolute;
+    top: 100%; 
+    left: 60%;
+    display: none;
+    background-color: #fff; 
+    color: #2E7D32; 
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    list-style-type: none;
+    padding: 10px; 
+    margin: 0;
+    width: 200px; 
+    z-index: 1; 
+    border-radius: 10px;
+    border: 1px solid #2E7D32;
+  }
+  
+  .dropdown-item:hover{
+    cursor: pointer;
+  }
+  
+  .dropdown li {
+    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0;
+  
+  }
+  
+  .dropdown li a:before {
+    content: "";
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #2E7D32; 
+    visibility: hidden;
+    transform: scaleX(0);
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .dropdown li a:hover:before {
+    visibility: visible;
+    transform: scaleX(1);
+  }
+  
+  .dropdown-item  .show {
+    display: block;
+  }
+  
+  #nav-mobile {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 60%; 
+    margin: 0; 
+    padding: 0; 
+    margin-right: 2rem;
+  }
+  
+  #nav-mobile li {
+    list-style-type: none; 
+  }
+  
+  #nav-mobile a {
+    text-decoration: none;
+    color: inherit;
+    font-size: 20px;
+  }
+  
+  .nav-wrapper a {
+    position: relative;
+    font-size: 20px;
+  }
+  
+  .nav-wrapper a:before {
+    content: "";
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #2E7D32; 
+    visibility: hidden;
+    transform: scaleX(0);
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .nav-wrapper a:hover:before {
+    visibility: visible;
+    transform: scaleX(1);
+  }
+  
+  .logout-navbar{
+    border: 1px solid #2E7D32 ;
+    padding: 10px;
+    border-radius:2rem ;
+    transition: background-color 0.5s ease, color 0.5s ease;
+  }
+  
+  .logout-navbar:hover{
+    background-color: #2E7D32;
+    color: white !important;
+    cursor: pointer;
+  }
+  
+  
+  .logout-navbar::before{
+    display: none;
+  }
+  
+  
+  .addapp-div{
+    display: flex;
+    width: 95%;
+    height: 83vh;
+    margin: auto;
+    margin-top: 2rem;
+  }
+  
+  
+  .addapp-container{
+    width: 40%;
+    margin: auto;
+    height: 100%;
+    border: 2px solid black;
+    border-radius: 5%;
+  }
+  
+  
+  .button-addapp-div{
+    height: 15% ;
+    margin-top: 2%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .button-addapp{
+    position: relative;
+    background-color: transparent;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    color: #e8e8e8;
+    font-size: 17px;
+    font-weight: 600;
+    border-radius: 10px;
+    width: 150px;
+    height: 60px;
+    border: none;
+    text-transform: uppercase;
+    border-radius: 2rem;
+    cursor: pointer;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(51, 51, 51, 0.2);
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+  
+  .button-addapp::before {
+    content: "Add";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background:rgb(23, 133, 74) ;
+    transform: translate(0%,100%);
+    z-index: 99;
+    position: relative;
+    transform-origin: bottom;
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+  
+  .button-addapp::after {
+    content: "Appointment";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #333;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    transform-origin: top;
+    transform: translate(0%,-100%);
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+  
+  .button-addapp:hover::before {
+    transform: translate(0%,0%);
+  }
+  
+  .button-addapp:hover::after {
+    transform: translate(0%,-200%);
+  }
+  
+  .button-addapp:focus {
+    outline: none;
+  }
+  
+  .button-addapp:active {
+    scale: 0.95;
+  }
+  
+  
+  .addapp-container form{
+    height: 85%;
+    width: 95%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  
+  .form-title{
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+  }
+  .form-title h3{
+    font-size: 1.7em;
+    color: #2E7D32;
+  }
+  
+  .input-box{
+    margin-top: 2rem;
+    width: 50%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  .input-box .user-box {
+    position: relative;
+    padding: 10px 0;
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .input-box .user-box input {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #000000;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid #000000;
+    outline: none;
+    background: transparent;
+  }
+  
+  .input-box .user-box label {
+    position: absolute;
+    top: 0;
+    left: 5%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #000000;
+    pointer-events: none;
+    transition: .5s;
+  }
+  
+  .input-box .user-box input:focus ~ label,
+  .input-box .user-box input:valid ~ label {
+    top: -20px;
+    left: 0;
+    color: #bdb8b8;
+    font-size: 12px;
+  }
+  
+  
+  .user-box select{
+    margin-left: 2rem;
+    margin-top: 0.5rem;
+    background-color: white;
+    color: #000000;
+    border: 2px solid black;
+    border-radius: 2rem;
+    padding: 10px 50px;
+    margin: auto;
+    margin-bottom: 2rem;
+  }
+
+
+  .button-adddateapp{
+    margin-top: 2rem;
+    position: relative;
+    background-color: transparent;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    color: #e8e8e8;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 10px;
+    width: 120px;
+    height: 50px;
+    border: none;
+    text-transform: uppercase;
+    border-radius: 2rem;
+    cursor: pointer;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(51, 51, 51, 0.2);
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+  
+  .button-adddateapp::before {
+    content: "Select";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background:rgb(23, 133, 74) ;
+    transform: translate(0%,100%);
+    z-index: 99;
+    position: relative;
+    transform-origin: bottom;
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+  
+  .button-adddateapp::after {
+    content: "Date";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #333;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    transform-origin: top;
+    transform: translate(0%,-100%);
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+  
+  .button-adddateapp:hover::before {
+    transform: translate(0%,0%);
+  }
+  
+  .button-adddateapp:hover::after {
+    transform: translate(0%,-200%);
+  }
+  
+  .button-adddateapp:focus {
+    outline: none;
+  }
+  
+  .button-adddateapp:active {
+    scale: 0.95;
+  }
+  
+  
+  .modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1; 
+    right: 0;
+    top: 0;
+    width: 30%; 
+    height: 100%; 
+    overflow: auto; 
+    z-index: 1;
+    padding-top: 60px;
+    align-items: center;
+    justify-content: center;
+    
+  }
+  
+  .modal-content {
+    background-color: #fefefe;
+    padding: 20px;
+    border: 2px solid #888;
+    width: 80%;
+    border-radius: 2rem;
+  }
+  
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  [type="date"] {
+    background:#fff url(https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/calendar_2.png)  97% 50% no-repeat ;
+    margin-bottom: 2rem;
+  }
+  [type="date"]::-webkit-inner-spin-button {
+    display: none;
+  }
+  [type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0;
+  }
+  
+
+  .time-slot,
+.half-hour-slot {
+  display: inline-block;
+  width: 80px; 
+  height: 30px; 
+  background-color: rgba(0, 128, 0, 0.2); 
+  margin-right: 10px; 
+  text-align: center;
+  line-height: 30px;
+  margin-bottom: 15px;
+  border-radius: 2rem;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+
+.time-slot:hover,
+.half-hour-slot:hover{
+  cursor: pointer;
+  background-color: rgba(0, 128, 0, 0.3);
+}
+
+.unavailable {
+  background-color: red;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+
+
+@media screen and (max-width: 1000px) {
+
+  nav {
+    width: 80%;
+  }
+
+  .dropdown {
+    position: absolute;
+    top: 100%; 
+    left:40%;
+    display: none;
+    background-color: #fff; 
+    color: #2E7D32; 
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    list-style-type: none;
+    padding: 10px; 
+    margin: 0;
+    width: 200px; 
+    z-index: 777; 
+    border-radius: 10px;
+    border: 1px solid #2E7D32;
+
+  }
+
+  .selected-date-time{
+    width: 100%;
+    flex-wrap: nowrap;
+  }
+
+  .large-nav {
+    display: none;
+}
+
+.nav-wrapper {
+  display: flex;
+  justify-content:space-between;
+  align-items: center;
+  height: 100%;
+}
+
+#nav-mobile {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 90%; 
+  margin: 0; 
+  padding: 0; 
+  margin-right: 2rem;
+}
+
+.addapp-div{
+  display: flex;
+  width: 100%;
+  height: 83vh;
+  margin: auto;
+  margin-top: 2rem;
+}
+
+.addapp-container{
+  width: 90%;
+  margin: auto;
+  height: 100%;
+  border: 2px solid black;
+  border-radius: 2%;
+}
+
+.modal {
+  display: none; 
+  position: fixed; 
+  z-index: 1; 
+  right: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  z-index: 101;
+  padding-top: 60px;
+  background-color: #00000020;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+.modal-content {
+  background-color: #fefefe;
+  padding: 20px;
+  border: 2px solid #888;
+  width: 80%;
+  border-radius: 2rem;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+[type="date"] {
+  background:#fff url(https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/calendar_2.png)  97% 50% no-repeat ;
+  margin-bottom: 2rem;
+}
+[type="date"]::-webkit-inner-spin-button {
+  display: none;
+}
+[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0;
+}
+
+
+.time-slot,
+.half-hour-slot {
+display: inline-block;
+width: 80px; 
+height: 30px; 
+background-color: rgba(0, 128, 0, 0.2); 
+margin-right: 10px; 
+text-align: center;
+line-height: 30px;
+margin-bottom: 15px;
+border-radius: 2rem;
+transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+
+.time-slot:hover,
+.half-hour-slot:hover{
+cursor: pointer;
+background-color: rgba(0, 128, 0, 0.3);
+}
+
+#consultationTimes{
+  margin: 0 auto;
+  width: 90%;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+
+}
+
+
+@media screen and (min-width: 1001px) {
+  .small-nav {
+      display: none;
+  }
+}
+  
+

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Client</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> 
+    <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+
+      .star {
+        position: absolute;
+        width: 3px;
+        height: 3px;
+        background-color: green;
+        border-radius: 50%;
+        animation: moveStar linear infinite;
+      }
+    
+      @keyframes moveStar {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(100vw);
+        }
+      }
+    </style>
+</head>
+<body>
+      <nav class="large-nav">
+        <div class="nav-wrapper">
+          <h2 class="brand-logo">PeTicket</h2>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="./Homepage.html">Home</a></li>
+            <li><a href="./aboutus.html">About Us</a></li>
+            <li><a href="./aboutus.html">Login</a></li>
+          </ul>
+        </div>
+    </nav>
+
+    <nav class="small-nav">
+        <div class="nav-wrapper">
+          <h2 class="brand-logo">PeTicket</h2>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="./Homepage.html">Home</a></li>
+          </ul>
+        </div>
+    </nav>
+
+
+    <div class="tab-container">
+        <input type="radio" name="tab" id="tab1" class="tab tab--1" />
+        <label class="tab_label" for="tab1">Login</label>
+      
+        <input type="radio" name="tab" id="tab2" class="tab tab--2" />
+        <label class="tab_label" for="tab2">Register</label>
+        <div class="indicator"></div>
+      </div>
+
+    <div class="login-box" id="login-box">
+ 
+        <form>
+          <div class="user-box">
+            <input type="text" name="" id="login-email" required="">
+            <label>Email</label>
+          </div>
+          <div class="user-box">
+            <input type="password" name="" id="login-password" required="">
+            <label>Password</label>
+          </div><center>
+            <button class="button-home-cards" onclick=loginUser()></button>
+        </form>
+      </div>
+
+
+      <div class="login-box" id="register-box" style="display: none;">
+ 
+        <form>
+            <div class="user-box">
+                <input type="text" name="" id="register-firstname" required="">
+                <label>FirstName</label>
+              </div>
+          <div class="user-box">
+            <input type="text" name="" id="register-email" required="">
+            <label>Email</label>
+          </div>
+          <div class="user-box">
+            <input type="password" name="" id="register-password" required="">
+            <label>Password</label>
+          </div>
+          <div class="user-box">
+            <input type="password" name="" id="confirm-password" required="">
+            <label> Confirm Password</label>
+          </div><center>
+            <button class="button-home-cards2" onclick=registerUser()></button>
+        </form>
+      </div>
+      
+
+
+
+      <script src="../js/login.js"></script>
+ <script>
+        let starCount = 0;
+    
+      function createStar() {
+        if (starCount >= 30) {
+          return;
+        }
+    
+        const star = document.createElement('div');
+        star.classList.add('star');
+        star.style.top = Math.random() * window.innerHeight + 'px';
+        star.style.animationDuration = (Math.random() * 10 + 5) + 's';
+        document.body.appendChild(star);
+    
+        starCount++; 
+    
+        star.addEventListener('animationend', function() {
+          star.remove();
+          starCount--; 
+        });
+      }
+    
+      function createStarsPeriodically() {
+        setInterval(createStar, 1000);
+      }
+    
+      document.addEventListener('DOMContentLoaded', createStarsPeriodically);
+      document.addEventListener("DOMContentLoaded", function() {
+        const loginTab = document.getElementById("tab1");
+        const registerTab = document.getElementById("tab2");
+        const loginBox = document.getElementById("login-box");
+        const registerBox = document.getElementById("register-box");
+    
+        loginTab.addEventListener("click", function() {
+            loginBox.style.display = "block";
+            registerBox.style.display = "none";
+        });
+    
+        registerTab.addEventListener("click", function() {
+            loginBox.style.display = "none";
+            registerBox.style.display = "block";
+        });
+    });
+      </script>
+</body>

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PeTicket - Manual Appointment Booking</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        nav {
+            background-color: #333;
+            overflow: hidden;
+        }
+        nav a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+        nav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        .section {
+            display: none;
+        }
+        .active {
+            display: block;
+        }
+        form {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f2f2f2;
+            border-radius: 8px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input[type="text"], input[type="date"], input[type="time"], select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type="submit"], .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+        input[type="submit"]:hover, .btn:hover {
+            background-color: #45a049;
+        }
+        .hidden {
+            display: none;
+        }
+        .appointment {
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+        .show-details {
+            cursor: pointer;
+            color: blue;
+        }
+
+        /* The Modal (background) */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+        
+        /* Modal Content/Box */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+        
+        /* Close Button */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+<body>
+    <nav>
+        <a href="#" id="btn_appointments">Appointments</a>
+        <a href="#" id="btn_booking">Manual Booking</a>
+        <a href="#">Clients</a>
+        <a href="#">Reports</a>
+    </nav>
+    <div id="section_appointments" class="section active">
+        <h2>PeTicket - Appointments</h2>
+        <div class="appointment">
+            <h3>Cat - Appointment 1</h3>
+            <div class="info">
+                <p>Date: January 20, 2024</p>
+                <p>Time: 2:00 PM</p>
+                <p class="details hidden">Additional Information: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eget leo vitae dolor mollis lacinia a vel dui.</p>
+            </div>
+            <button class="show-details">Show Details</button>
+        </div>
+        <!-- More appointment entries here -->
+    </div>
+    
+    <div id="section_booking" class="section">
+        <h2>PeTicket - Manual Appointment Booking</h2>
+        <form action="appointment_confirmation.php" method="post">
+            <label for="client_id">Client ID (Citizen Card Number):</label>
+            <input type="text" id="client_id" name="client_id">
+            <div id="client_info">
+                <label for="animal_select">Select Animal:</label>
+                <select id="animal_select" name="animal_select">
+                    <option value="">Select Animal</option>
+                    <option value="dog">Dog</option>
+                    <option value="cat">Cat</option>
+                    <option value="bird">Bird</option>
+                </select>
+            </div>
+            <div id="new_client_info" class="hidden">
+                <h3>New Client Information</h3>
+                <label for="client_name">Client Name:</label>
+                <input type="text" id="client_name" name="client_name">
+                <label for="client_phone">Client Phone:</label>
+                <input type="text" id="client_phone" name="client_phone">
+                <label for="client_email">Client Email:</label>
+                <input type="text" id="client_email" name="client_email">
+                <h3>New Animal Information</h3>
+                <label for="animal_name">Animal Name:</label>
+                <input type="text" id="animal_name" name="animal_name">
+                <label for="animal_type">Animal Type:</label>
+                <input type="text" id="animal_type" name="animal_type">
+                <label for="animal_breed">Animal Breed:</label>
+                <input type="text" id="animal_breed" name="animal_breed">
+            </div>
+            <input type="button" class="btn" id="toggle_info" value="Add New Client and Animal">
+            <label for="appointment_date">Appointment Date:</label>
+            <input type="date" id="appointment_date" id="datepicker" name="appointment_date" required>
+            <label for="appointment_time">Appointment Time:</label>
+            <input type="button" class="btn" id="select_time_btn" value="Select Time">
+            <label for="additional_info">Additional Information:</label>
+            <textarea id="additional_info" name="additional_info" rows="4"></textarea>
+            <input type="submit" value="Book Appointment">
+        </form>
+    </div>
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Select Appointment Time</h3>
+            
+          
+            <select id="appointment_time" name="appointment_time" required>
+                <button  class="close">confirm</button>
+                
+            </select>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('btn_appointments').addEventListener('click', function() {
+            document.getElementById('section_appointments').classList.add('active');
+            document.getElementById('section_booking').classList.remove('active');
+        });
+
+        document.getElementById('btn_booking').addEventListener('click', function() {
+            document.getElementById('section_appointments').classList.remove('active');
+            document.getElementById('section_booking').classList.add('active');
+        });
+
+        document.querySelectorAll('.show-details').forEach(item => {
+            item.addEventListener('click', event => {
+                const details = event.target.parentElement.querySelector('.details');
+                details.classList.toggle('hidden');
+                if (details.classList.contains('hidden')) {
+                    event.target.textContent = 'Show Details';
+                } else {
+                    event.target.textContent = 'Hide Details';
+                }
+            });
+        });
+
+        document.getElementById('toggle_info').addEventListener('click', function() {
+            var newClientInfo = document.getElementById('new_client_info');
+            if (newClientInfo.classList.contains('hidden')) {
+                newClientInfo.classList.remove('hidden');
+                document.getElementById('client_info').style.display = 'none';
+                this.value = 'Back';
+            } else {
+                newClientInfo.classList.add('hidden');
+                document.getElementById('client_info').style.display = 'block';
+                this.value = 'Add New Client and Animal';
+            }
+        });
+
+        
+        var modal = document.getElementById("myModal");
+
+        
+        var btn = document.getElementById("select_time_btn");
+
+       
+        var span = document.getElementsByClassName("close")[0];
+
+       
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+        var availableTimes = ["09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00"];
+
+        // Função para adicionar opções ao dropdown
+        function populateDropdown() {
+            var dropdown = document.getElementById("appointment_time");
+            dropdown.innerHTML = ""; // Limpa as opções existentes
+    
+            // Adiciona uma opção para cada hora disponível
+            availableTimes.forEach(function(time) {
+                var option = document.createElement("option");
+                option.text = time;
+                option.value = time;
+    
+                // Define a classe CSS com base na disponibilidade da hora
+                if (isTimeAvailable(time)) {
+                    option.classList.add("available");
+                } else {
+                    option.classList.add("unavailable");
+                    option.disabled = true; // Desativa horas indisponíveis
+                }
+    
+                dropdown.add(option);
+            });
+        }
+    
+        // Função para verificar se a hora está disponível
+        function isTimeAvailable(time) {
+            // Aqui você pode adicionar lógica para verificar a disponibilidade da hora
+            // Por exemplo, consultar um servidor ou verificar em uma lista de compromissos
+            return true; // Por padrão, todas as horas são consideradas disponíveis neste exemplo
+        }
+    
+        // Popula o dropdown quando a página carrega
+        window.onload = function() {
+            populateDropdown();
+        };
+    </script>
+</body>
+</html>

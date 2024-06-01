@@ -1,0 +1,967 @@
+
+body{
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+  }
+  
+  nav {
+      
+    color: #2E7D32; 
+    padding: 10px 20px;
+    height: 8vh;
+    width: 65%;
+    margin: 0 auto;
+    z-index: 999;
+    position: relative;
+    border-bottom:1px solid #2E7D32 ;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+  }
+  
+  .nav-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+  }
+  
+  .brand-logo {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .dropdown {
+    position: absolute;
+    top: 100%; 
+    left: 60%;
+    display: none;
+    background-color: #fff; 
+    color: #2E7D32; 
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    list-style-type: none;
+    padding: 10px; 
+    margin: 0;
+    width: 200px; 
+    z-index: 1; 
+    border-radius: 10px;
+    border: 1px solid #2E7D32;
+  }
+  
+  .dropdown-item:hover{
+    cursor: pointer;
+  }
+  
+  .dropdown li {
+    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0;
+  
+  }
+  
+  .dropdown li a:before {
+    content: "";
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #2E7D32; 
+    visibility: hidden;
+    transform: scaleX(0);
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .dropdown li a:hover:before {
+    visibility: visible;
+    transform: scaleX(1);
+  }
+  
+  .dropdown-item  .show {
+    display: block;
+  }
+  
+  #nav-mobile {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 60%; 
+    margin: 0; 
+    padding: 0; 
+    margin-right: 2rem;
+  }
+  
+  #nav-mobile li {
+    list-style-type: none; 
+  }
+  
+  #nav-mobile a {
+    text-decoration: none;
+    color: inherit;
+    font-size: 20px;
+  }
+  
+  .nav-wrapper a {
+    position: relative;
+    font-size: 20px;
+  }
+  
+  .nav-wrapper a:before {
+    content: "";
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #2E7D32; 
+    visibility: hidden;
+    transform: scaleX(0);
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .nav-wrapper a:hover:before {
+    visibility: visible;
+    transform: scaleX(1);
+  }
+  
+  .logout-navbar{
+    border: 1px solid #2E7D32 ;
+    padding: 10px;
+    border-radius:2rem ;
+    transition: background-color 0.5s ease, color 0.5s ease;
+  }
+  
+  .logout-navbar:hover{
+    background-color: #2E7D32;
+    color: white !important;
+    cursor: pointer;
+  }
+  
+  
+  .logout-navbar::before{
+    display: none;
+  }
+  
+
+
+  .profile-div{
+    height: 83vh;
+    width: 85%;
+    margin: auto;
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: row;
+
+  }
+
+  .column1 {
+    flex: 0 0 37%; 
+    padding-right: 2%; 
+  }
+
+  .column2 {
+    flex: 0 0 61%;
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center
+  }
+
+
+  .row-1{
+    display: flex;
+    width: 100%;
+    height: 50%;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .row-2{
+    display: flex;
+    width: 100%;
+    height: 50%;
+    align-items: center;
+    justify-content: center
+
+  }
+
+  .card {
+    width:60%;
+    height: 90%;
+    background: rgb(255, 255, 255);
+    border-radius: 2rem;
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.271);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    transition-duration: .5s;
+    margin: 0 auto;
+  }
+  
+  .profileImage {
+    background: linear-gradient(to right,rgb(255, 255, 255),rgb(242, 224, 224));
+    margin-top: 20px;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    box-shadow: 5px 10px 20px rgba(255, 255, 255, 0.735);
+  }
+  
+  .textContainer {
+    width: 100%;
+    text-align: left;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 2rem;
+  }
+  
+  .name {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: rgb(0, 0, 0);
+    letter-spacing: 0.5px;
+    margin: 0 auto;
+  }
+  
+  .profile {
+    font-size: 1em;
+    color: #2E7D32;
+    letter-spacing: 0.2px;
+    margin: 0 auto;
+    margin-top: 1rem;
+  }
+  
+  .card:hover {
+    background-color: rgb(255, 255, 255);
+    transition-duration: .5s;
+  }
+
+
+  .card2 {
+    width:80%;
+    height: 90%;
+    background: rgb(255, 255, 255);
+    border-radius: 2rem;
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.271);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    transition-duration: .5s;
+    margin-left: auto;
+    
+  }
+
+
+  .card2:hover {
+    background-color: rgb(255, 255, 255);
+    transition-duration: .5s;
+  }
+
+  .card2-container{
+    width: 90%;
+    height: 90%;
+    margin: auto;
+  }
+
+  .pets-profile-title{
+    font-size: 1em;
+  }
+
+
+  .profile-pets{
+    height: 80%;
+    max-height: 80%;
+    overflow-y: scroll;
+  }
+
+  .pet-container{
+  
+    height: 50px;
+    padding: 0px 20px;
+    width: 80%;
+    margin: 20px auto;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.644);
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+
+.div-buttons-eachpet{
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 100%;
+  width: 15%;
+}
+
+.icon-view-info i,
+.icon-delete i {
+    cursor: pointer;
+}
+
+.icon-view-info i:hover,
+.icon-delete i:hover {
+    color: #2E7D32; 
+}
+
+
+
+
+
+  .card3 {
+    width:100%;
+    height:95%;
+    background: rgb(255, 255, 255);
+    border-radius: 2rem;
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.271);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    transition-duration: .5s;
+    
+  }
+
+
+  .card3:hover {
+    background-color: rgb(255, 255, 255);
+    transition-duration: .5s;
+  }
+
+
+  .profile-info{  
+    width: 70%;
+    height: 80%;
+    margin: auto;
+    margin-top: 5rem;
+  }
+
+  .profile-name{
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .profile-name h4{
+    font-size: 1.2em;
+  }
+
+
+  .profile-email{
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .profile-email h4{
+    font-size: 1.2em;
+  }
+
+
+  .profile-address{
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .profile-address h4{
+    font-size: 1.2em;
+  }
+
+
+  .profile-phone{
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .profile-phone h4{
+    font-size: 1.2em;
+  }
+
+
+  .edit-icon {
+    display: flex;
+    justify-content: center;
+}
+
+.icon-pencil i {
+    font-size: 24px;
+    cursor: pointer;
+    color: #333;
+}
+
+.icon-pencil i:hover {
+  font-size: 24px;
+  cursor: pointer;
+  color: #2E7D32;
+}
+
+
+
+  .modal {
+    display: none; 
+    position: fixed; 
+    z-index: 10011; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+    justify-content: center; 
+    align-items: center;
+  }
+  
+
+  .modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 20%; 
+    z-index: 10012; 
+    background: rgb(255, 255, 255);
+    border-radius: 2rem;
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.271);
+    transition-duration: .5s;
+  }
+  
+  
+  .close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close-btn:hover,
+  .close-btn:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .pet-info-container{
+    width: 70%;
+    margin: auto;
+  }
+
+
+  .button-save-update{
+    position: relative;
+    background-color: transparent;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    color: #e8e8e8;
+    font-size: 17px;
+    font-weight: 600;
+    border-radius: 10px;
+    width: 150px;
+    height: 60px;
+    border: none;
+    text-transform: uppercase;
+    border-radius: 2rem;
+    cursor: pointer;
+    overflow: hidden;
+    margin-left: 20%;
+    margin-top: 1rem;
+    box-shadow: 0 10px 20px rgba(51, 51, 51, 0.2);
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+  
+  .button-save-update::before {
+    content: "Save";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background:rgb(23, 133, 74) ;
+    transform: translate(0%,100%);
+    z-index: 99;
+    position: relative;
+    transform-origin: bottom;
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+  
+  .button-save-update::after {
+    content: "Update";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #333;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    transform-origin: top;
+    transform: translate(0%,-100%);
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+  
+  .button-save-update:hover::before {
+    transform: translate(0%,0%);
+  }
+  
+  .button-save-update:hover::after {
+    transform: translate(0%,-200%);
+  }
+  
+  .button-save-update:focus {
+    outline: none;
+  }
+  
+  .button-save-update:active {
+    scale: 0.95;
+  }
+  
+
+  .button-updatepet{
+    position: relative;
+    background-color: transparent;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    color: #e8e8e8;
+    font-size: 17px;
+    font-weight: 600;
+    border-radius: 10px;
+    width: 150px;
+    height: 60px;
+    border: none;
+    text-transform: uppercase;
+    border-radius: 2rem;
+    cursor: pointer;
+    overflow: hidden;
+    margin-left: 20%;
+    margin-top: 1rem;
+    box-shadow: 0 10px 20px rgba(51, 51, 51, 0.2);
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+  
+  .button-updatepet::before {
+    content: "Update";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background:rgb(23, 133, 74) ;
+    transform: translate(0%,100%);
+    z-index: 99;
+    position: relative;
+    transform-origin: bottom;
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+  
+  .button-updatepet::after {
+    content: "Pet";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #333;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    transform-origin: top;
+    transform: translate(0%,-100%);
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+  
+  .button-updatepet:hover::before {
+    transform: translate(0%,0%);
+  }
+  
+  .button-updatepet:hover::after {
+    transform: translate(0%,-200%);
+  }
+  
+  .button-updatepet:focus {
+    outline: none;
+  }
+  
+  .button-updatepet:active {
+    scale: 0.95;
+  }
+
+
+  .input-box{
+    padding: 20px;
+    margin-top: 2rem;
+    width: 80%;
+    margin: auto;
+  }
+  
+  .input-box .user-box {
+    position: relative;
+    padding: 10px 0;
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .input-box .user-box input {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #000000;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid #000000;
+    outline: none;
+    background: transparent;
+  }
+  
+  .input-box .user-box label {
+    position: absolute;
+    top: 0;
+    left: 5%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #000000;
+    pointer-events: none;
+    transition: .5s;
+  }
+  
+  .input-box .user-box input:focus ~ label,
+  .input-box .user-box input:valid ~ label {
+    top: -20px;
+    left: 0;
+    color: #bdb8b8;
+    font-size: 12px;
+  }
+  
+  
+  .user-box select{
+    height: 50%;
+    margin-left: 2rem;
+    margin-top: 0.5rem;
+    background-color: white;
+    color: #000000;
+    border: 2px solid black;
+    border-radius: 10%;
+    padding: 5px;
+  }
+
+
+  .profile-info{
+    padding: 20px;
+    margin-top: 2rem;
+    width: 80%;
+    margin: auto;
+  }
+  
+  .profile-info .user-box {
+    margin-top: 0.5rem;
+    position: relative;
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .profile-info .user-box input {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #000000;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid #000000;
+    outline: none;
+    background: transparent;
+  }
+  
+  .profile-info .user-box label {
+    position: absolute;
+    top: 0;
+    left: 5%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #000000;
+    pointer-events: none;
+    transition: .5s;
+  }
+  
+  .profile-info .user-box input:focus ~ label,
+  .profile-info .user-box input:valid ~ label {
+    top: -20px;
+    left: 0;
+    color: #bdb8b8;
+    font-size: 12px;
+  }
+  
+
+
+
+  .button-update-userinfo{
+    position: relative;
+    background-color: transparent;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    color: #e8e8e8;
+    font-size: 17px;
+    font-weight: 600;
+    border-radius: 10px;
+    width: 150px;
+    height: 60px;
+    border: none;
+    text-transform: uppercase;
+    border-radius: 2rem;
+    cursor: pointer;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(51, 51, 51, 0.2);
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+  
+  .button-update-userinfo::before {
+    content: "Save";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background:rgb(23, 133, 74) ;
+    transform: translate(0%,100%);
+    z-index: 99;
+    position: relative;
+    transform-origin: bottom;
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+  
+  .button-update-userinfo::after {
+    content: "Update";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #333;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    transform-origin: top;
+    transform: translate(0%,-100%);
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+  
+  .button-update-userinfo:hover::before {
+    transform: translate(0%,0%);
+  }
+  
+  .button-update-userinfo:hover::after {
+    transform: translate(0%,-200%);
+  }
+  
+  .button-update-userinfo:focus {
+    outline: none;
+  }
+  
+  .button-update-userinfo:active {
+    scale: 0.95;
+  }
+
+
+
+
+  .button-update-cancelupdate{
+    position: relative;
+    background-color: transparent;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    color: #e8e8e8;
+    font-size: 17px;
+    font-weight: 600;
+    border-radius: 10px;
+    width: 150px;
+    height: 60px;
+    border: none;
+    text-transform: uppercase;
+    border-radius: 2rem;
+    cursor: pointer;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(51, 51, 51, 0.2);
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+  
+  .button-update-cancelupdate::before {
+    content: "No Update";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background:rgb(23, 133, 74) ;
+    transform: translate(0%,100%);
+    z-index: 99;
+    position: relative;
+    transform-origin: bottom;
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+  
+  .button-update-cancelupdate::after {
+    content: "Cancel";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #333;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    transform-origin: top;
+    transform: translate(0%,-100%);
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+  
+  .button-update-cancelupdate:hover::before {
+    transform: translate(0%,0%);
+  }
+  
+  .button-update-cancelupdate:hover::after {
+    transform: translate(0%,-200%);
+  }
+  
+  .button-update-cancelupdate:focus {
+    outline: none;
+  }
+  
+  .button-update-cancelupdate:active {
+    scale: 0.95;
+  }
+
+
+
+  @media screen and (max-width: 1000px) {
+
+    nav {
+      width: 80%;
+    }
+  
+    .dropdown {
+      position: absolute;
+      top: 100%; 
+      left:40%;
+      display: none;
+      background-color: #fff; 
+      color: #2E7D32; 
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      list-style-type: none;
+      padding: 10px; 
+      margin: 0;
+      width: 200px; 
+      z-index: 777; 
+      border-radius: 10px;
+      border: 1px solid #2E7D32;
+  
+    }
+
+    .modal-content {
+      background-color: #fefefe;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 60%; 
+      background: rgb(255, 255, 255);
+      border-radius: 2rem;
+      box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.271);
+  
+      transition-duration: .5s;
+    }
+    
+  
+    .selected-date-time{
+      width: 100%;
+      flex-wrap: nowrap;
+    }
+  
+    .large-nav {
+      display: none;
+  }
+  
+  .nav-wrapper {
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    height: 100%;
+  }
+  
+  #nav-mobile {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 90%; 
+    margin: 0; 
+    padding: 0; 
+    margin-right: 2rem;
+  }
+
+  .profile-div {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .column1,
+  .column2 {
+    flex: 0 0 100%;
+    width: 95%;
+    padding-right: 0;
+    margin: 0 auto;
+  }
+
+  .row-1,
+  .row-2 {
+    height: auto;
+    justify-content: flex-start;
+  }
+
+  .column2 {
+    align-items: flex-start;
+  }
+
+  .card2 {
+    width: 100%;
+    height: auto;
+    margin-bottom: 2rem; 
+  }
+
+  .row-2{
+    margin-top: 2rem;
+  }
+
+  .pet-container {
+    width: 80%;
+  }
+
+  .div-buttons-eachpet {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+
+@media screen and (min-width: 1001px) {
+  .small-nav {
+      display: none;
+  }
+}
+
+  

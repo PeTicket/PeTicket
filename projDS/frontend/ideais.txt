@@ -1,0 +1,11 @@
+--ds
+
+meter maior
+menos labels
+ultimas chamadas
+
+
+
+--func 
+
+report com graficos e analise do negocio

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Func Inteface</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> 
+    <link rel="stylesheet" href="../css/manualblocking.css">
+</head>
+<style>
+    .star {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background-color: green;
+      border-radius: 50%;
+      animation: moveStar linear infinite;
+    }
+  
+    @keyframes moveStar {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(100vw);
+      }
+    }
+</style>
+<body>
+    <nav class="large-nav">
+        <div class="nav-wrapper">
+          <h2 class="brand-logo">PeTicket</h2>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="./appointments.html">Appointments</a></li>
+            <li><a href="./clientslist.html">Clients</a></li>
+            <li><a href="./reports.html">Reports</a></li>
+            <li><a class="logout-navbar" onclick="logout()">Logout</a></li>
+          </ul>
+        </div>
+    </nav>
+
+    <div class="addapp-div">
+      <div class="addapp-container">
+        <form id="appointment-form">
+          <div class="form-title">
+            <h3>Add Appointment</h3>
+            <p>Please fill out the form to add an appointment.</p>
+          </div>
+          <div class="input-box">
+            <div class="user-box" style="width:60%;margin-top: 2rem;">
+              <input type="text" name="useremail" id="useremail">
+              <label>User</label>
+            </div>
+            <div class="user-box">
+              <select id="pet-select" name="petId">
+                  <option value="" disabled selected >Select pet</option>
+              </select>
+            </div>
+            <p class="selected-date-time"></p>
+            <div>
+              <button type="button" class="button-adddateapp"></button>
+            </div>
+            <div class="user-box" style="width:100%;margin-top: 2rem;">
+              <input type="text" name="observations">
+              <label>Observations</label>
+            </div>
+          </div>
+        </form>
+        <div class="button-addapp-div">
+          <button type="submit" class="button-addapp"></button>
+        </div>
+      </div>
+  
+    </div>
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>Select the desired data and time:</p>
+        <input type="date" name="dateofbirth" id="dateofbirth">
+        <div id="consultationTimes"></div>
+      </div>
+    </div>
+
+   
+
+    <script src="../js/manualblocking.js"></script>
+    <script>
+        let starCount = 0;
+    
+        function createStar() {
+          if (starCount >= 40) {
+            return;
+          }
+    
+          const star = document.createElement('div');
+          star.classList.add('star');
+          star.style.top = Math.random() * window.innerHeight + 'px';
+          star.style.animationDuration = (Math.random() * 10 + 5) + 's';
+          document.body.appendChild(star);
+    
+          starCount++; 
+    
+          star.addEventListener('animationend', function() {
+            star.remove();
+            starCount--; 
+          });
+        }
+    
+        function createStarsPeriodically() {
+          setInterval(createStar, 1000);
+        }
+    
+        document.addEventListener('DOMContentLoaded', createStarsPeriodically);
+    </script>
+</body>
+</html>

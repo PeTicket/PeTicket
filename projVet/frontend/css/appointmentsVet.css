@@ -1,0 +1,602 @@
+
+body{
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    overflow: hidden;
+  }
+
+
+.top-div-service {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #ffffff;
+    color: #000000;
+    text-align: center;
+    padding: 10px 0;
+    z-index: 1000;
+    height: 5vh;
+    display: flex;
+}
+
+.top-div-service p {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+#logout-container {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+#logout-button {
+    padding: 8px 12px;
+    background-color: #2E7D32;
+    color: #fff;
+    margin: auto;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: background-color 0.5s, color 0.5s, border-color 0.5s; 
+}
+
+#logout-button:hover {
+    background-color: white;
+    color: #2E7D32;
+    border:2px solid #000000;
+
+}
+
+
+
+
+
+.top-service-info{
+    margin: auto;
+    width: 40%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.appointments-bigdiv{
+    height: 95vh;
+    width: 100%;
+    display: flex;
+    border-radius: 20px;
+    box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;}
+
+
+.menu-column{
+    width: 23%;
+    height: 100%;
+    margin-right: 2%;
+    display: flex;
+    flex-direction: column;
+}
+
+.menu-name{
+    width: 100%;
+    height: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.menu-name h2:nth-child(1){
+    color: #2E7D32;
+}
+
+
+.content-column{
+    width: 75%;
+    height: 100%;
+    border-left: 2px solid black;
+    overflow-y: auto;
+}
+
+.content-column > div {
+    display: none; 
+}
+
+
+.content-column > div:first-child {
+    display: block; 
+}
+
+
+.menu-options{
+    width: 100%;
+    height: 60%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.menu-options div{
+    margin: auto;
+    width: 80%;
+    height: 22%;
+    margin-top: 3%;
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    justify-content: center;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+}
+
+.menu-options div:hover{
+    cursor: pointer;
+    border: 2px solid black;
+}
+
+.menu-options .selected {
+    border: 5px solid green; 
+}
+
+.appointments-today{
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+}
+
+.appointments-upcoming{
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+}
+
+.appointments-last{
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+}
+
+.appointments-all{
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+}
+
+.info-eachtop{
+    width: 95%;
+    height: 5rem;
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.info-eachtop h3{
+    flex-grow: 1; 
+    text-align: center; 
+    
+}
+
+
+table {
+    width: 95%;
+    border-collapse: collapse;
+    margin: 0 auto;
+    margin-top: 3rem;
+}
+
+
+table, th, td {
+    border: 2px solid #ddd;
+}
+
+th, td {
+    padding: 20px;
+    text-align: center;
+}
+
+thead th{
+    background-color: #000000;
+    color: white;
+}
+
+
+.eye-app i:hover{
+    color: #2E7D32;
+    cursor: pointer;
+}
+
+.back-arrow {
+    cursor: pointer;
+    font-size: 35px;
+    margin-right: 5rem;
+}
+
+.back-arrow:hover{
+    cursor: pointer;
+    color: #2E7D32;
+}
+
+
+.appointment-info{
+    display: flex;
+    height: 100%;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.info-client-pet{
+    width: 100%;
+    min-height: 40vh;
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.client-info{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+
+}
+
+.client-info h3{
+    width: 100%;
+    text-align: start;
+    color: #2E7D32;
+}
+
+.ci{
+    display: flex;
+    width: 30%;
+    margin: 0 auto;
+    flex-direction: column;
+}
+
+
+.ci div{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.pet-info{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    margin-top: 2rem;
+
+}
+
+.pet-info h3{
+    width: 100%;
+    text-align: start;
+    color: #2E7D32;
+}
+
+
+.pi{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.pi .pi-column1,
+.pi .pi-column2 {
+    width: 50%;
+    margin: 0 auto;
+    box-sizing: border-box; 
+    padding: 10px; 
+    display: flex;
+    flex-direction: column;
+}
+
+
+.pi-column1 div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
+
+.pi-column2 div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
+
+ .user-box {
+    position: relative;
+  }
+  
+  
+ .user-box input {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #000000;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid #000000;
+    outline: none;
+    background: transparent;
+  }
+  
+.user-box label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #000000;
+    pointer-events: none;
+    transition: .5s;
+  }
+
+
+ .user-box input:focus ~ label,
+.user-box input:valid ~ label {
+    top: -20px;
+    left: 0;
+    color: #000000;
+    font-size: 12px;
+  }
+
+
+.pet-medical-info{
+    display: flex;
+    width: 100%;
+    margin-top: 4rem;
+    flex-direction: column;
+}
+
+.pet-medical-info div{
+    width: 100%;
+}
+
+.app-occurence{
+    width: 78%;
+    padding: 1%;
+    border: 2px solid black;
+    border-radius: 10px;
+    height: 10rem;
+    margin-bottom: 3rem;
+}
+
+.app-occurence p{
+    width: 90%;
+    margin: 0 auto;
+}
+
+
+#box2{
+    margin-top: 2rem;
+}
+
+
+.button-app-info-div{
+    width: 50%;
+    margin: 0 auto;
+    padding: 5rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.button-add-info {
+    padding: 15px 25px;
+    border: unset;
+    border-radius: 15px;
+    color: #212121;
+    z-index: 1;
+    background: #e8e8e8;
+    position: relative;
+    font-weight: 1000;
+    font-size: 17px;
+    -webkit-box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+    box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+    transition: all 250ms;
+    overflow: hidden;
+   }
+   
+   .button-add-info::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0;
+    border-radius: 15px;
+    background-color: #212121;
+    z-index: -1;
+    -webkit-box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+    box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+    transition: all 250ms
+   }
+   
+   .button-add-info:hover {
+    color: #e8e8e8;
+    cursor: pointer;
+   }
+   
+   .button-add-info:hover::before {
+    width: 100%;
+   }
+
+
+   .button-add-info:nth-child(1){
+    background-color: red;
+    color: white;
+   }
+
+
+   .button-add-info:nth-child(3){
+    background-color: #2E7D32;
+    color: white;
+   }
+
+
+
+   .button-call {
+    padding: 15px 25px;
+    border: unset;
+    border-radius: 15px;
+    color: #212121;
+    z-index: 1;
+    background: #e8e8e8;
+    position: relative;
+    font-weight: 1000;
+    font-size: 17px;
+    -webkit-box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+    box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+    transition: all 250ms;
+    overflow: hidden;
+   }
+   
+   .button-call::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0;
+    border-radius: 15px;
+    background-color: #212121;
+    z-index: -1;
+    -webkit-box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+    box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+    transition: all 250ms
+   }
+   
+   .button-call:hover {
+    color: #e8e8e8;
+    cursor: pointer;
+   }
+   
+   .button-call:hover::before {
+    width: 100%;
+   }
+
+
+
+   .remove-prescription-btn {
+    padding: 15px 10px;
+    border: unset;
+    border-radius: 15px;
+    color: white;
+    z-index: 1;
+    background: red;
+    position: relative;
+    font-weight: 1000;
+    font-size: 17px;
+    -webkit-box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+    box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+    transition: all 250ms;
+    overflow: hidden;
+   }
+   
+   .remove-prescription-btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0;
+    border-radius: 15px;
+    background-color: #212121;
+    z-index: -1;
+    -webkit-box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+    box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+    transition: all 250ms
+   }
+   
+   .remove-prescription-btn:hover {
+    color: #e8e8e8;
+    cursor: pointer;
+   }
+   
+   .remove-prescription-btn:hover::before {
+    width: 100%;
+   }
+
+
+   .user-box3 {
+    position: relative;
+    margin-top: 2rem;
+  }
+  
+  
+ .user-box3 input {
+    width: 82%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #000000;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid #000000;
+    outline: none;
+    background: transparent;
+  }
+  
+.user-box3 label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #000000;
+    pointer-events: none;
+    transition: .5s;
+  }
+
+
+ .user-box3 input:focus ~ label,
+.user-box3 input:valid ~ label {
+    top: -20px;
+    left: 0;
+    color: #000000;
+    font-size: 12px;
+  }
+
+
+  .tdtd{
+    display: flex;
+  }
+
+.state-app{
+    width: 100%;
+    height: 3rem;
+    margin: auto;
+    border-radius: 10px;
+}
+
+.state-in-progress {
+    background-color: yellow;  
+    color: black;
+}
+
+
+.state-on-hold {
+    background-color: red;
+    color: white;
+}
+
+.state-done {
+    background-color: green;
+    color: white;
+}
+
+.state-waiting {
+    background-color: white; 
+    border: 1px solid black; 
+    color: black;
+}
+
+
+
+
+
+
+
+  

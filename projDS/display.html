@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointments' Calling</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+        }
+        .header {
+            text-align: center;
+            padding: 20px;
+            background-color: #007bff;
+            color: #fff;
+            font-size: 24px;
+            font-weight: bold;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .info-container {
+            width: 80%;
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px; /* Adjust margin to create space below header */
+        }
+        .info-column {
+            flex-basis: 30%; /* Adjust column width */
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 5px;
+            text-align: center; /* Center-align labels */
+        }
+        .info-label {
+            font-weight: bold;
+            font-size: 24px; /* Make labels twice as big */
+            margin-bottom: 15px; /* Increase spacing between labels */
+        }
+        .info-item {
+            font-size: 18px;
+            text-align: center;
+            margin-bottom: 15px; /* Increase spacing between data */
+        }
+        .previous-appointments {
+            margin-top: 20px;
+            width: 80%;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">Appointments' Calling</div>
+    <div class="info-container">
+        <div class="info-column">
+            <div class="info-label">Client Name</div>
+            <div class="info-item">John Doe</div>
+            <div class="info-item">Jane Smith</div>
+            <div class="info-item">Michael Johnson</div>
+        </div>
+        <div class="info-column">
+            <div class="info-label">ID</div>
+            <div class="info-item">123</div>
+            <div class="info-item">456</div>
+            <div class="info-item">789</div>
+        </div>
+        <div class="info-column">
+            <div class="info-label">Consultory Number</div>
+            <div class="info-item">101</div>
+            <div class="info-item">102</div>
+            <div class="info-item">103</div>
+        </div>
+    </div>
+    <div class="previous-appointments">
+        <h2>Previously Called Appointments</h2>
+        <!-- Add content here for previously called appointments -->
+        <p>No appointments called yet.</p>
+    </div>
+</body>
+</html>
+
+
+
+

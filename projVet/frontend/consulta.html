@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Doctor</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+  html,body,h1,h2,h3,h4,h5 {font-family: "Montserrat", sans-serif}
+
+h1 {
+	font-weight: bold;
+	margin: 0;
+}
+
+h2 {
+	font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+}
+
+p {
+	font-size: 14px;
+	
+}
+
+span {
+	font-size: 12px;
+}
+
+a {
+	color: #333;
+	font-size: 14px;
+	text-decoration: none;
+	margin: 15px 0;
+}
+</style>
+
+</head>
+<body class="w3-light-grey">
+
+<!-- Top container -->
+<div class="w3-bar w3-top w3-blue w3-large" style="z-index:4">
+  <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>
+  <p class="w3-bar-item w3-right">PeTicket</p>
+</div>
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
+  <div class="w3-container w3-row">
+    <div class="w3-col s4">
+      <img src="" class="w3-circle w3-margin-right" style="width:46px;">
+    </div>
+    <div class="w3-col  w3-bar">
+      <p>Welcome, <strong>Mike</strong></p><br>
+    </div>
+  </div>
+  <hr>
+
+  <div class="w3-bar-block">
+    <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
+    <a href="appointments.html" class="w3-bar-item w3-button w3-padding"><i class="fa fa-history fa-fw"></i>  Appointments</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding w3-blue"><i class="fa fa-eye fa-fw"></i> Consulta</a>
+    <a href="animals.html" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>  Animals</a>
+  </div>
+</nav>
+
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:300px;margin-top:43px; height: 900px; overflow: auto;">
+    <div class="w3-container w3-padding-32">
+        <!-- Informações sobre a Consulta -->
+        <div class="w3-container w3-card w3-white w3-margin-bottom">
+            <h2 class="w3-text-grey w3-padding-16"></i>Consulta</h2>
+            <!-- Informações sobre o Dono -->
+            <div class="w3-container">
+                <h3><b>Informações do Dono</b></h3>
+                <p><strong>Nome:</strong> John Doe</p>
+                <p><strong>Telefone:</strong> 123-456-7890</p>
+                <p><strong>Email:</strong> john@example.com</p>
+                <!-- Adicione mais informações conforme necessário -->
+            </div>
+            <hr>
+            <!-- Informações sobre o Animal -->
+            <div class="w3-container">
+                <h3><b>Informações do Animal</b></h3>
+                <p><strong>Nome:</strong> Max</p>
+                <p><strong>Animal:</strong> Dog</p>
+                <p><strong>Raça:</strong> German Shepherd</p>
+                <p><strong>Idade:</strong> 5 anos</p>
+                <!-- Adicione mais informações conforme necessário -->
+            </div>
+            <hr>
+            <!-- Sintomas do Animal -->
+            <div class="w3-container">
+                <h3><b>Sintomas Relatados pelo Dono</b></h3>
+                <p>O animal está a apresentar falta de apetite e alergia.</p>
+                <!-- Adicione mais informações conforme necessário -->
+            </div>
+            <hr>
+            <!-- Consultas Anteriores -->
+            <div class="w3-container">
+                <h3><b>Consultas Anteriores</b></h3>
+                <p><strong>Data:</strong> 2024-05-01</p>
+                <p><strong>Serviço:</strong> Check-up Anual</p>
+                <p><strong>Diagnóstico:</strong> Saudável</p>
+                <!-- Adicione mais consultas conforme necessário -->
+            </div>
+            <hr>
+            <!-- Botões -->
+            <div class="w3-container w3-center" >
+                <button class="w3-button w3-red">Terminar Consulta</button>
+                <button class="w3-button w3-green">Registrar Diagnóstico</button>
+            </div>
+            <hr>
+        </div>
+    </div>
+
+</div>
+  <!-- Footer -->
+  <footer>
+    <div class="w3-display-bottommiddle w3-padding-large"> 
+      <p>Powered by PeTicket</a></p>
+
+    </div>
+  </footer>
+
+  <!-- End page content -->
+
+
+<script>
+// Get the Sidebar
+var mySidebar = document.getElementById("mySidebar");
+
+// Get the DIV with overlay effect
+var overlayBg = document.getElementById("myOverlay");
+
+// Toggle between showing and hiding the sidebar, and add overlay effect
+function w3_open() {
+  if (mySidebar.style.display === 'block') {
+    mySidebar.style.display = 'none';
+    overlayBg.style.display = "none";
+  } else {
+    mySidebar.style.display = 'block';
+    overlayBg.style.display = "block";
+  }
+}
+
+// Close the sidebar with the close button
+function w3_close() {
+  mySidebar.style.display = "none";
+  overlayBg.style.display = "none";
+}
+</script>
+
+</body>
+</html>
