@@ -568,3 +568,4 @@ document.getElementById('done-app').addEventListener('click', function() {
         console.error('Appointment ID is missing');
     }
 });
+

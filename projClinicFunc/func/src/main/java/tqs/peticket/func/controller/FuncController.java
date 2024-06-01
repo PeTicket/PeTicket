@@ -6,10 +6,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import tqs.peticket.func.model.*;
+import tqs.peticket.func.repository.UserRepository;
 import tqs.peticket.func.service.*;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.UUID;
 
@@ -22,8 +24,14 @@ public class FuncController {
     @Autowired
     private FuncService funcService;
 
+      @Autowired
+    UserRepository userRepository;
+
     @Autowired
     private UserService userService;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @Autowired
     private PetService petService;
@@ -41,6 +49,9 @@ public class FuncController {
             logger.info("Client not created");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+
+        createdUser.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepository.save(createdUser);
         logger.info("Client created");
         return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
     }
