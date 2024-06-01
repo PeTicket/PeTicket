@@ -42,7 +42,7 @@
             <div class="appointments-today" id="content-today"> 
                 <div class="info-eachtop">
                     <h3>Today appointments</h3>
-                    <button class="button-call"  onclick="getNextAppointment('02')">
+                    <button class="button-call"  onclick="getNextAppointment()">
                         Next Appointment <i class="fas fa-bell"></i>
                     </button>
                 </div>
@@ -64,7 +64,7 @@
             <div class="appointments-upcoming" id="content-upcoming" style="display: none;"> 
                 <div class="info-eachtop">
                     <h3>Upcoming appointments</h3>
-                    <button class="button-call" onclick="getNextAppointment('02')">
+                    <button class="button-call" onclick="getNextAppointment()">
                         Next Appointment <i class="fas fa-bell"></i>
                     </button>
                 </div>
@@ -109,7 +109,7 @@
             <div class="appointments-all" id="content-all" style="display: none;">
                 <div class="info-eachtop">
                     <h3>All appointments</h3>
-                    <button class="button-call" onclick="getNextAppointment('02')">
+                    <button class="button-call" onclick="getNextAppointment()">
                         Next Appointment <i class="fas fa-bell"></i>
                     </button>
                 </div>
@@ -242,10 +242,32 @@
         </div>
     </div>
 
+    <div id="choice-modal" class="modal">
+        <div class="modal-content">
+            <span class="close2" id="close2">&times;</span>
+            <h2>Choose an Clinic</h2>
+            <div class="modal-options">
+                <input type="radio" id="option1" name="choice" value="01">
+                <label for="option1">Clinic 1</label><br>
+                <input type="radio" id="option2" name="choice" value="02">
+                <label for="option2">Clinic 2</label><br>
+                <input type="radio" id="option3" name="choice" value="03">
+                <label for="option3">Clinic 3</label><br>
+                <input type="radio" id="option4" name="choice" value="04">
+                <label for="option4">Clinic 4</label>
+            </div>
+            <button id="confirm-choice">Confirm</button>
+        </div>
+    </div>
+    
+    <input type="hidden" id="user-choice" value="">
+
     <script src="../js/appointmentsVet.js"></script> 
     <script>
-        function getNextAppointment(clinicNumber) {
-    const url = `http://localhost:8081/api/vet/appointment/next/${clinicNumber}`;
+        function getNextAppointment() {
+
+    const clinicChoice = document.getElementById('user-choice').value || '01'; 
+    const url = `http://localhost:8081/api/vet/appointment/next/${clinicChoice}`;
     const token = localStorage.getItem('token');
     fetch(url, {
         method: 'POST',

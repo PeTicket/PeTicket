@@ -36,7 +36,7 @@ function getUserInfoFromJWT() {
             'Authorization': `Bearer ${jwtToken}`
         };
   
-        fetch(`http://localhost:8080/api/client/user/by-email/${email}`, {
+        fetch(`http://localhost:8081/api/vet/users/${email}`, {
             method: 'GET',
             headers: headers
         })
@@ -569,3 +569,27 @@ document.getElementById('done-app').addEventListener('click', function() {
     }
 });
 
+
+document.addEventListener("DOMContentLoaded", function() {
+    const modal = document.getElementById('choice-modal');
+    modal.style.display = 'block';
+
+    document.getElementById('close2').addEventListener('click', function() {
+        modal.style.display = 'none';
+    });
+   
+
+    document.getElementById('confirm-choice').addEventListener('click', function() {
+        const selectedOption = document.querySelector('input[name="choice"]:checked');
+        if (selectedOption) {
+            const choice = selectedOption.value;
+          
+            document.getElementById('user-choice').value = choice;
+          
+            modal.style.display = 'none';
+            console.log('User choice:', choice); 
+        } else {
+            alert('Please select an option.');
+        }
+    });
+});
