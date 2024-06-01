@@ -108,4 +108,16 @@ public class AppointmentService {
         return null;
 
     }
+
+    public int getLastAppointmentNumber() {
+        LocalDate today = LocalDate.now();
+        List<Appointment> appointments = appointmentRepository.findByDate(today.toString());
+        int lastAppointmentNumber = 0;
+        for (Appointment appointment : appointments) {
+            if (appointment.getAppointment_number() > lastAppointmentNumber) {
+                lastAppointmentNumber = appointment.getAppointment_number();
+            }
+        }
+        return lastAppointmentNumber;
+    }
 }
