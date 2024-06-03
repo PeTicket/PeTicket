@@ -38,6 +38,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          docker-compose up -d
+         docker-compose up -d
           cd projPet/client
-          mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=peticket_PeTicket
+          mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
+            -Dsonar.projectKey=peticket_PeTicket \
+            -Dsonar.coverage.jacoco.xmlReportPaths=CCReport43F6D5EF/jacoco.xml
