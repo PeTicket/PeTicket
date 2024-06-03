@@ -23,6 +23,7 @@ public class UserService {
         return userRepository.existsByEmail(email);
     }
 
+
     public User findByFirstNameAndLastName(String firstName, String lastName) {
         return userRepository.findByFirstNameAndLastName(firstName, lastName);
     }

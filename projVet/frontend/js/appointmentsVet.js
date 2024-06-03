@@ -587,7 +587,7 @@ document.addEventListener("DOMContentLoaded", function() {
             document.getElementById('user-choice').value = choice;
           
             modal.style.display = 'none';
-            console.log('User choice:', choice); 
+            console.log('Vet choice:', choice); 
         } else {
             alert('Please select an option.');
         }

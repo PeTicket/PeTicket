@@ -21,7 +21,7 @@ services:
       - 5672:5672
       - 15672:15672
 
-  funcinario-service:
+  funcionario-service:
     depends_on:
       - mysql-container
     build:
@@ -36,8 +36,6 @@ services:
       - SPRING_DATASOURCE_PASSWORD=peticket
       - JWT_SECRET=myUltraSecretKeyForMyApllicationPeTicketwithultracaracteres
       - JWT_EXPIRATION=86400000
-
-    
 
 
   vet-service:
