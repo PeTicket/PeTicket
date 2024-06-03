@@ -67,8 +67,8 @@ function renderAppointments(appointmentsData) {
     appointmentDiv.innerHTML = `
       <p>Date: ${appointment.date}</p>
       <p>Time: ${appointment.time}</p>
-      <p>Client: ${appointment.client}</p>
-      <p>Email: ${appointment.email}</p>
+      <p>Client: ${appointment.user.firstName}</p>
+      <p>Email: ${appointment.user.email}</p>
     `;
     
     const statusButton = document.createElement('button');

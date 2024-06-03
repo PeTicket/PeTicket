@@ -63,6 +63,8 @@ public class PetService {
         return petRepository.save(pet);
         
     }
+    
+    
 
     public List<Pet> findByUserId(UUID userId) {
         if (!petRepository.existsByUserId(userId)) {

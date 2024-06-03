@@ -42,6 +42,15 @@ public class AppointmentController {
             logger.info("No appointments found");
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
+
+
+        for (Appointment appointment : appointments) {
+            User user = userService.findById(appointment.getUserId());
+            Pet pet = petService.findById(appointment.getPetId());
+            appointment.setUser(user);
+            appointment.setPet(pet);
+        }
+
         logger.info(appointments.size() + " appointments found");
         return new ResponseEntity<>(appointments, HttpStatus.OK);
     }
