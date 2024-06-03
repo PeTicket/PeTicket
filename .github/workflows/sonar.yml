@@ -42,4 +42,5 @@ jobs:
           cd projPet/client
           mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
             -Dsonar.projectKey=peticket_PeTicket \
-            -Dsonar.coverage.jacoco.xmlReportPaths=CCReport43F6D5EF/jacoco.xml
+            mvn -Dsonar.coverage.jacoco.xmlReportPaths=../app-it/target/site/jacoco-aggregate/jacoco.xml
+            sonar:sonar -Pcoverage
