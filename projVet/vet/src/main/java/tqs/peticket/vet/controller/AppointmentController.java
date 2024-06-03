@@ -179,6 +179,7 @@ public class AppointmentController {
         String message = "C"+clinicNumber+" - "+appointment.getAppointment_number();
         senderConfig.send(message);
         appointment.setStatus("in_progress");
+        appointment.setVetId(authHandler.getUserId());
         appointmentService.save(appointment);
         return new ResponseEntity<>(appointment, HttpStatus.OK);
     }
