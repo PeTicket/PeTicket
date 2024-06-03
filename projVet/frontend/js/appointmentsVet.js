@@ -36,7 +36,7 @@ function getUserInfoFromJWT() {
             'Authorization': `Bearer ${jwtToken}`
         };
   
-        fetch(`http://vet-service:8081/api/vet/users/${email}`, {
+        fetch(`http://deti-tqs-13.ua.pt:8081/api/vet/users/${email}`, {
             method: 'GET',
             headers: headers
         })
@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
 async function fetchAppointments() {
     const token = localStorage.getItem('token');
     try {
-        const response = await fetch('http://vet-service:8081/api/vet/appointment/all',{
+        const response = await fetch('http://deti-tqs-13.ua.pt:8081/api/vet/appointment/all',{
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -491,7 +491,7 @@ async function updatepet(petData){
     const token =localStorage.getItem('token'); 
 
     try{
-        const response = await fetch(`http://vet-service:8081/api/vet/pets/${petData.id}`,{
+        const response = await fetch(`http://deti-tqs-13.ua.pt:8081/api/vet/pets/${petData.id}`,{
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -516,7 +516,7 @@ async function updateAppointment(appointmentData) {
     console.log(appointmentData);
     const token = localStorage.getItem('token');
     try {
-        const response = await fetch(`http://vet-service:8081/api/vet/appointment/update/${appointmentData.id}`, {
+        const response = await fetch(`http://deti-tqs-13.ua.pt:8081/api/vet/appointment/update/${appointmentData.id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -540,7 +540,7 @@ async function updateAppointment(appointmentData) {
 document.getElementById('done-app').addEventListener('click', function() {
     const appointmentId = document.getElementById('app-id').textContent.trim();
     if (appointmentId) {
-        const url = `http://vet-service:8081/api/vet/appointment/terminate/${appointmentId}`;
+        const url = `http://deti-tqs-13.ua.pt:8081/api/vet/appointment/terminate/${appointmentId}`;
         const token = localStorage.getItem('token');
         fetch(url, {
             method: 'PUT',
@@ -595,7 +595,7 @@ document.addEventListener("DOMContentLoaded", function() {
 function getNextAppointment() {
 
     const clinicChoice = document.getElementById('user-choice').value || '01'; 
-    const url = `http://vet-service:8081/api/vet/appointment/next/${clinicChoice}`;
+    const url = `http://deti-tqs-13.ua.pt:8081/api/vet/appointment/next/${clinicChoice}`;
     const token = localStorage.getItem('token');
     fetch(url, {
         method: 'POST',

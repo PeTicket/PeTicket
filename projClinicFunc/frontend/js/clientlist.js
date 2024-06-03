@@ -21,7 +21,7 @@ function logout() {
 document.addEventListener('DOMContentLoaded', async function() {
   const jwtToken = localStorage.getItem("tokenF");
   try {
-    const response = await fetch('http://funcionario-service:8082/api/func/users',{
+    const response = await fetch('http://deti-tqs-13.ua.pt:8082/api/func/users',{
       method: 'GET',
       headers: {
           'Content-Type': 'application/json',
@@ -72,7 +72,7 @@ document.getElementById('clients-container').addEventListener('click', async fun
   if (event.target.classList.contains('view-pets-btn')) {
     const clientId = event.target.dataset.clientId;
     try {
-      const response = await fetch(`http://funcionario-service:8082/api/func/pets/users/${clientId}`,{
+      const response = await fetch(`http://deti-tqs-13.ua.pt:8082/api/func/pets/users/${clientId}`,{
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',

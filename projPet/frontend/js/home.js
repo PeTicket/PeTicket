@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function() {
         'Authorization': `Bearer ${jwtToken}`
     };
 
-    fetch(`http://pet-service:8080/api/client/user/by-email/${email}`, {
+    fetch(`http://deti-tqs-13.ua.pt:8080/api/client/user/by-email/${email}`, {
             method: 'GET',
             headers: headers
         })
@@ -101,7 +101,7 @@ document.addEventListener("DOMContentLoaded", function() {
         'Authorization': `Bearer ${jwtToken}`
     };
 
-    fetch(`http://pet-service:8080/api/client/appointment/by-user-id`, {
+    fetch(`http://deti-tqs-13.ua.pt:8080/api/client/appointment/by-user-id`, {
         method: 'GET',
         headers: headers
     })

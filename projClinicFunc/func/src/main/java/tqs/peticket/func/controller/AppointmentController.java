@@ -34,6 +34,7 @@ public class AppointmentController {
     @Autowired
     private PetService petService;
 
+    
     @GetMapping("/appointments")
     public ResponseEntity<List<Appointment>> getAllAppointments() {
         logger.info("Fetching all appointments");

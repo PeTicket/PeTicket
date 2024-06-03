@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function fetchAllAppointments() {
   const jwtToken = localStorage.getItem('tokenF');
-  return fetch('http://funcionario-service:8082/api/func/appointment/appointments', {
+  return fetch('http://deti-tqs-13.ua.pt:8082/api/func/appointment/appointments', {
       headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${jwtToken}`
@@ -163,7 +163,7 @@ function handleStatusChange(appointment, button) {
 
 function updateQrCode(appointmentId) {
   const jwtToken = localStorage.getItem('tokenF');
-  return fetch(`http://funcionario-service:8082/api/func/appointment/appointmentQrCode/${appointmentId}`, {
+  return fetch(`http://deti-tqs-13.ua.pt:8082/api/func/appointment/appointmentQrCode/${appointmentId}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',

@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const lastCallsInfoDiv = document.querySelector('.last-calls-info');
 
     const fetchCacheEntries = () => {
-        fetch('http://display-service:8888/api/cache/all')
+        fetch('http://deti-tqs-13.ua.pt:8888/api/cache/all')
             .then(response => response.json())
             .then(data => {
                 const lastThreeEntries = Object.entries(data).slice(-3);
