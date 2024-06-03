@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function() {
           'Authorization': `Bearer ${jwtToken}`
       };
   
-      fetch(`http://localhost:8080/api/client/user/by-email/${email}`, {
+      fetch(`http://pet-service:8080/api/client/user/by-email/${email}`, {
               method: 'GET',
               headers: headers
           })
@@ -93,7 +93,7 @@ function addAppointment() {
 
 
 
-    fetch('http://localhost:8080/api/client/appointment/add', {
+    fetch('http://pet-service:8080/api/client/appointment/add', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -119,7 +119,7 @@ function fetchPets() {
     const jwtToken = localStorage.getItem('jwtToken');
     
     const userId = currentUserInfo.id; 
-    fetch(`http://localhost:8080/api/client/pet/by-user-id`,{
+    fetch(`http://pet-service:8080/api/client/pet/by-user-id`,{
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${jwtToken}`
@@ -186,7 +186,7 @@ window.onclick = function(event) {
 
 function fetchAllAppointments() {
     const jwtToken = localStorage.getItem('jwtToken');
-    return fetch('http://localhost:8080/api/client/appointment/all', {
+    return fetch('http://pet-service:8080/api/client/appointment/all', {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${jwtToken}`

@@ -4,7 +4,7 @@ async function fetchUserByEmail(email) {
 
     const jwtToken = localStorage.getItem("tokenF");
   try {
-    const response = await fetch(`http://localhost:8082/api/func/user/${email}`,{
+    const response = await fetch(`http://funcionario-service:8082/api/func/user/${email}`,{
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -40,7 +40,7 @@ async function addPet() {
 
     const jwtToken = localStorage.getItem("tokenF");
     try {
-      const response = await fetch(`http://localhost:8082/api/func/pet/user/${petData.userId}`, {
+      const response = await fetch(`http://funcionario-service:8082/api/func/pet/user/${petData.userId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
