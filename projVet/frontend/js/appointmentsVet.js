@@ -476,13 +476,39 @@ document.addEventListener('DOMContentLoaded', (event) => {
             medicalInfo:medicalInfoPet
         }
 
-        currentAppointmentDetails.prescriptions = prescriptions;
+
+
+
+       
 
 
         updatepet(petData);
         updateAppointment(currentAppointmentDetails);
+        updatePrescription(appointmentId, prescriptions.join(', '));
     });
 });
+
+async function updatePrescription(appointmentId, newPrescription) {
+    const token = localStorage.getItem('token');
+    try {
+        const response = await fetch(`http://deti-tqs-13.ua.pt:8081/api/vet/appointment/${appointmentId}/${newPrescription}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        if (response.ok) {
+            const updatedAppointment = await response.json();
+            console.log('Prescription updated:', updatedAppointment);
+        } else {
+            console.error('Failed to update prescription');
+        }
+    } catch (error) {
+        console.error('Error updating prescription:', error);
+    }
+}
 
 
 async function updatepet(petData){
