@@ -96,11 +96,6 @@ public class AppointmentService {
     public Appointment update(UUID id, Appointment appointmentDetails) {
         if (appointmentRepository.existsById(id)) {
             Appointment appointment = appointmentRepository.findById(id);
-            appointment.setUserId(appointmentDetails.getUserId());
-            appointment.setPetId(appointmentDetails.getPetId());
-            appointment.setVetId(appointmentDetails.getVetId());
-            appointment.setDate(appointmentDetails.getDate());
-            appointment.setTime(appointmentDetails.getTime());
             appointment.setOccurence(appointmentDetails.getOccurence());
             appointment.setStatus(appointmentDetails.getStatus());
             appointment.setDiagnosis(appointmentDetails.getDiagnosis());
