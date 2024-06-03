@@ -9,17 +9,22 @@ import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-@Configuration
+
+@Component
 public class SenderConfig {
 
-    @Autowired
-    private RabbitTemplate rabbitTemplate;
+    private final RabbitTemplate rabbitTemplate;
 
-    @Value("${queue.name}")
-    private String queueName;
+    private final String queueName;
+
+    public SenderConfig(RabbitTemplate rabbitTemplate, @Value("${queue.name}") String queueName) {
+        this.rabbitTemplate = rabbitTemplate;
+        this.queueName = queueName;
+    }
 
     public void send(String message) {
-        rabbitTemplate.convertAndSend("direct-exchange", "routing-key-teste", message);
+        rabbitTemplate.convertAndSend(queueName, message);
     }
 }
