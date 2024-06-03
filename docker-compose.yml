@@ -14,12 +14,15 @@ services:
       - "3306:3306"
 
 
-  rabbitmq:
+  rabbitmq-container:
     image: "rabbitmq:3.8.6-management"
-    container_name: rabbitmq
+    container_name: rabbitmq-container
     ports:
       - 5672:5672
       - 15672:15672
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
 
   funcionario-service:
     depends_on:
@@ -41,7 +44,7 @@ services:
   vet-service:
     depends_on:
       - mysql-container
-      - rabbitmq
+      - rabbitmq-container
     build:
       context: ./projVet/vet
     restart: always
@@ -52,12 +55,13 @@ services:
       - SPRING_DATASOURCE_USERNAME=peticket
       - SPRING_DATASOURCE_PASSWORD=peticket
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_RABBITMQ_HOST=rabbitmq-container
 
 
   pet-service:
     depends_on:
       - mysql-container
-      - rabbitmq
+      - rabbitmq-container
     build:
       context: ./projPet/client
     restart: always
@@ -74,7 +78,8 @@ services:
   display-service:
     depends_on:
       - mysql-container
-      - rabbitmq
+      - rabbitmq-container
+      - pet-service
     build:
       context: ./projDS/display
     restart: always
@@ -118,3 +123,4 @@ services:
     build: ./projDS/frontend/
     ports:
       - "3004:80"
+
