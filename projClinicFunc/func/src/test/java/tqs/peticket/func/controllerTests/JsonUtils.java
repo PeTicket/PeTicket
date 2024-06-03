@@ -1,14 +1,14 @@
-// package tqs.peticket.func.controllerTests;
+package tqs.peticket.func.controllerTests;
 
-// import com.fasterxml.jackson.annotation.JsonInclude;
-// import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-// import java.io.IOException;
+import java.io.IOException;
 
-// class JsonUtils {
-//     static byte[] toJson(Object object) throws IOException {
-//         ObjectMapper mapper = new ObjectMapper();
-//         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-//         return mapper.writeValueAsBytes(object);
-//     }
-// }
+class JsonUtils {
+    static byte[] toJson(Object object) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        return mapper.writeValueAsBytes(object);
+    }
+}
