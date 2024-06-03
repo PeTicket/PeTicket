@@ -44,5 +44,5 @@ jobs:
           mvn org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
             -Dsonar.projectKey=peticket_PeTicket \
             -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml \
-            sonar:sonar -Pcoverage
+            sonar:sonar
 
