@@ -20,7 +20,7 @@
     - Compared to other veterinary care software, PeTicket stands out with its intuitive mobile application interface, QR code check-in feature, and real-time patient flow monitoring. These features enhance convenience and efficiency, setting PeTicket apart in the market
 
  
-- **Documentation at Github:** [Folder](https://github.com/PeTicket/docs)
+- **Documentation at Github:** [Folder](https://github.com/PeTicket/PeTicket/tree/main/docs)
 
 ## 4.Architecture
 
