@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function() {
         'Authorization': `Bearer ${jwtToken}`
     };
 
-    fetch(`http://localhost:8080/api/client/user/by-email/${email}`, {
+    fetch(`http://pet-service:8080/api/client/user/by-email/${email}`, {
             method: 'GET',
             headers: headers
         })
@@ -129,7 +129,7 @@ let starCount = 0;
   };
   
     const userId = currentUserInfo.id; 
-    fetch(`http://localhost:8080/api/client/pet/by-user-id`,{
+    fetch(`http://pet-service:8080/api/client/pet/by-user-id`,{
             method: 'GET',
             headers: headers
     })
@@ -189,7 +189,7 @@ let starCount = 0;
     
         
         // if (confirm(`Are you sure you want to delete pet? This action cannot be undone.`)) {
-          fetch(`http://localhost:8080/api/client/pet/delete/${petId}`, {
+          fetch(`http://pet-service:8080/api/client/pet/delete/${petId}`, {
             method: 'DELETE',
             headers: {
               'Content-Type': 'application/json',
@@ -304,7 +304,7 @@ let starCount = 0;
     const jwtToken = localStorage.getItem('jwtToken');
     
   
-    fetch(`http://localhost:8080/api/client/pet/update/${updatedPetInfo.id}`, {
+    fetch(`http://pet-service:8080/api/client/pet/update/${updatedPetInfo.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -404,7 +404,7 @@ let starCount = 0;
       console.log(userDetails);
     const jwtToken = localStorage.getItem('jwtToken');
     
-    fetch('http://localhost:8080/api/client/user/update', {
+    fetch('http://pet-service:8080/api/client/user/update', {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
