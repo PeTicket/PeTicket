@@ -95,7 +95,7 @@
 			<artifactId>core</artifactId>
 			<version>3.4.1</version> <!-- Versão atualizada -->
 		</dependency>
-				<dependency>
+		<dependency>
 			<groupId>com.google.zxing</groupId>
 			<artifactId>javase</artifactId>
 			<version>3.5.3</version> <!-- Versão atualizada -->

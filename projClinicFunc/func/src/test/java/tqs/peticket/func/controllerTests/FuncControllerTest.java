@@ -7,11 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import tqs.peticket.func.controller.FuncController;
 import tqs.peticket.func.model.Pet;
 import tqs.peticket.func.model.User;
+import tqs.peticket.func.repository.UserRepository;
 import tqs.peticket.func.service.AppointmentService;
 import tqs.peticket.func.service.FuncService;
 import tqs.peticket.func.service.PetService;
@@ -46,6 +48,12 @@ class FuncControllerTest {
 
     @MockBean
     private AppointmentService appointmentService;
+
+    @MockBean
+    private UserRepository userrep;
+
+    @MockBean
+    private PasswordEncoder pwdncd;
 
     @InjectMocks
     private FuncController funcController;

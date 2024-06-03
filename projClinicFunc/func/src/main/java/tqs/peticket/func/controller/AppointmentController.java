@@ -17,9 +17,6 @@ import java.util.UUID;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PathVariable;
 
 
 @RestController
@@ -37,6 +34,7 @@ public class AppointmentController {
     @Autowired
     private PetService petService;
 
+    
     @GetMapping("/appointments")
     public ResponseEntity<List<Appointment>> getAllAppointments() {
         logger.info("Fetching all appointments");
@@ -45,6 +43,15 @@ public class AppointmentController {
             logger.info("No appointments found");
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
+
+
+        for (Appointment appointment : appointments) {
+            User user = userService.findById(appointment.getUserId());
+            Pet pet = petService.findById(appointment.getPetId());
+            appointment.setUser(user);
+            appointment.setPet(pet);
+        }
+
         logger.info(appointments.size() + " appointments found");
         return new ResponseEntity<>(appointments, HttpStatus.OK);
     }
@@ -130,9 +137,24 @@ public class AppointmentController {
             logger.info("Appointment not found");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        appointment.setStatus("on_hold");
+        appointment.setStatus("on_hold");  
+        appointment.setAppointment_number(appointmentService.getLastAppointmentNumber() + 1);   
         Appointment updatedAppointment = appointmentService.save(appointment);
         logger.info("Qr code updated");
+        return new ResponseEntity<>(updatedAppointment, HttpStatus.OK);
+    }
+
+    @PutMapping("/appointmentClinic/{ClinicNumber}/{appointmentId}")
+    public ResponseEntity<Appointment> updateClinicNumber(@PathVariable String ClinicNumber, @PathVariable UUID appointmentId) {
+        logger.info("Updating clinic number for appointment with id " + appointmentId);
+        Appointment appointment = appointmentService.findById(appointmentId);
+        if (appointment == null) {
+            logger.info("Appointment not found");
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        appointment.setClinic_number(ClinicNumber);
+        Appointment updatedAppointment = appointmentService.save(appointment);
+        logger.info("Clinic number updated");
         return new ResponseEntity<>(updatedAppointment, HttpStatus.OK);
     }
 }

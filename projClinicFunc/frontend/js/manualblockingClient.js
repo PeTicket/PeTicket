@@ -26,7 +26,7 @@ async function addClient() {
   
     try {
       
-      const response = await fetch('http://localhost:8082/api/func/user/create', {
+      const response = await fetch('http://deti-tqs-13.ua.pt:8082/api/func/user/create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

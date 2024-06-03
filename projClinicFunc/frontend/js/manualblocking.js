@@ -38,16 +38,14 @@ function addAppointment() {
 
 
     const appointment = {
-        userId: currentUserInfo.id,
-        petId: petId,
         observations: observations,
-        date:selectedDate,
-        time:selectedTime
+        date: selectedDate,
+        time: selectedTime,
+        status:"scheduled"
     };
 
 
-
-    fetch('http://localhost:8080/api/client/appointment/add', {
+    fetch(`http://deti-tqs-13.ua.pt:8082/api/func/appointment/appointment/${petId}/${currentUserInfo.id}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -73,7 +71,7 @@ function addAppointment() {
 function fetchPets() {
     const jwtToken = localStorage.getItem('tokenF');
     
-    fetch(`http://localhost:8080/api/client/pet/by-user-id`,{
+    fetch(`http://deti-tqs-13.ua.pt:8080/api/client/pet/by-user-id`,{
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${jwtToken}`
@@ -119,7 +117,7 @@ window.onclick = function(event) {
 
 function fetchAllAppointments() {
     const jwtToken = localStorage.getItem('tokenF');
-    return fetch('http://localhost:8082/api/func/appointment/appointments', {
+    return fetch('http://deti-tqs-13.ua.pt:8082/api/func/appointment/appointments', {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${jwtToken}`
@@ -217,7 +215,7 @@ document.addEventListener("DOMContentLoaded", function() {
 async function fetchUserByEmail(email) {
     const jwtToken = localStorage.getItem("tokenF");
     try {
-        const response = await fetch(`http://localhost:8082/api/func/user/${email}`, {
+        const response = await fetch(`http://deti-tqs-13.ua.pt:8082/api/func/user/${email}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -242,7 +240,7 @@ async function fetchUserByEmail(email) {
 async function fetchPetsByUserId(userId) {
     const jwtToken = localStorage.getItem("tokenF");
     try {
-        const response = await fetch(`http://localhost:8082/api/func/pets/users/${userId}`, {
+        const response = await fetch(`http://deti-tqs-13.ua.pt:8082/api/func/pets/users/${userId}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

@@ -202,7 +202,7 @@ body {
 }
 
 .button-addpet::after {
-  content: "Client";
+  content: "Pet";
   display: flex;
   align-items: center;
   justify-content: center;

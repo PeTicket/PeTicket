@@ -1,4 +1,4 @@
-let appointments = []; // Define the appointments array globally
+let appointments = []; 
 
 document.getElementById("create-button").addEventListener("click", function() {
   window.location.href = "./manualblocking.html"; 
@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function fetchAllAppointments() {
   const jwtToken = localStorage.getItem('tokenF');
-  return fetch('http://localhost:8082/api/func/appointment/appointments', {
+  return fetch('http://deti-tqs-13.ua.pt:8082/api/func/appointment/appointments', {
       headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${jwtToken}`
@@ -23,9 +23,9 @@ function fetchAllAppointments() {
   })
   .then(response => response.json())
   .then(data => {
-      appointments = data; // Update the global appointments array
+      appointments = data; 
       appointments.sort((a, b) => {
-          const dateComparison = new Date(b.date) - new Date(a.date);
+          const dateComparison = new Date(a.date) - new Date(b.date);
           if (dateComparison !== 0) {
               return dateComparison; 
           } else {
@@ -54,12 +54,12 @@ function showTodayAppointments() {
   const today = new Date().toISOString().split('T')[0]; 
   const filteredAppointments = appointments.filter(appointment => appointment.date === today);
   filteredAppointments.sort((a, b) => a.time.localeCompare(b.time));
-  renderAppointments(filteredAppointments); // Render filtered appointments
+  renderAppointments(filteredAppointments);
 }
 
 function renderAppointments(appointmentsData) {
   const appointmentsContainer = document.querySelector('.appointments-container');
-  appointmentsContainer.innerHTML = ''; // Clear the container
+  appointmentsContainer.innerHTML = ''; 
   
   appointmentsData.forEach(appointment => {
     const appointmentDiv = document.createElement('div');
@@ -67,46 +67,114 @@ function renderAppointments(appointmentsData) {
     appointmentDiv.innerHTML = `
       <p>Date: ${appointment.date}</p>
       <p>Time: ${appointment.time}</p>
-      <p>Client: ${appointment.client}</p>
-      <p>Email: ${appointment.email}</p>
+      <p>Client: ${appointment.user.firstName}</p>
+      <p>Email: ${appointment.user.email}</p>
     `;
     
     const statusButton = document.createElement('button');
-    statusButton.textContent = appointment.status === 'scheduled' ? 'Mark as Done' : 'Undo';
+    statusButton.textContent = getStatusButtonText(appointment.status);
     statusButton.addEventListener('click', () => {
-      switch (appointment.status) {
-        case 'scheduled':
-          appointment.status = 'in progress';
-          statusButton.textContent = 'Mark as Done';
-          statusButton.classList.remove('scheduled');
-          statusButton.classList.add('in-progress');
-          break;
-        case 'in progress':
-          appointment.status = 'done';
-          statusButton.textContent = 'Undo';
-          statusButton.classList.remove('in-progress');
-          statusButton.classList.add('done');
-          break;
-        case 'done':
-          appointment.status = 'scheduled';
-          statusButton.textContent = 'Start';
-          statusButton.classList.remove('done');
-          statusButton.classList.add('scheduled');
-          break;
-        default:
-          break;
-      }
+      handleStatusChange(appointment, statusButton);
     });
 
-    if (appointment.status === 'scheduled') {
-      statusButton.classList.add('scheduled');
-    } else if (appointment.status === 'in progress') {
-      statusButton.classList.add('in-progress');
-    } else {
-      statusButton.classList.add('done');
-    }
+    setStatusButtonClass(statusButton, appointment.status);
     
     appointmentDiv.appendChild(statusButton);
     appointmentsContainer.appendChild(appointmentDiv);
+  });
+}
+
+function getStatusButtonText(status) {
+  switch(status) {
+    case 'scheduled':
+      return 'Scheduled';
+    case 'on_hold':
+      return 'On hold';
+    case 'in_progress':
+      return 'In progress';
+    case 'Done':
+      return 'Done';
+    default:
+      return '';
+  }
+}
+
+function setStatusButtonClass(button, status) {
+  button.className = '';
+  switch(status) {
+    case 'scheduled':
+      button.classList.add('scheduled');
+      break;
+    case 'on_hold':
+      button.classList.add('on_hold');
+      break;
+    case 'in_progress':
+      button.classList.add('in_progress');
+      break;
+    case 'Done':
+      button.classList.add('done');
+      break;
+  }
+}
+
+function handleStatusChange(appointment, button) {
+  let confirmMessage;
+  let newStatus;
+  let executeEndpoint = false;
+
+  switch(appointment.status) {
+    case 'scheduled':
+      confirmMessage = 'Are you sure you want to mark this appointment as On Hold?';
+      newStatus = 'on_hold';
+      executeEndpoint = true;
+      break;
+    case 'on_hold':
+      confirmMessage = 'Are you sure you want to mark this appointment as In Progress?';
+      newStatus = 'in_progress';
+      break;
+    case 'in_progress':
+      confirmMessage = 'Are you sure you want to mark this appointment as Done?';
+      newStatus = 'Done';
+      break;
+    case 'Done':
+      confirmMessage = 'Are you sure you want to undo the appointment to Scheduled?';
+      newStatus = 'scheduled';
+      break;
+    default:
+      return;
+  }
+
+  if (confirm(confirmMessage)) {
+    if (executeEndpoint) {
+      updateQrCode(appointment.id)
+        .then(() => {
+          appointment.status = newStatus;
+          button.textContent = getStatusButtonText(newStatus);
+          setStatusButtonClass(button, newStatus);
+        })
+        .catch(error => console.error('Error updating QR code:', error));
+    } else {
+      appointment.status = newStatus;
+      button.textContent = getStatusButtonText(newStatus);
+      setStatusButtonClass(button, newStatus);
+    }
+  }
+}
+
+function updateQrCode(appointmentId) {
+  const jwtToken = localStorage.getItem('tokenF');
+  return fetch(`http://deti-tqs-13.ua.pt:8082/api/func/appointment/appointmentQrCode/${appointmentId}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${jwtToken}`
+    }
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    console.log("on_hold");
+    return response.json();
   });
 }

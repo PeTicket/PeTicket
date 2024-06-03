@@ -1,5 +1,5 @@
 
-let previousContentId = '';
+let previousContentId = 'content-today';
 let appointments = [];
 let currentAppointmentDetails = null;
 let infouser = null;
@@ -36,7 +36,7 @@ function getUserInfoFromJWT() {
             'Authorization': `Bearer ${jwtToken}`
         };
   
-        fetch(`http://localhost:8080/api/client/user/by-email/${email}`, {
+        fetch(`http://deti-tqs-13.ua.pt:8081/api/vet/users/${email}`, {
             method: 'GET',
             headers: headers
         })
@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
 async function fetchAppointments() {
     const token = localStorage.getItem('token');
     try {
-        const response = await fetch('http://localhost:8081/api/vet/appointment/all',{
+        const response = await fetch('http://deti-tqs-13.ua.pt:8081/api/vet/appointment/all',{
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -334,9 +334,6 @@ function viewAppointmentDetails(appointmentData) {
     document.getElementById('medical-info-pet').value = appointment.pet.medicalInfo;
     document.querySelector('.app-occurence p').textContent = appointment.observations;
 
-    const stateDetailDiv = document.getElementById('state-detail');
-    stateDetailDiv.className = `state-app ${getStateClass(appointment.state)}`;
-    document.getElementById('state-detail-text').textContent = appointment.state;
 
     changeContentColumn('content-appointment');
 }
@@ -494,7 +491,7 @@ async function updatepet(petData){
     const token =localStorage.getItem('token'); 
 
     try{
-        const response = await fetch(`http://localhost:8081/api/vet/pets/${petData.id}`,{
+        const response = await fetch(`http://deti-tqs-13.ua.pt:8081/api/vet/pets/${petData.id}`,{
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -519,7 +516,7 @@ async function updateAppointment(appointmentData) {
     console.log(appointmentData);
     const token = localStorage.getItem('token');
     try {
-        const response = await fetch(`http://localhost:8081/api/vet/appointment/update/${appointmentData.id}`, {
+        const response = await fetch(`http://deti-tqs-13.ua.pt:8081/api/vet/appointment/update/${appointmentData.id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -537,4 +534,89 @@ async function updateAppointment(appointmentData) {
     } catch (error) {
         console.error('Error updating appointment:', error);
     }
+}
+
+
+document.getElementById('done-app').addEventListener('click', function() {
+    const appointmentId = document.getElementById('app-id').textContent.trim();
+    if (appointmentId) {
+        const url = `http://deti-tqs-13.ua.pt:8081/api/vet/appointment/terminate/${appointmentId}`;
+        const token = localStorage.getItem('token');
+        fetch(url, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error('Failed to terminate appointment');
+        })
+        .then(data => {
+            console.log('Appointment terminated successfully:', data);
+        })
+        .catch(error => {
+            console.error('Error terminating appointment:', error);
+        });
+    } else {
+        console.error('Appointment ID is missing');
+    }
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    const modal = document.getElementById('choice-modal');
+    modal.style.display = 'block';
+
+    document.getElementById('close2').addEventListener('click', function() {
+        modal.style.display = 'none';
+    });
+   
+
+    document.getElementById('confirm-choice').addEventListener('click', function() {
+        const selectedOption = document.querySelector('input[name="choice"]:checked');
+        if (selectedOption) {
+            const choice = selectedOption.value;
+          
+            document.getElementById('user-choice').value = choice;
+          
+            modal.style.display = 'none';
+            console.log('Vet choice:', choice); 
+        } else {
+            alert('Please select an option.');
+        }
+    });
+});
+
+
+function getNextAppointment() {
+
+    const clinicChoice = document.getElementById('user-choice').value || '01'; 
+    const url = `http://deti-tqs-13.ua.pt:8081/api/vet/appointment/next/${clinicChoice}`;
+    const token = localStorage.getItem('token');
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data) {
+            
+                console.log("Next appointment:", data);
+                viewAppointmentDetails(data);
+            
+            } else {
+                
+                console.log("No appointments found for clinic " + clinicNumber);
+            }
+        })
+        .catch(error => {
+            console.error("Error fetching next appointment:", error);
+        });
 }

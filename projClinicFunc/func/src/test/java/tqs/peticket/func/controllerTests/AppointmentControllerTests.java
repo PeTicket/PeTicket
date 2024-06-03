@@ -7,14 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import tqs.peticket.func.controller.AppointmentController;
-import tqs.peticket.func.controller.FuncController;
 import tqs.peticket.func.model.Appointment;
 import tqs.peticket.func.model.Pet;
 import tqs.peticket.func.model.User;
 import tqs.peticket.func.repository.FuncRepository;
+import tqs.peticket.func.repository.UserRepository;
 import tqs.peticket.func.service.AppointmentService;
 import tqs.peticket.func.service.PetService;
 import tqs.peticket.func.service.UserService;
@@ -50,6 +51,12 @@ class AppointmentControllerTests {
     @MockBean
     private FuncRepository funcRepository;
 
+    @MockBean
+    private UserRepository userrep;
+
+    @MockBean
+    private PasswordEncoder pwdncd;
+
     @InjectMocks
     private AppointmentController appointmentController;
 
@@ -70,7 +77,6 @@ class AppointmentControllerTests {
         pet2 = new Pet();
         user1 = new User();
         user2 = new User();
-        // public Appointment(UUID userId, UUID petId, String date, String time, String occurence, String status) {
  
         aptm1 = new Appointment(user1.getId(), pet1.getId(), "30/05/2024", "17:00", "Infected Eye", "shceduled");
         aptm2 = new Appointment(user2.getId(), pet2.getId(), "31/05/2024", "18:00", "Infected Toe", "shceduled");

@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function() {
     };
 
 
-    fetch(`http://localhost:8080/api/client/user/by-email/${email}`, {
+    fetch(`http://deti-tqs-13.ua.pt:8080/api/client/user/by-email/${email}`, {
             method: 'GET',
             headers: headers
         })
@@ -121,7 +121,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const jwtToken = localStorage.getItem('jwtToken');
 
-    fetch('http://localhost:8080/api/client/pet/add', {
+    fetch('http://deti-tqs-13.ua.pt:8080/api/client/pet/add', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

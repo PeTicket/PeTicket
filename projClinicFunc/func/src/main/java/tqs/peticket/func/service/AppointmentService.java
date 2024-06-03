@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import tqs.peticket.func.model.Appointment;
+import tqs.peticket.func.model.Pet;
 import tqs.peticket.func.repository.AppointmentRepository;
 
 
@@ -94,11 +95,9 @@ public class AppointmentService {
     }
 
     public Appointment findNextAppointment(){
-        // ve os appointments de hoje, e pega so nos que estao on_hold, e ve qual o pprimeiro
         LocalDate today = LocalDate.now();
         List<Appointment> appointments = appointmentRepository.findByDate(today.toString());
         Appointment nextAppointment = null;
-        // ordena crescentemente consoante o appointment_number
         appointments.sort((a1, a2) -> a1.getAppointment_number().compareTo(a2.getAppointment_number()));
         for (Appointment appointment : appointments) {
             if (appointment.getStatus().equals("on_hold")) {
@@ -109,4 +108,24 @@ public class AppointmentService {
         return null;
 
     }
+
+    public int getLastAppointmentNumber() {
+        LocalDate today = LocalDate.now();
+        List<Appointment> appointments = appointmentRepository.findByDate(today.toString());
+        int lastAppointmentNumber = 0;
+    
+        if (appointments.isEmpty()) {
+            return lastAppointmentNumber;
+        }
+    
+        for (Appointment appointment : appointments) {
+            Integer appointmentNumber = appointment.getAppointment_number();
+           
+            if (appointmentNumber != null && appointmentNumber > lastAppointmentNumber) {
+                lastAppointmentNumber = appointmentNumber;
+            }
+        }
+        return lastAppointmentNumber;
+    }
+    
 }

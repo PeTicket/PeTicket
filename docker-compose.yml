@@ -12,43 +12,36 @@ services:
       MYSQL_PASSWORD: peticket
     ports:
       - "3306:3306"
+    networks:
+      - peticket-network
 
-  rabbitmq:
+  rabbitmq-container:
     image: "rabbitmq:3.8.6-management"
-    container_name: rabbitmq
+    container_name: rabbitmq-container
     ports:
       - 5672:5672
       - 15672:15672
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    networks:
+      - peticket-network
 
-
-  pet-frontend:
-    build: ./projPet/frontend/
+  funcionario-service:
+    depends_on:
+      - mysql-container
+    build:
+      context: ./projClinicFunc/func
+    restart: always
     ports:
-      - "3001:80"
-
-
-  vet-frontend:
-    build: ./projVet/frontend/
-    ports:
-      - "3002:80"
-
-
-  func-frontend:
-    build: ./projClinicFunc/frontend/
-    ports:
-      - "3003:80"
-
-
-  display-frontend:
-    build: ./projDS/frontend/
-    ports:
-      - "3004:80"
-
+      - "8082:8082"
+    networks:
+      - peticket-network
 
   vet-service:
     depends_on:
       - mysql-container
-      - rabbitmq
+      - rabbitmq-container
     build:
       context: ./projVet/vet
     restart: always
@@ -59,12 +52,14 @@ services:
       - SPRING_DATASOURCE_USERNAME=peticket
       - SPRING_DATASOURCE_PASSWORD=peticket
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
-
+      - SPRING_RABBITMQ_HOST=rabbitmq-container
+    networks:
+      - peticket-network
 
   pet-service:
     depends_on:
       - mysql-container
-      - rabbitmq
+      - rabbitmq-container
     build:
       context: ./projPet/client
     restart: always
@@ -75,35 +70,66 @@ services:
       - SPRING_DATASOURCE_USERNAME=peticket
       - SPRING_DATASOURCE_PASSWORD=peticket
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    networks:
+      - peticket-network
+
+  display-service:
+    depends_on:
+      - mysql-container
+      - rabbitmq-container
+      - pet-service
+    build:
+      context: ./projDS/display
+    restart: always
+    ports:
+      - "8888:8888"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-container:3306/peticket
+      - SPRING_DATASOURCE_USERNAME=peticket
+      - SPRING_DATASOURCE_PASSWORD=peticket
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    networks:
+      - peticket-network  
 
 
-  # funcinario-service:
-  #   depends_on:
-  #     - mysql-container
-  #   build:
-  #     context: ./projClinicFunc/func
-  #   restart: always
-  #   ports:
-  #     - "8082:8082"
-  #   environment:
-  #     - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-container:3306/peticket
-  #     - SPRING_DATASOURCE_USERNAME=peticket
-  #     - SPRING_DATASOURCE_PASSWORD=peticket
-  #     - SPRING_JPA_HIBERNATE_DDL_AUTO=update
-    
+  pet-frontend:
+    depends_on:
+      - pet-service
+    build: ./projPet/frontend/
+    ports:
+      - "3001:80"
+    networks:
+      - peticket-network
 
-  # display-service:
-  #   depends_on:
-  #     - mysql-container
-  #     - rabbitmq
-  #   build:
-  #     context: ./projDS/display
-  #   restart: always
-  #   ports:
-  #     - "8888:8888"
-  #   environment:
-  #     - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-container:3306/peticket
-  #     - SPRING_DATASOURCE_USERNAME=peticket
-  #     - SPRING_DATASOURCE_PASSWORD=peticket
-  #     - SPRING_JPA_HIBERNATE_DDL_AUTO=update
-   
+  vet-frontend:
+    depends_on:
+      - vet-service
+    build: ./projVet/frontend/
+    ports:
+      - "3002:80"
+    networks:
+      - peticket-network
+
+  func-frontend:
+    depends_on:
+      - funcionario-service
+    build: ./projClinicFunc/frontend/
+    ports:
+      - "3003:80"
+    networks:
+      - peticket-network
+
+  display-frontend:
+    depends_on:
+      - display-service
+    build: ./projDS/frontend/
+    ports:
+      - "3004:80"
+    networks:
+      - peticket-network
+
+
+
+networks:
+  peticket-network:
+    driver: bridge

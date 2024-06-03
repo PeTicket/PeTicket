@@ -9,7 +9,7 @@ function loginUser() {
         password: password
     };
 
-    fetch('http://localhost:8080/api/auth/login', {
+    fetch('http://deti-tqs-13.ua.pt:8080/api/auth/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -61,7 +61,7 @@ function registerUser() {
         password: password
     };
 
-    fetch('http://localhost:8080/api/auth/register', {
+    fetch('http://deti-tqs-13.ua.pt:8080/api/auth/register', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
