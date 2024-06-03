@@ -21,5 +21,4 @@ jobs:
         password: ${{ secrets.SERVER_PASSW }}
         script: |
           cd ~/actions-runner/_work/PeTicket/PeTicket
-          # Build and run the Docker image on the VM using docker-compose
-          docker compose up --build -d
+          docker compose down && docker compose up --build -d
