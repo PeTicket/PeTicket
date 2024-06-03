@@ -1,5 +1,5 @@
 
-let previousContentId = '';
+let previousContentId = 'content-today';
 let appointments = [];
 let currentAppointmentDetails = null;
 let infouser = null;
@@ -334,9 +334,6 @@ function viewAppointmentDetails(appointmentData) {
     document.getElementById('medical-info-pet').value = appointment.pet.medicalInfo;
     document.querySelector('.app-occurence p').textContent = appointment.observations;
 
-    const stateDetailDiv = document.getElementById('state-detail');
-    stateDetailDiv.className = `state-app ${getStateClass(appointment.state)}`;
-    document.getElementById('state-detail-text').textContent = appointment.state;
 
     changeContentColumn('content-appointment');
 }
@@ -593,3 +590,33 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
+
+
+function getNextAppointment() {
+
+    const clinicChoice = document.getElementById('user-choice').value || '01'; 
+    const url = `http://localhost:8081/api/vet/appointment/next/${clinicChoice}`;
+    const token = localStorage.getItem('token');
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data) {
+            
+                console.log("Next appointment:", data);
+                viewAppointmentDetails(data);
+            
+            } else {
+                
+                console.log("No appointments found for clinic " + clinicNumber);
+            }
+        })
+        .catch(error => {
+            console.error("Error fetching next appointment:", error);
+        });
+}

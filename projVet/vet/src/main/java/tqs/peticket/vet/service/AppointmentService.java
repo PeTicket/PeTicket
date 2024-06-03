@@ -2,6 +2,7 @@ package tqs.peticket.vet.service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 
@@ -137,19 +138,30 @@ public class AppointmentService {
             return appointments;
         }
 
-    public Appointment findNextAppointment(){
-       
-        LocalDate today = LocalDate.now();
-        List<Appointment> appointments = appointmentRepository.findByDate(today.toString());
-        Appointment nextAppointment = null;
-        appointments.sort((a1, a2) -> a1.getAppointment_number().compareTo(a2.getAppointment_number()));
-        for (Appointment appointment : appointments) {
-            if (appointment.getStatus().equals("on_hold")) {
-                nextAppointment = appointment;
-                return nextAppointment;
+        public Appointment findNextAppointment() {
+            LocalDate today = LocalDate.now();
+            List<Appointment> appointments = appointmentRepository.findByDate(today.toString());
+            Appointment nextAppointment = null;
+            
+           
+            appointments.sort(Comparator.comparingInt(a -> {
+                Integer appointmentNumber = a.getAppointment_number();
+                return appointmentNumber != null ? appointmentNumber.intValue() : Integer.MAX_VALUE;
+            }));
+        
+            for (Appointment appointment : appointments) {
+                if ("on_hold".equals(appointment.getStatus())) {
+                    nextAppointment = appointment;
+                    User user = userRepository.findById(nextAppointment.getUserId());
+                    Pet pet = petRepository.findById(nextAppointment.getPetId());
+    
+                    nextAppointment.setUser(user);
+                    nextAppointment.setPet(pet);
+    
+                    return nextAppointment;
+                }
             }
+            return null;
         }
-        return null;
-
-    }
+        
 }

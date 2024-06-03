@@ -112,7 +112,7 @@ function setStatusButtonClass(button, status) {
       button.classList.add('in_progress');
       break;
     case 'Done':
-      button.classList.add('Done');
+      button.classList.add('done');
       break;
   }
 }

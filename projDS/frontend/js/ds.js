@@ -1,30 +1,29 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const cacheEntriesDiv = document.getElementById('cache-entries');
+    const lastCallsInfoDiv = document.querySelector('.last-calls-info');
 
-    
     const fetchCacheEntries = () => {
-        fetch('http://localhost:8080/api/cache/all')
+        fetch('http://localhost:8888/api/cache/all')
             .then(response => response.json())
             .then(data => {
-                displayCacheEntries(data);
+                const lastThreeEntries = Object.entries(data).slice(-3);
+                displayLastThreeCacheEntries(lastThreeEntries);
             })
             .catch(error => {
                 console.error('Error fetching cache entries:', error);
             });
     };
 
-
-    const displayCacheEntries = (entries) => {
-        cacheEntriesDiv.innerHTML = ''; 
-        for (const [key, value] of Object.entries(entries)) {
+    const displayLastThreeCacheEntries = (entries) => {
+        lastCallsInfoDiv.innerHTML = ''; 
+        entries.forEach(([key, value]) => {
             const entryDiv = document.createElement('div');
-            entryDiv.textContent = `${key}: ${value}`;
-            cacheEntriesDiv.appendChild(entryDiv);
-        }
+            entryDiv.classList.add('eachcall');
+            entryDiv.innerHTML = `<h2>${key}: ${value}</h2>`;
+            lastCallsInfoDiv.appendChild(entryDiv);
+        });
     };
 
     setInterval(fetchCacheEntries, 1000);
 
-   
     fetchCacheEntries();
 });
