@@ -20,7 +20,7 @@
     - Compared to other veterinary care software, PeTicket stands out with its intuitive mobile application interface, QR code check-in feature, and real-time patient flow monitoring. These features enhance convenience and efficiency, setting PeTicket apart in the market
 
  
-- **Documentation at Github:** [Folder](https://github.com/PeTicket/PeTicket/docs)
+- **Documentation at Github:** [Folder](https://github.com/PeTicket/docs)
 
 ## 4.Architecture
 
@@ -62,10 +62,11 @@ The **Funcionary Web application** is available at: [localhost:8082](http://loca
 The **Display Web application** is available at: [localhost:8083](http://localhost:8083)
 
 It is also deployed in an UA Server, available using the UA network or the UA VPN at:
-- Client -> [Client_Web](mednati.ieeta...)
-- Vet -> [Vet_Web](mednati.ieeta...)
-- Funcionary -> [Func_Web](mednati.ieeta...)
-- Display -> [Display_Web](mednati.ieeta...)
+- Client -> [Client_Web](http://deti-tqs-13.ua.pt:3001)
+- Vet -> [Vet_Web](http://deti-tqs-13.ua.pt:3003)
+- Funcionary -> [Func_Web](http://deti-tqs-13.ua.pt:3002)
+- Display -> [Display_Web](http://deti-tqs-13.ua.pt:3004)
+
 
 ## 7.Project Bookmarks
 
@@ -86,4 +87,8 @@ Login | func@email.com |
 --- | --- |
 Password | password |
 
-### [**TQS Delivery REST API Docs**](link aqui) 
+## 8. API for developers
+- [**Client**](http://deti-tqs-13.ua.pt:8080/swagger-ui/index.html)
+- [**Vet**](http://deti-tqs-13.ua.pt:8081/swagger-ui/index.html) 
+- [**ClinicFunc**](http://deti-tqs-13.ua.pt:8082/swagger-ui/index.html)
+- [**Display**](http://deti-tqs-13.ua.pt:8888/swagger-ui/index.html) 
