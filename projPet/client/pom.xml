@@ -179,17 +179,12 @@
 		                        </goals>
 		                    </execution>
 		                    <execution>
-					<id>report</id>
-					<phase>verify</phase>
-					<goals>
-					    <goal>report</goal>
-					</goals>
-					<configuration>
-					    <outputDirectory>${project.basedir}/CCReport43F6D5EF</outputDirectory>
-					    <outputName>jacoco.xml</outputName>
-					</configuration>
-				    </execution>
-		                </executions>
+		                        <id>report</id>
+		                        <phase>prepare-package</phase>
+		                        <goals>
+		                            <goal>report</goal>
+		                        </goals>
+		                    </execution>
 		        </plugin>
 			<plugin>
 		                <groupId>org.sonarsource.scanner.maven</groupId>
