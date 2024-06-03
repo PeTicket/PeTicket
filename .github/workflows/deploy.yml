@@ -24,3 +24,4 @@ jobs:
           # Build and run the Docker image on the VM using docker-compose
           docker compose down --remove-orphans
           docker compose up --build -d
+
