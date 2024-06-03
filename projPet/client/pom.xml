@@ -185,7 +185,7 @@
 		                            <goal>report</goal>
 		                        </goals>
 		                    </execution>
-		        </plugin>
+		            	</plugin>
 			<plugin>
 		                <groupId>org.sonarsource.scanner.maven</groupId>
 		                <artifactId>sonar-maven-plugin</artifactId>
