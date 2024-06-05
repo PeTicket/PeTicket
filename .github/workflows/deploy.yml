@@ -3,7 +3,7 @@ name: Continuous Deployment VM
 on:
   push:
     branches:
-      - dev
+      - main
 
 jobs:
   deploy:
